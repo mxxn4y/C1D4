@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CardCanvas
+  - RoomCanvas
   layers:
   - Default
   - TransparentFX
@@ -11,10 +13,10 @@ TagManager:
   - 
   - Water
   - UI
+  - Tilemap
   - 
   - 
-  - 
-  - 
+  - Room
   - 
   - 
   - 
@@ -38,6 +40,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Tilemap
+    uniqueID: 3336934673
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Room
+    uniqueID: 2848786493
     locked: 0
