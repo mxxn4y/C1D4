@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Building" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridBuildingSystem" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAIQwiCAAkAAAAAAAAAACgCAAQACAAIAgADAAAEA=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\GridBuildingSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridBuildingSystem2" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIQQiCAAkAAAAAAAAAACgCAAQACAAIAgADAAAEA=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\GridBuildingSystem2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAQAgAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlacementSystem" Collapsed="true">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\PlacementSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Card" Collapsed="true">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardMovement" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAABAEAhAAAAAACAAAAgAAAAAgCA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\CardMovement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CardUI" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECAAAAAAAAABDAAIgFAAAJCQAUAEAAMAAAAAAAIREI=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\CardUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptableCard" Collapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAggAAAAAAAgAQBAQAQAAAAAAAAQ=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\ScriptableCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardCollection" Collapsed="true">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAgAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\DeckManagement\CardCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Deck" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAABMAAgAAAAEFAAAQABAAgIAAEA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\DeckManagement\Deck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TileType" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAAABAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\GridBuildingSystem.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TileType2" Collapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAAABAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SecuritycamScripts\GridBuildingSystem2.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CardElement" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAkAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\ScriptableCard.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CardType" Collapsed="true">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAgAAAAA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\ScriptableCard.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CardRarity" Collapsed="true">
+    <Position X="2.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAQAAAAAAAQAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\WorkPlaceScripts\Cards\ScriptableCard.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
