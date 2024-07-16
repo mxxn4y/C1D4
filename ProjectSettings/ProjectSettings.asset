@@ -4,6 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 23
+  productGUID: cc683fed7b4ee0b43924c95c8720ceba
   productGUID: a3d2924254572794c924bdd0308209a1
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -13,7 +14,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: C1D4
+  productName: Shop System
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -732,7 +733,8 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Collab: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -746,11 +748,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 1f7f6656-f25c-4eb7-b32e-009b12561758
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Shop System
+  organizationId: bigchocolatechip
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
