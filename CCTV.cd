@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlacementSystem">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02.Scripts\Room\PlacementSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Building">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAE=</HashCode>
+      <FileName>Assets\02.Scripts\Room\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridBuildingSystem">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAYiCAAgAAAAACAAAARkAAAQAAAAIAgADABAEA=</HashCode>
+      <FileName>Assets\02.Scripts\Room\GridBuildingSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TileType">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAAABAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\02.Scripts\Room\Temp\TilemapManagement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
