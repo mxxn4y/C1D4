@@ -6,9 +6,10 @@ using UnityEngine;
 ///개별 카드의 모든 데이터 가짐
 ///</summary>
 ///
-[CreateAssetMenu(menuName ="CardData")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Card Data")]
 public class ScriptableCard : ScriptableObject
 {
+    [field: SerializeField] public ScriptableMinion MinionData { get; private set; }
     [field:SerializeField] public string CardNum { get; private set; }
     [field:SerializeField] public string CardName { get; private set; }
     [field:SerializeField] public int CardATK { get; private set; }

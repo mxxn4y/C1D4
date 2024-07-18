@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 일반적인 CardData 오브젝트들의 모음 
 /// </summary>
-[CreateAssetMenuAttribute(menuName = "CardCollection")]
+[CreateAssetMenuAttribute(menuName = "Scriptable Objects/CardCollection")]
 public class CardCollection : ScriptableObject
 {
     [field: SerializeField] public List<ScriptableCard> CardsInCollection { get; private set; }

@@ -11,6 +11,7 @@ public class CardUI : MonoBehaviour
     private Card _card;
 
     [Header("Prefab Elements")] // 카드 프리팹 object들의 참조
+    [SerializeField] private Image _cardImage;
     [SerializeField] private Image _cardWorkerImage;
     [SerializeField] private Image _cardElementBackground;
     [SerializeField] private Image _cardRarity;
@@ -60,7 +61,28 @@ public class CardUI : MonoBehaviour
     {
         if (_card != null && _card.CardData != null)
         {
-            
+            SetAlphaImage(_cardImage);
+            SetAlphaImage(_cardWorkerImage);
+            SetAlphaImage(_cardElementBackground);
+            SetAlphaImage(_cardRarity);
+            SetAlphaText(_cardNum);
+            SetAlphaText(_cardName);
+            SetAlphaText(_cardATK);
+            SetAlphaText(_cardDEF);
+            SetAlphaText(_cardSUP);
+        }
+
+        void SetAlphaImage(Image image)
+        {
+            Color tempColor = image.color;
+            tempColor.a = 0.5f;
+            image.color = tempColor;
+        }
+        void SetAlphaText(TextMeshProUGUI text)
+        {
+            Color tempColor = text.color;
+            tempColor.a = 0.5f;
+            text.color = tempColor;
         }
     }
 

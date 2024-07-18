@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CardCanvas
   - RoomCanvas
+  - Tile
   layers:
   - Default
   - TransparentFX

@@ -24,6 +24,18 @@ public class Card : MonoBehaviour
         GetComponent<CardUI>().SetCardUI();
     }
 
+    public void SetUI(bool moving)
+    {
+        if (moving)
+        {
+            GetComponent<CardUI>().SetCardMovingUI();
+        }
+        else
+        {
+            GetComponent<CardUI>().SetCardUI();
+        }
+    }
+
     #endregion
 
 }
