@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "RoomData")]
 public class ScriptableRoom : ScriptableObject
 {
-    [field:SerializeField]public ScriptableCard Card { get; private set; }
+    //[field:SerializeField]public ScriptableCard Card { get; private set; }
     [field:SerializeField]public Sprite Image { get; private set; }
     //[field:SerializeField]public FurnitureType Furnituere { get; private set; }
 

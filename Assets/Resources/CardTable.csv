@@ -1,0 +1,16 @@
+﻿cid,name,type,grade,loyaltyRate,stamina,attack,defence,productSpeed,productYield,goodsProbability
+P001,미소,passion,C,90,10,5,2,3,5,1
+P002,햇살,passion,C,80,10,5,2,3,5,1
+P003,하루,passion,C,70,10,5,2,3,5,1
+P004,아람,passion,B,50,15,7,3,3,10,2
+P005,해리,passion,A,30,20,9,3,4,15,3
+C001,채소,calm,C,90,10,2,5,3,5,1
+C002,너울,calm,C,80,10,2,5,3,5,1
+C003,소라,calm,C,70,10,2,5,3,5,1
+C004,푸실,calm,B,50,15,3,7,3,10,2
+C005,한기,calm,A,30,20,4,9,4,15,3
+W001,다원,wisdom,C,90,10,3,3,5,20,5
+W002,바오,wisdom,C,80,10,3,3,5,20,5
+W003,혜윰,wisdom,C,70,10,3,3,5,20,5
+W004,하제,wisdom,B,50,15,3,3,7,25,6
+W005,한울,wisdom,A,30,20,4,4,9,30,7
