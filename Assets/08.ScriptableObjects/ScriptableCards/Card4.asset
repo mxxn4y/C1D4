@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963bf218dfbeb404896c5915c09563bf, type: 3}
   m_Name: Card4
   m_EditorClassIdentifier: 
+  <MinionData>k__BackingField: {fileID: 11400000, guid: 542cdd3d966705a4b9e5ad379d468941, type: 2}
   <CardNum>k__BackingField: 004
   <CardName>k__BackingField: "4\uBC88\uCE74\uB4DC"
   <CardATK>k__BackingField: 1
   <CardDEF>k__BackingField: 25
   <CardSUP>k__BackingField: 3
   <Image>k__BackingField: {fileID: 21300000, guid: 026226213c8e74946a6a3ecc0ae152f9, type: 3}
-  <Element>k__BackingField: 0
+  <Element>k__BackingField: 1
   <Type>k__BackingField: 1
   <Rarity>k__BackingField: 0

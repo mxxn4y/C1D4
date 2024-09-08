@@ -10,7 +10,6 @@ public class Building : MonoBehaviour
     // z값은 0으로 하면 안됨! 1적어주기(area 크기에 맞춰 array만드는데 0인 값이 있으면 array에 타일이 없을것
     [field: SerializeField] public BoundsInt area;
 
-    private bool _placed = false;
     private bool _moving = false;
 
     public Image RoomImage;
@@ -51,7 +50,6 @@ public class Building : MonoBehaviour
 
     public void Place()
     {
-        _placed = true;
         _moving = false;
     }
     public void MovingRoom()
