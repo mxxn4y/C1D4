@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963bf218dfbeb404896c5915c09563bf, type: 3}
   m_Name: Card5
   m_EditorClassIdentifier: 
+  <MinionData>k__BackingField: {fileID: 11400000, guid: 542cdd3d966705a4b9e5ad379d468941, type: 2}
   <CardNum>k__BackingField: 005
   <CardName>k__BackingField: "5\uBC88\uCE74\uB4DC"
   <CardATK>k__BackingField: 65

@@ -53,7 +53,7 @@ public class RoomUI : MonoBehaviour
 
     public void SetRoomNum()
     {
-        _roomNum.text = _room.RoomData.Card.CardNum + "¹ø";
+        //_roomNum.text = _room.RoomData.Card.CardNum + "¹ø";
     }
     public void SetRoomImgae()
     {
