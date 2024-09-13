@@ -672,7 +672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7062bc312f09a3e42a0799477b3512cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1959580118}
 --- !u!1 &652952868
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,12 +701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1abd9bf4491f54eb2787a5b1cb91a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile:
-  - {fileID: 3503221355125604958, guid: ae952d39f893aa84f8be9ba0aa7ee588, type: 3}
-  - {fileID: 6274276392441643907, guid: ef6b70bc1732f0348814889dd56ddc2e, type: 3}
-  gridHeight: 10
-  gridWidth: 10
-  tileSize: 1
 --- !u!4 &652952870
 Transform:
   m_ObjectHideFlags: 0
@@ -733,7 +726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013273593}
   - component: {fileID: 1013273592}
-  - component: {fileID: 1013273594}
+  - component: {fileID: 1013273596}
   - component: {fileID: 1013273595}
   m_Layer: 0
   m_Name: Aria1
@@ -790,22 +783,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1013273594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013273591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 552778768f436534c9015d3bcab2bb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  highlight: {fileID: 435751907}
-  player: {fileID: 0}
-  speed: 0.1
 --- !u!50 &1013273595
 Rigidbody2D:
   serializedVersion: 4
@@ -827,6 +804,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1013273596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013273591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b5922063f994844ba782d4af4330fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  highlight: {fileID: 435751907}
+  player: {fileID: 1959580118}
+  speed: 0.1
 --- !u!1 &1269064339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,17 +1479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552778768f436534c9015d3bcab2bb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 1576743114}
-  - {fileID: 303708743}
-  - {fileID: 1328029319}
-  - {fileID: 2026059655}
-  - {fileID: 77166315}
-  - {fileID: 515402488}
-  - {fileID: 1812691699}
-  highlight: {fileID: 47428435}
-  player: {fileID: 1959580118}
-  speed: 0.1
 --- !u!50 &2119300963
 Rigidbody2D:
   serializedVersion: 4
@@ -1528,7 +1510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2142645631}
   - component: {fileID: 2142645630}
-  - component: {fileID: 2142645632}
+  - component: {fileID: 2142645634}
   - component: {fileID: 2142645633}
   m_Layer: 0
   m_Name: Aria2
@@ -1593,24 +1575,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2142645632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142645629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 552778768f436534c9015d3bcab2bb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 1576743114}
-  - {fileID: 303708743}
-  highlight: {fileID: 1269064339}
-  player: {fileID: 1959580118}
-  speed: 0.1
 --- !u!50 &2142645633
 Rigidbody2D:
   serializedVersion: 4
@@ -1632,3 +1596,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2142645634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142645629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b5922063f994844ba782d4af4330fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 1576743114}
+  - {fileID: 303708743}
+  - {fileID: 1328029319}
+  - {fileID: 2026059655}
+  - {fileID: 77166315}
+  - {fileID: 515402488}
+  - {fileID: 1812691699}
+  - {fileID: 228468505}
+  - {fileID: 2023511279}
+  - {fileID: 1780685913}
+  - {fileID: 2029199602}
+  - {fileID: 380398463}
+  - {fileID: 1609152667}
+  highlight: {fileID: 1269064339}
+  player: {fileID: 1959580118}
+  speed: 0.1
