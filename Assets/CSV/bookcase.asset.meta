@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-<<<<<<< eyebb
-guid: fc204eb554bc5b54fa97b774d5a44e29
-folderAsset: yes
-DefaultImporter:
+guid: a778d7e33f627f74da0c6383138ab6fc
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

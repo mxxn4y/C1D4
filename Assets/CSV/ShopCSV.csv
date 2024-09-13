@@ -1,0 +1,12 @@
+itemName,price,itemType,gemType,maxDailyPurchase,maxTotalPurchase,isUnlimited
+poster,10,WALL,NORMAL,0,0,TRUE
+frame,15,WALL,NORMAL,0,0,TRUE
+clock,25,WALL,NORMAL,0,0,TRUE
+trashcan,10,FLOOR,NORMAL,0,1,FALSE
+flowerpot,5,FLOOR,NORMAL,0,0,TRUE
+bookcase,30,WALLFLOOR,NORMAL,0,0,TRUE
+lighting,25,CEILING,NORMAL,0,0,TRUE
+scissors,35,NONE,SPECIAL,3,0,FALSE
+diary,30,NONE,SPECIAL,0,1,FALSE
+newspaper,15,NONE,SPECIAL,1,0,FALSE
+slot,10,SLOT,NORMAL,0,0,TRUE
