@@ -48,6 +48,8 @@ public class DeckManager : MonoBehaviour
 
     [SerializeField] private GameObject _cardCanvas; //카드가 그려질 캔버스
 
+    private List<GameObject> _cardList = new List<GameObject>(); //현재 화면에 존재하는 카드 객체 리스트
+
 
     #endregion
 
@@ -55,6 +57,7 @@ public class DeckManager : MonoBehaviour
 
     private void Start()
     {
+        //임시로 넣은 카드
         _sampleCards.Add("C001", 2);
         _sampleCards.Add("C005", 2);
         _sampleCards.Add("W001", 2);
@@ -62,6 +65,7 @@ public class DeckManager : MonoBehaviour
         _sampleCards.Add("P001", 2);
         _sampleCards.Add("P004", 1);
         _sampleCards.Add("P003", 4);
+        //임시로 넣은 카드
 
         _sampleCards = SortDeck(_sampleCards);
         LoadPassionCards();
@@ -74,9 +78,9 @@ public class DeckManager : MonoBehaviour
         {
             if (card.Key.StartsWith('P'))
             {
-                Card cardObject = Instantiate(_cardPrefab, _cardCanvas.transform); // 카드 생성
-                cardObject.SetCard(CardTable.Instance.GetData(card.Key)); //생성한 카드에 데이터 넣기
-                cardObject.GetComponent<CardUI>().ActivateStacking(card.Value); //스태킹 표시 설정
+                var newCard = Instantiate(_cardPrefab, _cardCanvas.transform); // 카드 생성
+                newCard.SetCard(CardTable.Instance.GetData(card.Key), card.Value); //생성한 카드에 데이터 넣기
+                _cardList.Add(newCard.gameObject);
             }
         }
     }
@@ -88,8 +92,8 @@ public class DeckManager : MonoBehaviour
             if (card.Key.StartsWith('C'))
             {
                 Card cardObject = Instantiate(_cardPrefab, _cardCanvas.transform); // 카드 생성
-                cardObject.SetCard(CardTable.Instance.GetData(card.Key)); //생성한 카드에 데이터 넣기
-                cardObject.GetComponent<CardUI>().ActivateStacking(card.Value); //스태킹 표시 설정
+                cardObject.SetCard(CardTable.Instance.GetData(card.Key), card.Value); //생성한 카드에 데이터 넣기
+                _cardList.Add(cardObject.gameObject);
             }
         }
     }
@@ -101,8 +105,8 @@ public class DeckManager : MonoBehaviour
             if (card.Key.StartsWith('W'))
             {
                 Card cardObject = Instantiate(_cardPrefab, _cardCanvas.transform); // 카드 생성
-                cardObject.SetCard(CardTable.Instance.GetData(card.Key)); //생성한 카드에 데이터 넣기
-                cardObject.GetComponent<CardUI>().ActivateStacking(card.Value); //스태킹 표시 설정
+                cardObject.SetCard(CardTable.Instance.GetData(card.Key), card.Value); //생성한 카드에 데이터 넣기
+                _cardList.Add(cardObject.gameObject);
             }
         }
     }
@@ -126,7 +130,7 @@ public class DeckManager : MonoBehaviour
             else
             {
                 _sampleCards[card._data._cid] -= 1;
-                card.GetComponent<CardUI>().ActivateStacking(_sampleCards[card._data._cid]);
+                card.SetCard(_sampleCards[card._data._cid]);
             }
             
         }

@@ -12,7 +12,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
 
     private RectTransform _rectTransform;
     public CardData _cardData;
-    private CardUI _cardUI;
+    private Card _card;
     private bool _isPlaceable;
     private GameObject _prevTile;
     private Vector3 _prevPos;
@@ -25,7 +25,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     {
         _rectTransform = GetComponent<RectTransform>();
         _cardData = GetComponent<Card>()._data;
-        _cardUI = GetComponent<CardUI>();
         _isPlaceable = false;
     }
 
@@ -33,20 +32,20 @@ public class CardMovement : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
     public void OnBeginDrag(PointerEventData eventData)
     {
         _prevPos = _rectTransform.position;
-        _cardUI.SetCardUI(CARD_UI_STATE.DEFAULT);
+        _card.SetCardState(CARD_STATE.DEFAULT);
     }
     //드래그 중 호출 (마우스 따라 움직이기, 배치 가능한 상태인지 확인, 움직이는 UI로 교체)
     public void OnDrag(PointerEventData eventData)
     {
         _rectTransform.position = Input.mousePosition;
         _isPlaceable = IsCardPlaceable();
-        _cardUI.SetCardUI(CARD_UI_STATE.MOVING);
+        _card.SetCardState(CARD_STATE.MOVING);
     }
     //드래그 종료 시 호출 (배치 가능한 상태 / 아닌 상태로 나누기)
     public void OnEndDrag(PointerEventData eventData)
     {
 
-        _cardUI.SetCardUI(CARD_UI_STATE.DEFAULT);
+        _card.SetCardState(CARD_STATE.DEFAULT);
         _rectTransform.position = _prevPos;
         if (_isPlaceable)
         {
@@ -61,25 +60,26 @@ public class CardMovement : MonoBehaviour, IDragHandler, IEndDragHandler, IBegin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _cardUI.SetCardUI(CARD_UI_STATE.MOUSE_HOVER);
+        _card.SetCardState(CARD_STATE.MOUSE_HOVER);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _cardUI.SetCardUI(CARD_UI_STATE.DEFAULT);
+        _card.SetCardState(CARD_STATE.DEFAULT);
     }
 
     public bool IsCardPlaceable()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        LayerMask layer = LayerMask.NameToLayer("Tile");
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity);
+        LayerMask layer = LayerMask.GetMask("Tile");
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, layer);
 
         if (_prevTile != null) 
         {
             _prevTile.GetComponent<TileInfo>().SetState(TILE_STATE.DEFAULT);
             _prevTile = null;
         }
+
         if (hit.collider != null && hit.collider.gameObject.GetComponent<TileInfo>()._tileState == TILE_STATE.DEFAULT)
         {
             _prevTile = hit.collider.gameObject;
