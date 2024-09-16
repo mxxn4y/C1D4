@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditorInternal.ReorderableList;
 
 /// <summary>
 /// 보여지는 카드 UI 제어
@@ -26,12 +27,16 @@ public class CardUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _probabilityText;
     [SerializeField] private TextMeshProUGUI _stackNum;
 
+    [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private CanvasGroup _canvasGroup;
+
     [Header("Sprite Assets")] //속성별 카드 이미지
     [SerializeField] private Sprite _passion;
     [SerializeField] private Sprite _calm;
     [SerializeField] private Sprite _wisdom;
    
-    private Vector3 hoverValue = new Vector3(1.1f, 1.1f, 1);
+    private Vector3 _hoverScale = new Vector3(1.1f, 1.1f, 1);
+    
 
     #endregion
 
@@ -46,23 +51,19 @@ public class CardUI : MonoBehaviour
         switch (state)
         {
             case CARD_STATE.DEFAULT:
-                GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                GetComponent<CanvasGroup>().alpha = 1.0f;
+                _rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                _canvasGroup.alpha = 1.0f;
                 return;
             case CARD_STATE.MOUSE_HOVER:
-                GetComponent<RectTransform>().localScale = hoverValue;
-                return;
-            case CARD_STATE.MOVING:
-                GetComponentsInChildren<CanvasGroup>()[0].alpha = 1.0f;
-                GetComponentsInChildren<CanvasGroup>()[1].alpha = 0.5f;
+                _rectTransform.localScale = _hoverScale;
                 return;
             case CARD_STATE.HIDE:
-                GetComponent<CanvasGroup>().alpha = 0f;
+                _canvasGroup.alpha = 0f;
                 return;
         }
     }
 
-    public void SetUIStacking(int num)
+    public void UpdateUIStacking(int num)
     {
         if(num <= 1)
         {
@@ -76,10 +77,9 @@ public class CardUI : MonoBehaviour
     }
     public void SetUIData(CardData data)
     {
-        SetCardImage(data);
         SetCardText(data);
+        SetCardImage(data);
     }
-
     private void SetCardText(CardData data)
     {
         _IDText.text = data._cid;
@@ -118,4 +118,10 @@ public class CardUI : MonoBehaviour
     #endregion
 }
 
+public enum CARD_STATE
+{
+    DEFAULT,
+    MOUSE_HOVER,
+    HIDE
+}
 

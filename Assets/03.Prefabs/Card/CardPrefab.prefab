@@ -415,6 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091989685919523418}
   - component: {fileID: 9115409258265657290}
+  - component: {fileID: -7379438556678508190}
   - component: {fileID: 891017412560975350}
   - component: {fileID: 7293166303076137565}
   - component: {fileID: 2124255499492784065}
@@ -480,9 +481,24 @@ MonoBehaviour:
   _amountText: {fileID: 6655172444633007189}
   _probabilityText: {fileID: 3622274459496715651}
   _stackNum: {fileID: 1693464108673226930}
+  _rectTransform: {fileID: 2091989685919523418}
+  _canvasGroup: {fileID: 7293166303076137565}
   _passion: {fileID: 21300000, guid: 84dc4b6a8cc86364a8bccb20b4e6b7f2, type: 3}
   _calm: {fileID: 21300000, guid: 8454f4b21fd44a144b2d1beca69fd220, type: 3}
   _wisdom: {fileID: 21300000, guid: 51fc686794fefa24c81c15401efbb290, type: 3}
+--- !u!114 &-7379438556678508190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091989685919523419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b190e50d6bf6a4eba16bcfa7792922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _card: {fileID: 891017412560975350}
 --- !u!114 &891017412560975350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf729703632c524e80c7d8543dc5ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardUI: {fileID: 9115409258265657290}
 --- !u!225 &7293166303076137565
 CanvasGroup:
   m_ObjectHideFlags: 0
