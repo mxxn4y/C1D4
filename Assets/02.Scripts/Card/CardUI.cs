@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditorInternal.ReorderableList;
 
 /// <summary>
 /// 보여지는 카드 UI 제어
@@ -10,8 +11,6 @@ using TMPro;
 public class CardUI : MonoBehaviour
 {
     #region Fields and Properties
-
-    private Card _card;
 
     [Header("Prefab Elements")] // 카드 프리팹 object들의 참조
     [SerializeField] private Image _cardImage;
@@ -28,56 +27,43 @@ public class CardUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _probabilityText;
     [SerializeField] private TextMeshProUGUI _stackNum;
 
+    [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private CanvasGroup _canvasGroup;
+
     [Header("Sprite Assets")] //속성별 카드 이미지
     [SerializeField] private Sprite _passion;
     [SerializeField] private Sprite _calm;
     [SerializeField] private Sprite _wisdom;
-
-    public CARD_UI_STATE cardUIState = CARD_UI_STATE.DEFAULT;
-    private Vector3 hoverValue = new Vector3(0.6f, 0.6f, 1);
+   
+    private Vector3 _hoverScale = new Vector3(1.1f, 1.1f, 1);
+    
 
     #endregion
 
     #region Methods
 
-    private void Awake()
-    {
-        _card = GetComponent<Card>();
-
-    }
-    private void Start()
-    {
-        SetCardTexts();
-        SetCardImage();
-    }
-
     /// <summary>
     /// 매개변수로 받은 state에 따라 카드 크기 및 알파값 조절
     /// </summary>
     /// <param name="state"></param>
-    public void SetCardUI(CARD_UI_STATE state)
+    public void SetUIState(CARD_STATE state)
     {
-        //카드가 널이 아니고 데이터가 입력되었는지 체크
-        if(_card != null)
+        switch (state)
         {
-            switch (state)
-            {
-                case CARD_UI_STATE.DEFAULT:
-                    GetComponent<CanvasGroup>().alpha = 1.0f;
-                    GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    return;
-                case CARD_UI_STATE.MOUSE_HOVER:
-                    GetComponent<RectTransform>().localScale = hoverValue;
-                    return;
-                case CARD_UI_STATE.MOVING:
-                    GetComponent<CanvasGroup>().alpha = 0.5f;
-                    return;
-            }
-
+            case CARD_STATE.DEFAULT:
+                _rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                _canvasGroup.alpha = 1.0f;
+                return;
+            case CARD_STATE.MOUSE_HOVER:
+                _rectTransform.localScale = _hoverScale;
+                return;
+            case CARD_STATE.HIDE:
+                _canvasGroup.alpha = 0f;
+                return;
         }
     }
 
-    public void ActivateStacking(int num)
+    public void UpdateUIStacking(int num)
     {
         if(num <= 1)
         {
@@ -89,21 +75,25 @@ public class CardUI : MonoBehaviour
             _stackNum.text = num.ToString();
         }
     }
-
-    private void SetCardTexts()
+    public void SetUIData(CardData data)
     {
-        _IDText.text = _card._data._cid;
-        _nameText.text = _card._data._name;
-        _staminaText.text = _card._data._stamina.ToString();
-        _attackText.text = _card._data._attack.ToString();
-        _defenceText.text = _card._data._defence.ToString();
-        _speedText.text = _card._data._productSpeed.ToString();
-        _amountText.text = _card._data._productYield.ToString();
-        _probabilityText.text = _card._data._goodsProbability.ToString();
+        SetCardText(data);
+        SetCardImage(data);
+    }
+    private void SetCardText(CardData data)
+    {
+        _IDText.text = data._cid;
+        _nameText.text = data._name;
+        _staminaText.text = data._stamina.ToString();
+        _attackText.text = data._attack.ToString();
+        _defenceText.text = data._defence.ToString();
+        _speedText.text = data._productSpeed.ToString();
+        _amountText.text = data._productYield.ToString();
+        _probabilityText.text = data._goodsProbability.ToString();
 
     }
 
-    private void SetCardImage()
+    private void SetCardImage(CardData data)
     {
         Sprite[] characterImages = Resources.LoadAll<Sprite>("Character/CharacterImage");
         if (0 == characterImages.Length)
@@ -114,23 +104,24 @@ public class CardUI : MonoBehaviour
 
         foreach (var image in characterImages)
         {
-            if (image.name == _card._data._cid)
+            if (image.name == data._cid)
             {
                 _characterImage.sprite = image;
                 return;
             }
         }
 
-        Debug.LogError($"스프라이트가 없음. imageName : {_card._data._cid}");
+        Debug.LogError($"스프라이트가 없음. imageName : {data._cid}");
         return;
     }
 
     #endregion
 }
 
-public enum CARD_UI_STATE
+public enum CARD_STATE
 {
     DEFAULT,
     MOUSE_HOVER,
-    MOVING
+    HIDE
 }
+
