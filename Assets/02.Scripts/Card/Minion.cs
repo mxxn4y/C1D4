@@ -9,24 +9,82 @@ public class Minion : MonoBehaviour
 {
     #region Fields and Properties
 
-    [field: SerializeField] public CardData _data { get; private set; }
+    public CardData _data { get; private set; }
+    [SerializeField] private TileInfo _tile;
+    private int _curStamina;
+    private int _moneyPerSec;
+    private bool _isActive;
+    private float _defaultTime;
+    private float _specialTime;
 
     #endregion
 
     #region Methods
+    private void Awake()
+    {
+        CardPlaceManager.Instance.OnCardPlace += ActivateMinion;
+    }
 
     private void Start()
     {
-        
+        _isActive = false;
     }
-
-
-    public void SetMinion(CardData data)
+    private void Update()
     {
-        _data = data;
-        SetImage();
+        if (_isActive)
+        {
+            _defaultTime += Time.deltaTime;
+            if (_defaultTime >= 1.0f)
+            {
+                _defaultTime -= 1.0f;
+                WorkSceneManager.Instance.AddMoney(_moneyPerSec);
+            }
+
+            _specialTime += Time.deltaTime;
+            if (_specialTime >= 10.0f)
+            {
+                _specialTime -= 10.0f;
+                if (canProduceGem())
+                {
+                    WorkSceneManager.Instance.AddGem(1);
+                }
+                if(--_curStamina <= 0)
+                {
+                    _isActive=false;
+                    _tile.UnSelectTile();
+                    GetComponent<SpriteRenderer>().sprite = null;
+                }
+
+            }
+
+        }
+    }
+    private void ActivateMinion()
+    {
+        var placeManager = CardPlaceManager.Instance;
+        if (placeManager._selectedTile == _tile)
+        {  
+            _data = placeManager._selectedCard._data;
+            _curStamina = _data._stamina;
+            _moneyPerSec = _data._productSpeed * _data._productYield / 10;
+            SetImage();
+            _isActive = true;
+            _defaultTime = 0.0f;
+            _specialTime = 0.0f;
+        }
     }
 
+    private bool canProduceGem()
+    {
+        float temp = Time.time * 100f;
+        Random.InitState((int)temp);
+        if(Random.Range(1,11) <= _data._goodsProbability)
+        {
+            return true;
+        }
+        return false;
+    }
+    
     //이미지 -> 애니메이션으로 넣으면 수정 가능성 존재
     /// <summary>
     /// cid 값과 일치하는 이미지 할당

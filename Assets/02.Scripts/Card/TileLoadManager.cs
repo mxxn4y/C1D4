@@ -57,13 +57,13 @@ public class TileLoadManager : MonoBehaviour
             switch (data["type"].ToString())
             {
                 case "passion":
-                    tile.GetComponent<TileInfo>().InitTile(tilePos, TILE_TYPE.P);
+                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.P);
                     break;
                 case "calm":
-                    tile.GetComponent<TileInfo>().InitTile(tilePos, TILE_TYPE.C);
+                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.C);
                     break;
                 case "wisdom":
-                    tile.GetComponent<TileInfo>().InitTile(tilePos, TILE_TYPE.W);
+                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.W);
                     break;
             }
             

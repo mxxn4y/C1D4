@@ -115,6 +115,15 @@ public class ShopManager : MonoBehaviour
         {
             shopPanels[i].titleTxt.text = shopItemSO[i].itemName;
             shopPanels[i].costTxt.text = "Cost : " + shopItemSO[i].price.ToString();
+            //shopPanels[i].gemTxt.text = shopItemSO[i].gemTypeTxt;
+            if (shopItemSO[i].gemType == ShopItemSO.GemType.NORMAL)
+            {
+                shopPanels[i].gemTxt.text = "일반";
+            }
+            else if (shopItemSO[i].gemType == ShopItemSO.GemType.SPECIAL)
+            {
+                shopPanels[i].gemTxt.text = "특수";
+            }
             shopPanels[i].tempImg.sprite = shopItemSO[i].itemImg;
         }
     }
