@@ -31,7 +31,8 @@ public class InventoryUI : MonoBehaviour
         // 아이템 개수 셈
         foreach (var item in inventory)
         {
-            if(itemCounts.ContainsKey(item))
+
+            if (itemCounts.ContainsKey(item))
             { itemCounts[item]++; }
             else
             {
@@ -56,6 +57,7 @@ public class InventoryUI : MonoBehaviour
             var itemUI = itemGO.GetComponent<InventoryTemplate>();
             itemUI.SetItem(item.Key, item.Value);
         }
+
     }
 
     private void ClearInventoryUI()
