@@ -177,6 +177,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tile: {fileID: 1298364263655985996}
+  _staminabarPrefab: {fileID: 119693514542574599, guid: ad79ab2b85673c0488710d6be25da6b8, type: 3}
+  _staminabar: {fileID: 0}
+  _canvas: {fileID: 0}
 --- !u!212 &468379283184589002
 SpriteRenderer:
   m_ObjectHideFlags: 0

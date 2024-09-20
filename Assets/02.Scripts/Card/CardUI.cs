@@ -78,7 +78,8 @@ public class CardUI : MonoBehaviour
     public void SetUIData(CardData data)
     {
         SetCardText(data);
-        SetCardImage(data);
+        SetCharacterImage(data);
+        SetBackgroudImage(data);
     }
     private void SetCardText(CardData data)
     {
@@ -93,7 +94,7 @@ public class CardUI : MonoBehaviour
 
     }
 
-    private void SetCardImage(CardData data)
+    private void SetCharacterImage(CardData data)
     {
         Sprite[] characterImages = Resources.LoadAll<Sprite>("Character/CharacterImage");
         if (0 == characterImages.Length)
@@ -113,6 +114,21 @@ public class CardUI : MonoBehaviour
 
         Debug.LogError($"스프라이트가 없음. imageName : {data._cid}");
         return;
+    }
+    private void SetBackgroudImage(CardData data)
+    {
+        switch (data._type)
+        {
+            case CARD_TYPE.PASSION:
+                _cardImage.sprite = _passion;
+                break;
+            case CARD_TYPE.CALM:
+                _cardImage.sprite = _calm;
+                break;
+            case CARD_TYPE.WISDOM:
+                _cardImage.sprite = _wisdom;
+                break;
+        }
     }
 
     #endregion

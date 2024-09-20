@@ -11,7 +11,17 @@ public class Minion : MonoBehaviour
 
     public CardData _data { get; private set; }
     [SerializeField] private TileInfo _tile;
-    private int _curStamina;
+    [SerializeField] private Image _staminabarPrefab;
+    private Image _staminabar;
+    private Vector3 _staminabarPos = new Vector3(0.5f,0.6f,0);
+    private float curStamina;
+    private float _curStamina { 
+        get { return curStamina; } 
+        set { 
+            curStamina = value;
+            SetHealthbar();
+        } 
+    }
     private int _moneyPerSec;
     private bool _isActive;
     private float _defaultTime;
@@ -37,22 +47,20 @@ public class Minion : MonoBehaviour
             if (_defaultTime >= 1.0f)
             {
                 _defaultTime -= 1.0f;
-                WorkSceneManager.Instance.AddMoney(_moneyPerSec);
+                Produce.AddMoney(_moneyPerSec);
             }
 
             _specialTime += Time.deltaTime;
             if (_specialTime >= 10.0f)
             {
                 _specialTime -= 10.0f;
-                if (canProduceGem())
+                if (CanProduceGem())
                 {
-                    WorkSceneManager.Instance.AddGem(1);
+                    Produce.AddGem(1);
                 }
                 if(--_curStamina <= 0)
                 {
-                    _isActive=false;
-                    _tile.UnSelectTile();
-                    GetComponent<SpriteRenderer>().sprite = null;
+                    DeactivateMinion();
                 }
 
             }
@@ -65,6 +73,7 @@ public class Minion : MonoBehaviour
         if (placeManager._selectedTile == _tile)
         {  
             _data = placeManager._selectedCard._data;
+            _staminabar = Instantiate(_staminabarPrefab, transform.position + _staminabarPos, Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
             _curStamina = _data._stamina;
             _moneyPerSec = _data._productSpeed * _data._productYield / 10;
             SetImage();
@@ -74,7 +83,16 @@ public class Minion : MonoBehaviour
         }
     }
 
-    private bool canProduceGem()
+    private void DeactivateMinion()
+    {
+        _isActive = false;
+        _tile.UnSelectTile();
+        GetComponent<SpriteRenderer>().sprite = null;
+        Destroy(_staminabar.gameObject);
+
+    }
+
+    private bool CanProduceGem()
     {
         float temp = Time.time * 100f;
         Random.InitState((int)temp);
@@ -84,8 +102,13 @@ public class Minion : MonoBehaviour
         }
         return false;
     }
+
+    private void SetHealthbar()
+    {
+        _staminabar.fillAmount = _curStamina / _data._stamina;
+    }
     
-    //이미지 -> 애니메이션으로 넣으면 수정 가능성 존재
+    //이미지 -> 애니메이션으로 넣으면 수정 필요
     /// <summary>
     /// cid 값과 일치하는 이미지 할당
     /// </summary>

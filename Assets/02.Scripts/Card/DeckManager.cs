@@ -69,8 +69,9 @@ public class DeckManager : MonoBehaviour
         LoadPassionCards();
     }
 
-    private void LoadPassionCards()
+    public void LoadPassionCards()
     {
+        ResetCards();
         foreach (var card in _sampleCards)
         {
             if (card.Key.StartsWith('P'))
@@ -82,8 +83,9 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    private void LoadCalmCards()
+    public void LoadCalmCards()
     {
+        ResetCards();
         foreach (var card in _sampleCards)
         {
             if (card.Key.StartsWith('C'))
@@ -95,8 +97,9 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    private void LoadWisdomCards()
+    public void LoadWisdomCards()
     {
+        ResetCards();
         foreach (var card in _sampleCards)
         {
             if (card.Key.StartsWith('W'))
@@ -106,6 +109,15 @@ public class DeckManager : MonoBehaviour
                 _cardList.Add(newCard);
             }
         }
+    }
+
+    private void ResetCards()
+    {
+        foreach (var card in _cardList)
+        {
+            Destroy(card.gameObject);
+        }
+        _cardList.Clear();
     }
 
     private Dictionary<string,int> SortDeck(Dictionary<string, int> dic)
