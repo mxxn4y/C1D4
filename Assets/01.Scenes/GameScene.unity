@@ -189,7 +189,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1456192042
 PrefabInstance:
@@ -224,7 +224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7394391162842192157, guid: c9ab8d7756de611419455a74f2adbbdf, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7394391162842192157, guid: c9ab8d7756de611419455a74f2adbbdf, type: 3}
       propertyPath: m_AnchorMax.x
@@ -479,9 +479,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkScene
       objectReference: {fileID: 0}
+    - target: {fileID: 5221454523397033347, guid: 8b949abea0b3ca1478620fa3fa4c873b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5221454523397033348, guid: 8b949abea0b3ca1478620fa3fa4c873b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5221454523397033348, guid: 8b949abea0b3ca1478620fa3fa4c873b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -540,9 +544,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkSceneUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4253776705375903255, guid: c733cf8e1fe5987468027f1b1def0738, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8564479937275828055, guid: c733cf8e1fe5987468027f1b1def0738, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8564479937275828055, guid: c733cf8e1fe5987468027f1b1def0738, type: 3}
       propertyPath: m_LocalPosition.x
