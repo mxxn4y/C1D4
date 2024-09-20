@@ -38,8 +38,8 @@ public class ShopManager : MonoBehaviour
         {
             shopPanelsGO[i].SetActive(true);
         }
-        gemUI.text = "Gem : " + gem.ToString();
-        specialGemUI.text = "Special Gem : " + specialGem.ToString();
+        gemUI.text = "일반 재화 : " + gem.ToString();
+        specialGemUI.text = "특수 재화 : " + specialGem.ToString();
         LoadPanel();
         UpdatePurchaseButtons();
     }
@@ -119,12 +119,15 @@ public class ShopManager : MonoBehaviour
             if (shopItemSO[i].gemType == ShopItemSO.GemType.NORMAL)
             {
                 shopPanels[i].gemTxt.text = "일반";
+                shopPanels[i].gemType.color = new Color(150/255f, 107/255f , 81/255f);
             }
             else if (shopItemSO[i].gemType == ShopItemSO.GemType.SPECIAL)
             {
                 shopPanels[i].gemTxt.text = "특수";
+                shopPanels[i].gemType.color = new Color(149 / 255f, 97 / 255f, 166 / 255f);
             }
             shopPanels[i].tempImg.sprite = shopItemSO[i].itemImg;
+            
         }
     }
 

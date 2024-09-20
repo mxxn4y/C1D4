@@ -10,4 +10,5 @@ public class ShopTemplate : MonoBehaviour
     public TMP_Text costTxt;
     public TMP_Text gemTxt;
     public Image tempImg;
+    public Image gemType;
 }
