@@ -57,7 +57,7 @@ public class InventoryManager : MonoBehaviour
         //maxSlot += additionalSlot;
         minSlot = Mathf.Min(minSlot + additionalSlot, maxSlot);
         Debug.Log("인벤토리가 확장 되었음.최대 슬롯 : " + minSlot );
-        Debug.Log("현재 슬롯 : " + inventory.Count);
+        Debug.Log("현재 슬롯 : " + inventory.Count+"/"+minSlot);
     }
 
     //public List<ItemInstance> items = new List<ItemInstance>();

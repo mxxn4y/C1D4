@@ -64,30 +64,30 @@ public class ShopManager : MonoBehaviour
     public void PurchaseItem(int _btnNum)
     {
 
-        if (shopItemSO[_btnNum].itemType == ShopItemSO.ItemType.SLOT)
-        {
-            InventoryManager.Instance.ExpendSlot(2);
-            gem -= shopItemSO[_btnNum].price;
-            gemUI.text = "Gem : " + gem.ToString();
-        }
-        else
-        {
+        //if (shopItemSO[_btnNum].itemType == ShopItemSO.ItemType.SLOT)
+        //{
+        //    InventoryManager.Instance.ExpendSlot(2);
+        //    gem -= shopItemSO[_btnNum].price;
+        //    gemUI.text = "Gem : " + gem.ToString();
+        //}
+        //else
+        //{
             if ((shopItemSO[_btnNum].gemType == ShopItemSO.GemType.NORMAL) && gem >= shopItemSO[_btnNum].price)
             {
                 gem -= shopItemSO[_btnNum].price;
-                gemUI.text = "Gem : " + gem.ToString();
+                gemUI.text = "일반 재화 : " + gem.ToString();
             }
 
             if ((shopItemSO[_btnNum].gemType == ShopItemSO.GemType.SPECIAL) && specialGem >= shopItemSO[_btnNum].price)
             {
                 specialGem -= shopItemSO[_btnNum].price;
-                specialGemUI.text = "Special Gem : " + specialGem.ToString();
+                specialGemUI.text = "특수 재화 : " + specialGem.ToString();
             }
 
             ++itemCount;
             InventoryManager.Instance.AddItem(shopItemSO[_btnNum]);
             Debug.Log(_btnNum + "넣음");
-        }
+        //}
 
         UpdatePurchaseButtons();
 
@@ -97,14 +97,14 @@ public class ShopManager : MonoBehaviour
     public void AddCoins()
     {
         gem++;
-        gemUI.text = "Gem : " + gem.ToString();
+        gemUI.text = "일반 재화 : " + gem.ToString();
         UpdatePurchaseButtons();
     }
 
     public void AddSpecialGem()
     {
         specialGem++;
-        specialGemUI.text = "Special Gem : " + specialGem.ToString();
+        specialGemUI.text = "특수 재화 : " + specialGem.ToString();
         UpdatePurchaseButtons();
     }
     //

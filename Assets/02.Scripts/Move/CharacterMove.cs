@@ -4,47 +4,50 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private static Transform[] waypoints;
+    private static Transform _destination;
     int cur = 0;
-    private bool isMove = false;
+    private static bool isMove = true;
 
-    [SerializeField] GameObject highlight;
-    [SerializeField] GameObject player;
+    [SerializeField] private float speed = 0.1f;
 
-    public float speed = 0.1f;
+    enum room
+    {
+        House = 0, 
+        Morning= 5, 
+        Afternoon  = 10
+    }
     void Update()
     {
         if(isMove)
             Move();
     }
 
-    private void OnMouseEnter()
-    {
-        highlight.SetActive(true);
-    }
-    private void OnMouseExit()
-    {
-        highlight.SetActive(false);
-    }
-
-    private void OnMouseDown()
+    public static void SetMove(string des)
     {
         isMove = true;
+        if (des == "House")
+            _destination = waypoints[(int)room.House];
+        else if (des == "Morning")
+            _destination = waypoints[(int)room.Morning];
+        else if (des == "Afternoon")
+            _destination = waypoints[(int)room.Afternoon];
+
     }
 
     public void Move()
     {
-        if (player.transform.position != waypoints[cur].position)
+        if (transform.position != waypoints[cur+1].position)
         {
-            Vector2 p = Vector2.MoveTowards(player.transform.position, waypoints[cur].position, speed);
-            player.GetComponent<Rigidbody2D>().MovePosition(p);
+            Vector2 p = Vector2.MoveTowards(transform.position, waypoints[cur].position, speed);
+            GetComponent<Rigidbody2D>().MovePosition(p);
         }
-        else
+        else if (cur<waypoints.Length-1)
         {
             cur++;
         }
 
-        if(transform.position != waypoints[waypoints.Length].position)
+        if(transform.position == waypoints[waypoints.Length-1].position)
         {
             isMove = false;
         }
