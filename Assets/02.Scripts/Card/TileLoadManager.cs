@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 /// <summary>
 /// 타일 데이터 csv파일 읽어서 타일 객체 생성
 /// </summary>
@@ -39,7 +40,9 @@ public class TileLoadManager : MonoBehaviour
     /// <summary> 타일의 크기 </summary>
     private Vector2 tileSize = new Vector2(1f,0.6f);
     public GameObject tilePrefab;
+    [SerializeField] private Grid tilemap;
 
+    #region Methods
     private void Start()
     {
         LoadAllTiles();
@@ -53,23 +56,25 @@ public class TileLoadManager : MonoBehaviour
         foreach(var data in tiles)
         {
             var tile = Instantiate(tilePrefab);
-            var tilePos = new Vector2((int)data["x"] * tileSize.x, (int)data["y"] * tileSize.y);
+            var tilePos = tilemap.CellToWorld(new Vector3Int((int)data["x"], (int)data["y"]));
+
             switch (data["type"].ToString())
             {
                 case "passion":
-                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.P);
+                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.PASSION);
                     break;
                 case "calm":
-                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.C);
+                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.CALM);
                     break;
                 case "wisdom":
-                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.W);
+                    tile.GetComponent<TileInfo>().SetTile(tilePos, TILE_TYPE.WISDOM);
                     break;
             }
             
         }
 
     }
+    #endregion
 
 }
 

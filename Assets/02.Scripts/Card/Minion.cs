@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// 카드 배치하면 생성되는 미니언 객체 클래스
+/// 카드 정보와 위치한 타일 정보를 가지고 활성화 시 재화 생산 
 /// </summary>
 public class Minion : MonoBehaviour
 {
     #region Fields and Properties
 
-    public CardData _data { get; private set; }
-    [SerializeField] private TileInfo _tile;
-    [SerializeField] private Image _staminabarPrefab;
-    private Image _staminabar;
-    private Vector3 _staminabarPos = new Vector3(0.5f,0.6f,0);
-    private float curStamina;
-    private float _curStamina { 
-        get { return curStamina; } 
+    public CardData data { get; private set; }
+    [SerializeField] private TileInfo tile;
+    [SerializeField] private Image staminabarPrefab;
+    private Image staminabar;
+    private Vector3 staminabarPos = new Vector3(0.5f,0.6f,0);
+    private float currentStamina;
+    private float CurrentStamina { 
+        get { return currentStamina; } 
         set { 
-            curStamina = value;
+            currentStamina = value;
             SetHealthbar();
         } 
     }
-    private int _moneyPerSec;
-    private bool _isActive;
-    private float _defaultTime;
-    private float _specialTime;
+    private bool isActive;
+    private float defaultTime;
+    private float specialTime;
 
     #endregion
 
@@ -37,28 +36,28 @@ public class Minion : MonoBehaviour
 
     private void Start()
     {
-        _isActive = false;
+        isActive = false;
     }
     private void Update()
     {
-        if (_isActive)
+        if (isActive)
         {
-            _defaultTime += Time.deltaTime;
-            if (_defaultTime >= 1.0f)
+            defaultTime += Time.deltaTime;
+            if (defaultTime >= data.produceSpeed)
             {
-                _defaultTime -= 1.0f;
-                Produce.AddMoney(_moneyPerSec);
+                defaultTime -= 1.0f;
+                Produce.AddGem(data.productYield);
             }
 
-            _specialTime += Time.deltaTime;
-            if (_specialTime >= 10.0f)
+            specialTime += Time.deltaTime;
+            if (specialTime >= 10.0f)
             {
-                _specialTime -= 10.0f;
+                specialTime -= 10.0f;
                 if (CanProduceGem())
                 {
-                    Produce.AddGem(1);
+                    Produce.AddSpecialGem();
                 }
-                if(--_curStamina <= 0)
+                if(--CurrentStamina <= 0)
                 {
                     DeactivateMinion();
                 }
@@ -67,28 +66,30 @@ public class Minion : MonoBehaviour
 
         }
     }
+    /// <summary>
+    /// 선택된 카드가 해당 미니언이 존재하는 타일과 일치한다면 미니언 활성화
+    /// </summary>
     private void ActivateMinion()
     {
         var placeManager = CardPlaceManager.Instance;
-        if (placeManager._selectedTile == _tile)
+        if (placeManager.selectedTile == tile)
         {  
-            _data = placeManager._selectedCard._data;
-            _staminabar = Instantiate(_staminabarPrefab, transform.position + _staminabarPos, Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
-            _curStamina = _data._stamina;
-            _moneyPerSec = _data._productSpeed * _data._productYield / 10;
+            data = placeManager.selectedCard.data;
+            staminabar = Instantiate(staminabarPrefab, transform.position + staminabarPos, Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
+            CurrentStamina = data.stamina;
             SetImage();
-            _isActive = true;
-            _defaultTime = 0.0f;
-            _specialTime = 0.0f;
+            isActive = true;
+            defaultTime = 0.0f;
+            specialTime = 0.0f;
         }
     }
 
     private void DeactivateMinion()
     {
-        _isActive = false;
-        _tile.UnSelectTile();
+        isActive = false;
+        tile.UnSelectTile();
         GetComponent<SpriteRenderer>().sprite = null;
-        Destroy(_staminabar.gameObject);
+        Destroy(staminabar.gameObject);
 
     }
 
@@ -96,7 +97,7 @@ public class Minion : MonoBehaviour
     {
         float temp = Time.time * 100f;
         Random.InitState((int)temp);
-        if(Random.Range(1,11) <= _data._goodsProbability)
+        if(Random.Range(1,11) <= data.goodsProbability)
         {
             return true;
         }
@@ -105,7 +106,7 @@ public class Minion : MonoBehaviour
 
     private void SetHealthbar()
     {
-        _staminabar.fillAmount = _curStamina / _data._stamina;
+        staminabar.fillAmount = CurrentStamina / data.stamina;
     }
     
     //이미지 -> 애니메이션으로 넣으면 수정 필요
@@ -123,14 +124,14 @@ public class Minion : MonoBehaviour
 
         foreach (var image in characterImages)
         {
-            if (image.name == _data._cid)
+            if (image.name == data.cid)
             {
                 GetComponent<SpriteRenderer>().sprite =image;
                 return;
             }
         }
 
-        Debug.LogError($"스프라이트가 없음. imageName : {_data._cid}");
+        Debug.LogError($"스프라이트가 없음. imageName : {data.cid}");
         return;
     }
 

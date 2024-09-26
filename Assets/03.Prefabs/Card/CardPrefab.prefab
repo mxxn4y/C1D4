@@ -363,8 +363,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -469,23 +469,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d91f437e5021be4ebd4ceaa5687d85e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardImage: {fileID: 2091989687077895978}
-  _characterImage: {fileID: 2091989685970390866}
-  _stackImage: {fileID: 6601158896421229856}
-  _IDText: {fileID: 390577386437976703}
-  _nameText: {fileID: 167502649092617727}
-  _staminaText: {fileID: 2091989685941244055}
-  _attackText: {fileID: 2091989686866263594}
-  _defenceText: {fileID: 2091989686268482026}
-  _speedText: {fileID: 655831292087251407}
-  _amountText: {fileID: 6655172444633007189}
-  _probabilityText: {fileID: 3622274459496715651}
-  _stackNum: {fileID: 1693464108673226930}
-  _rectTransform: {fileID: 2091989685919523418}
-  _canvasGroup: {fileID: 7293166303076137565}
-  _passion: {fileID: 21300000, guid: 84dc4b6a8cc86364a8bccb20b4e6b7f2, type: 3}
-  _calm: {fileID: 21300000, guid: 8454f4b21fd44a144b2d1beca69fd220, type: 3}
-  _wisdom: {fileID: 21300000, guid: 51fc686794fefa24c81c15401efbb290, type: 3}
+  cardImage: {fileID: 2091989687077895978}
+  characterImage: {fileID: 2091989685970390866}
+  stackImage: {fileID: 6601158896421229856}
+  IDText: {fileID: 390577386437976703}
+  nameText: {fileID: 167502649092617727}
+  staminaText: {fileID: 2091989685941244055}
+  attackText: {fileID: 2091989686866263594}
+  defenceText: {fileID: 2091989686268482026}
+  speedText: {fileID: 655831292087251407}
+  amountText: {fileID: 6655172444633007189}
+  probabilityText: {fileID: 3622274459496715651}
+  stackNum: {fileID: 1693464108673226930}
+  rectTransform: {fileID: 2091989685919523418}
+  canvasGroup: {fileID: 7293166303076137565}
+  passion: {fileID: 21300000, guid: 84dc4b6a8cc86364a8bccb20b4e6b7f2, type: 3}
+  calm: {fileID: 21300000, guid: 8454f4b21fd44a144b2d1beca69fd220, type: 3}
+  wisdom: {fileID: 21300000, guid: 51fc686794fefa24c81c15401efbb290, type: 3}
 --- !u!114 &-7379438556678508190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b190e50d6bf6a4eba16bcfa7792922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _card: {fileID: 891017412560975350}
+  card: {fileID: 891017412560975350}
 --- !u!114 &891017412560975350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf729703632c524e80c7d8543dc5ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardUI: {fileID: 9115409258265657290}
+  cardUI: {fileID: 9115409258265657290}
 --- !u!225 &7293166303076137565
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1370,8 +1370,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: 85}
-  m_SizeDelta: {x: 40, y: 20}
+  m_AnchoredPosition: {x: -40.4, y: 85}
+  m_SizeDelta: {x: 65.3994, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7027044676428899474
 CanvasRenderer:
@@ -1428,8 +1428,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

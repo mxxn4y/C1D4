@@ -9,33 +9,33 @@ public class CardInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     #region Fields and Properties
 
-    [SerializeField] private Card _card;
+    [SerializeField] private Card card;
 
     #endregion
 
     #region Methods
     private void Awake()
     {
-        _card._state = CARD_STATE.DEFAULT;
+        card.State = CARD_STATE.DEFAULT;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_card._state == CARD_STATE.DEFAULT)
+        if (card.State == CARD_STATE.DEFAULT)
         {
-            _card._state = CARD_STATE.MOUSE_HOVER;
+            card.State = CARD_STATE.MOUSE_HOVER;
         }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (_card._state == CARD_STATE.MOUSE_HOVER)
+        if (card.State == CARD_STATE.MOUSE_HOVER)
         {
-            _card._state = CARD_STATE.DEFAULT;
+            card.State = CARD_STATE.DEFAULT;
         }
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        _card._state = CARD_STATE.HIDE;
-        CardPlaceManager.Instance.OnCardSelect?.Invoke(_card);
+        card.State = CARD_STATE.HIDE;
+        CardPlaceManager.Instance.OnCardSelect?.Invoke(card);
     }
 
     #endregion

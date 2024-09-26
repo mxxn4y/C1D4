@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Produce
 {
-    private static int _todayMoney;
-    private static int _todayGem;
+    private static int todayGem;
+    private static int todaySpecialGem;
 
-    public static void Reset()
+    public static void ResetTodayGem()
     {
-        _todayMoney = 0;
-        _todayGem = 0;
+        todayGem = 0;
+        todaySpecialGem = 0;
     }
-    public static void AddMoney(int money)
+    public static void AddGem(int _gem)
     {
-        _todayMoney += money;
-        Debug.Log("money:" + _todayMoney);
+        todayGem += _gem;
+        WorkSceneManager.Instance.SetGemText(todayGem.ToString());
     }
-    public static void AddGem(int gem)
+    public static void AddSpecialGem()
     {
-        _todayGem += gem;
-        Debug.Log("gem: " + _todayGem);
+        todaySpecialGem++;
+        WorkSceneManager.Instance.SetSpecialGemText(todaySpecialGem.ToString());
     }
 }
