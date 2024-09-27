@@ -4,52 +4,56 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SerializeField] private static Transform[] waypoints;
-    private static Transform _destination;
+    [SerializeField] private Transform[] waypoints;
+    private Transform destination;
     int cur = 0;
-    private static bool isMove = true;
+    private bool isMove = false;
 
     [SerializeField] private float speed = 0.1f;
 
     enum room
     {
-        House = 0, 
-        Morning= 5, 
-        Afternoon  = 10
-    }
-    void Update()
-    {
-        if(isMove)
-            Move();
+        HOUSE = 0, 
+        MORNING = 1, 
+        AFTERNOON = 6
     }
 
-    public static void SetMove(string des)
+    public void SetDestination(string _destination)
     {
+        //움직임 상태로 설정
         isMove = true;
-        if (des == "House")
-            _destination = waypoints[(int)room.House];
-        else if (des == "Morning")
-            _destination = waypoints[(int)room.Morning];
-        else if (des == "Afternoon")
-            _destination = waypoints[(int)room.Afternoon];
 
+        //목적지 설정
+        if (_destination == "House")
+            destination = waypoints[(int)room.HOUSE];
+        else if (_destination == "Morning")
+            destination = waypoints[(int)room.MORNING];
+        else if (_destination == "Afternoon")
+            destination = waypoints[(int)room.AFTERNOON];
     }
 
     public void Move()
     {
-        if (transform.position != waypoints[cur+1].position)
+
+        if (transform.position != waypoints[cur].position)
         {
             Vector2 p = Vector2.MoveTowards(transform.position, waypoints[cur].position, speed);
             GetComponent<Rigidbody2D>().MovePosition(p);
         }
-        else if (cur<waypoints.Length-1)
-        {
-            cur++;
-        }
-
-        if(transform.position == waypoints[waypoints.Length-1].position)
+        //목적지와 현재 위치가 같으면 이동 멈춤
+        else if (transform.position == destination.position)
         {
             isMove = false;
         }
+        else
+        {
+            cur++;
+        }
+    }
+
+    void Update()
+    {
+        if (isMove)
+            Move();
     }
 }
