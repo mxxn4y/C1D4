@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class ShoppingManager : MonoBehaviour //이름 바꾸고 슬롯 빼고 ShoppingManager
 {
-    public static InventoryManager Instance { get; private set; }
+    public static ShoppingManager Instance { get; private set; }
 
-    private List<ShopItemSO> inventory = new List<ShopItemSO>();
+    private List<ShopItemSO> itemList = new List<ShopItemSO>(); //변수명 itemList
     private int maxSlot =20;
     private int minSlot =8;
+    private int currentSlot;
 
     private void Awake()
     {
@@ -19,15 +21,19 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Instance = this;
+            currentSlot = minSlot;
             //DontDestroyOnLoad(gameObject);
         }
     }
 
     public void AddItem(ShopItemSO _item)
     {
-        if (inventory.Count < maxSlot)
+        if (itemList.Count < currentSlot)
         {
-            inventory.Add(_item);
+            itemList.Add(_item);
+            Debug.Log("인벤토리에 넣음");
+
+            Debug.Log(itemList.Count);
         }
         else
         {
@@ -37,27 +43,29 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveItem(ShopItemSO _item)
     {
-        if (inventory.Contains(_item))
+        if (itemList.Contains(_item))
         {
             //inventory[item]--;
             //if (inventory[item] <= 0)
             //{
-                inventory.Remove(_item);
+            itemList.Remove(_item);
             //}
         }
     }
 
     public List<ShopItemSO> GetInventory()
     {
-        return new List<ShopItemSO>(inventory);
+        return new List<ShopItemSO>(itemList);
     }
 
 
-    public void ExpendSlot(int additionalSlot) {
-        //maxSlot += additionalSlot;
-        minSlot = Mathf.Min(minSlot + additionalSlot, maxSlot);
-        Debug.Log("인벤토리가 확장 되었음.최대 슬롯 : " + minSlot );
-        Debug.Log("현재 슬롯 : " + inventory.Count+"/"+minSlot);
+    public void ExpendSlot(int _additionalSlot) {
+        if (currentSlot < maxSlot)
+        {
+            currentSlot = Mathf.Min(currentSlot + _additionalSlot, maxSlot);
+            Debug.Log("인벤토리가 확장 되었음.최대 슬롯 : " + currentSlot);
+            Debug.Log("현재 슬롯 : " + itemList.Count + "/" + currentSlot);
+        }
     }
 
     //public List<ItemInstance> items = new List<ItemInstance>();
