@@ -118,8 +118,7 @@ public class DeckManager : MonoBehaviour
     {
         if (_sampleCards.ContainsKey(card._data._cid))
         {
-            
-            if(_sampleCards[card._data._cid] <= 1)
+            if (_sampleCards[card._data._cid] <= 1)
             {
                 _sampleCards.Remove(card._data._cid);
                 Destroy(card.gameObject);

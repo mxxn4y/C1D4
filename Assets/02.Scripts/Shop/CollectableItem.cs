@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectableItem : MonoBehaviour
+    // 안 쓸 클래스
 {
     public ItemInstance item;
 
