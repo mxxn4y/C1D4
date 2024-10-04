@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
     [SerializeField] private Transform[] waypoints;
-    private Transform destination;
+    private int desIndex;
+    private int startIndex;
     int cur = 0;
     private bool isMove = false;
 
@@ -14,22 +16,47 @@ public class CharacterMove : MonoBehaviour
     enum room
     {
         HOUSE = 0, 
-        MORNING = 1, 
-        AFTERNOON = 6
+        MORNING = 2, 
+        AFTERNOON = 6,
+        SHOP = 10
     }
 
+    enum prevWork
+    {
+        HOUSE,
+        MORNING,
+        AFTERNOON
+    }
+
+    //출발지 설정
+    public void SetStart()
+    {
+        for (int i = 0; i < waypoints.Length; i++) 
+        {
+            if (transform.position == waypoints[i].position)
+            {
+                startIndex = i;
+                break;
+            }
+        }
+    }
+
+    //목적지 설정
     public void SetDestination(string _destination)
     {
-        //움직임 상태로 설정
-        isMove = true;
+        //출발지 설정
+        SetStart();
 
         //목적지 설정
         if (_destination == "House")
-            destination = waypoints[(int)room.HOUSE];
+            desIndex = (int)room.HOUSE;
         else if (_destination == "Morning")
-            destination = waypoints[(int)room.MORNING];
+            desIndex = (int)room.MORNING;
         else if (_destination == "Afternoon")
-            destination = waypoints[(int)room.AFTERNOON];
+            desIndex = (int)room.AFTERNOON;
+
+        //움직임 상태로 설정
+        isMove = true;
     }
 
     public void Move()
@@ -41,13 +68,16 @@ public class CharacterMove : MonoBehaviour
             GetComponent<Rigidbody2D>().MovePosition(p);
         }
         //목적지와 현재 위치가 같으면 이동 멈춤
-        else if (transform.position == destination.position)
+        else if (transform.position == waypoints[desIndex].position)
         {
             isMove = false;
         }
         else
         {
-            cur++;
+            if (desIndex > startIndex)
+                cur++;
+            else
+                cur--;
         }
     }
 
