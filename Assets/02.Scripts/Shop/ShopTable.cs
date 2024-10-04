@@ -7,6 +7,18 @@ public class ShopTable : MonoBehaviour
 
     public static ShopTable Instance;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     //private Dictionary<string, object> shopCSV;
 
 

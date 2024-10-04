@@ -42,8 +42,8 @@ public class ShopManager : MonoBehaviour
             totalPurchaseCount[shopItemSO[i]] = 0;
             shopPanelsGO[i].SetActive(true);
         }
-        gemUI.text = "일반 재화 : " + gem.ToString();
-        specialGemUI.text = "특수 재화 : " + specialGem.ToString();
+        gemUI.text = gem.ToString();
+        specialGemUI.text = specialGem.ToString();
         LoadPanel();
         UpdatePurchaseButtons();
     }
