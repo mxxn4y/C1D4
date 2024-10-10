@@ -45,10 +45,10 @@ public class ShopManager : MonoBehaviour
         gemUI.text = gem.ToString();
         specialGemUI.text = specialGem.ToString();
         LoadPanel();
-        UpdatePurchaseButtons();
+        //UpdatePurchaseButtons();
     }
 
-
+    /* 필요 없을 듯
     public void UpdatePurchaseButtons()
     {
         for (int i = 0; i < shopItemSO.Length; i++)
@@ -79,6 +79,7 @@ public class ShopManager : MonoBehaviour
             // purchaseBtns[i].interactable = canPurchase; ////
         }
     }
+    */
 
     public bool CanPurchaseItem(ShopItemSO _item)
     {
@@ -138,7 +139,7 @@ public class ShopManager : MonoBehaviour
             totalPurchaseCount[item]++;
             //}
 
-            UpdatePurchaseButtons();
+            //UpdatePurchaseButtons();
         }
     }
 
@@ -146,15 +147,15 @@ public class ShopManager : MonoBehaviour
     public void AddCoins()
     {
         gem++;
-        gemUI.text = "일반 재화 : " + gem.ToString();
-        UpdatePurchaseButtons();
+        gemUI.text = gem.ToString();
+        //UpdatePurchaseButtons();
     }
 
     public void AddSpecialGem()
     {
         specialGem++;
-        specialGemUI.text = "특수 재화 : " + specialGem.ToString();
-        UpdatePurchaseButtons();
+        specialGemUI.text = specialGem.ToString();
+       // UpdatePurchaseButtons();
     }
     //
 
