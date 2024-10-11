@@ -38,7 +38,6 @@ public class TileLoadManager : MonoBehaviour
     #endregion
 
     /// <summary> 타일의 크기 </summary>
-    private Vector2 tileSize = new Vector2(1f,0.6f);
     public GameObject tilePrefab;
     [SerializeField] private Grid tilemap;
 
@@ -57,6 +56,7 @@ public class TileLoadManager : MonoBehaviour
         {
             var tile = Instantiate(tilePrefab);
             var tilePos = tilemap.CellToWorld(new Vector3Int((int)data["x"], (int)data["y"]));
+            tilePos = new Vector3(tilePos.x, tilePos.y + 0.3f, tilePos.z);
 
             switch (data["type"].ToString())
             {

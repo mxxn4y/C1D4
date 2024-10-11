@@ -45,7 +45,7 @@ public class Minion : MonoBehaviour
             defaultTime += Time.deltaTime;
             if (defaultTime >= data.produceSpeed)
             {
-                defaultTime -= 1.0f;
+                defaultTime -= data.produceSpeed;
                 Produce.AddGem(data.productYield);
             }
 
@@ -81,6 +81,7 @@ public class Minion : MonoBehaviour
             isActive = true;
             defaultTime = 0.0f;
             specialTime = 0.0f;
+            //WorkSceneManager.Instance.minions.Add(this);
         }
     }
 

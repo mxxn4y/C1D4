@@ -113,18 +113,18 @@ public class CardPlaceManager : MonoBehaviour
     /// </summary>
     private void RemoveUsedCard()
     {
-        var playerDeck = WorkSceneManager.Instance.tempPlayerCards;
+        var playerDeck = PlayerInfoManager.playerCards;
         if (playerDeck.ContainsKey(selectedCard.data.cid))
         {
 
             if (playerDeck[selectedCard.data.cid] <= 1)
             {
-                playerDeck.Remove(selectedCard.data.cid);
+                PlayerInfoManager.playerCards.Remove(selectedCard.data.cid);
                 Destroy(selectedCard.gameObject);
             }
             else
             {
-                playerDeck[selectedCard.data.cid] -= 1;
+                PlayerInfoManager.playerCards[selectedCard.data.cid] -= 1;
                 selectedCard.UpdateCard(playerDeck[selectedCard.data.cid]);
             }
 

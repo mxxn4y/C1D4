@@ -1,14 +1,4 @@
 ﻿type,x,y
-passion,0,3
-passion,3,3
-passion,6,3
-passion,9,3
-passion,0,0
-passion,3,0
-passion,6,0
-passion,9,0
-passion,3,-3
-passion,6,-3
-passion,9,-3
-passion,6,-6
-passion,9,-6
+passion,0,-4
+passion,-5,-5
+passion,-6,-7
