@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class CameraMouseMove : MonoBehaviour
 {
-    public float mouseSensitivity = 10f; //마우스감도
+    [SerializeField] private float mouseSensitivity; //마우스감도
+    private float mouseDirection;
 
     private float MouseY;
     private float MouseX;
 
     void Update()
     {
-        CameraMove();
+        if(Input.mousePosition.y > 900f)
+        {
+            mouseDirection = 1;
+            CameraMove();
+        }
+        else if (Input.mousePosition.y < 180)
+        {
+            mouseDirection = -1;
+            CameraMove();
+        }
     }
     private void CameraMove()
     {
-        MouseY += Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
-        //MouseY = Mathf.Clamp(MouseY, -90f, 90f); //Clamp를 통해 최소값 최대값을 넘지 않도록함
+        MouseY += mouseDirection * mouseSensitivity * Time.deltaTime;
+        MouseY = Mathf.Clamp(MouseY, 0f, 15f); //Clamp를 통해 최소값 최대값을 넘지 않도록함
         transform.position = new Vector3(0, MouseY, -1);// 각 축을 한꺼번에 계산
     }
 }
