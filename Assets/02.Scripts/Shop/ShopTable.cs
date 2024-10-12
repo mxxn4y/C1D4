@@ -19,7 +19,7 @@ public class ShopTable : MonoBehaviour
     }
 
 
-    private List<Dictionary<string, object>> shopCSV;
+    public List<Dictionary<string, object>> shopCSV;
 
     public ShopTable()
     {
@@ -69,11 +69,11 @@ public class ShopTable : MonoBehaviour
         switch (gemType.ToLower())
         {
             case "일반": return GemType.NORMAL;
-            case "특수": return GemType.SPECIAL
-;
+            case "특수": return GemType.SPECIAL;
             default: return GemType.NORMAL;
         }
     }
+}
 
 public struct ShopItemData
     {
@@ -103,4 +103,3 @@ public struct ShopItemData
         SPECIAL
     }
 
-}
