@@ -9,6 +9,17 @@ public class SelectRoom : MonoBehaviour
     //현재 위치 아이디
     [SerializeField] string roomName;
 
+    [SerializeField] CharacterMove characterMove;
+
+
+    //이전에 뭐 진행했는지 판별
+    public void SetStart(string _prevRoom)
+    {
+        if (_prevRoom == "Morning")
+        {
+
+        }
+    }
     private void OnMouseEnter()
     {
         //콜라이더 내로 들어올 때 TRUE
@@ -20,11 +31,9 @@ public class SelectRoom : MonoBehaviour
         highlight.SetActive(false);
     }
 
-    //클릭했을 때 위치 보냄
     private void OnMouseDown()
     {
-        //String 매개변수로 쓰기
-        Debug.Log("클릭");
-        CharacterMove.SetMove(roomName);
+        //클릭했을 때 목적지 위치 보냄
+        characterMove?.SetDestination(roomName);
     }
 }
