@@ -15,10 +15,9 @@ public class CharacterMove : MonoBehaviour
 
     enum room
     {
-        HOUSE = 0, 
-        MORNING = 2, 
-        AFTERNOON = 6,
-        SHOP = 10
+        MORNING = 0, 
+        SHOP = 3, 
+        AFTERNOON = 6
     }
 
     enum prevWork
@@ -48,8 +47,8 @@ public class CharacterMove : MonoBehaviour
         SetStart();
 
         //목적지 설정
-        if (_destination == "House")
-            desIndex = (int)room.HOUSE;
+        if (_destination == "Shop")
+            desIndex = (int)room.SHOP;
         else if (_destination == "Morning")
             desIndex = (int)room.MORNING;
         else if (_destination == "Afternoon")
