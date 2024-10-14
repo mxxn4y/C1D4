@@ -52,12 +52,17 @@ public class WorkSceneManager : MonoBehaviour
     [SerializeField] private Image fileImage;
     [SerializeField] private Image[] indexButtons;
     [SerializeField] private Text[] gemTexts;
-    Color passionColor = new Color(255/255f, 136f / 255f, 252f / 255f);
-    Color calmColor = new Color(248f / 255f, 224f / 255f, 120f / 255f);
-    Color wisdomColor = new Color(139f / 255f, 215f / 255f, 253f / 255f); 
+    Color passionColor = new Color(153f /255f, 84f / 255f, 255f / 255f);
+    Color calmColor = new Color(31f / 255f, 185f / 255f, 248f / 255f);
+    Color wisdomColor = new Color(149f / 255f, 255f / 255f, 254f / 255f); 
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
 
-    //public List<Minion> minions { get; set; } = new List<Minion>();
+    public List<Minion> minions { get; set; } = new List<Minion>();
+    public bool isWorkStart { get; private set; }
+    private float workTime = 180; //제한시간 3분(180초)
+    private int workMin;
+    private int workSec;
+    [SerializeField] private Text timeText;
 
     #endregion
 
@@ -67,6 +72,25 @@ public class WorkSceneManager : MonoBehaviour
     {
         PlayerInfoManager.SortCards();
         LoadPassionCards();
+        isWorkStart = false;
+        CardPlaceManager.Instance.OnCardPlace += StartWork;
+    }
+    private void Update()
+    {
+        if (isWorkStart)
+        {
+            workTime -= Time.deltaTime;
+            if(workTime > 0)
+            {
+                workMin = (int)workTime / 60;
+                workSec = (int)workTime % 60;
+                timeText.text = "남은 시간: " + workMin + " 분 " + workSec + " 초";
+            }
+            else
+            {
+                timeText.text = "남은 시간: 0 분 0 초";
+            }
+        }
     }
 
     public void LoadPassionCards()
@@ -112,6 +136,11 @@ public class WorkSceneManager : MonoBehaviour
                 displayedCards.Add(newCard.gameObject);
             }
         }
+    }
+    public void StartWork()
+    {
+        isWorkStart = true;
+        CardPlaceManager.Instance.OnCardPlace -= StartWork;
     }
 
     private void SetFileUI(CARD_TYPE _type)

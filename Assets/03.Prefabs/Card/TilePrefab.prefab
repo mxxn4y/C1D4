@@ -103,7 +103,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0.5}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 0.6}
     newSize: {x: 1, y: 0.6}
     adaptiveTilingThreshold: 0.5
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 1298364263655985996}
   staminabarPrefab: {fileID: 119693514542574599, guid: ad79ab2b85673c0488710d6be25da6b8, type: 3}
+  eventButtonPrefab: {fileID: 1026114231634540823, guid: 328a50d803f4e764a8517c83c76c3cf9, type: 3}
 --- !u!212 &468379283184589002
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.8, y: 1.1}
+  m_Size: {x: 0.8, y: 1.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

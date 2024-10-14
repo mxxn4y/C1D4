@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
@@ -12,8 +14,11 @@ public class Minion : MonoBehaviour
     public CardData data { get; private set; }
     [SerializeField] private TileInfo tile;
     [SerializeField] private Image staminabarPrefab;
+    [SerializeField] private Button eventButtonPrefab;
     private Image staminabar;
+    private Button eventButton;
     private Vector3 staminabarPos = new Vector3(0.5f,0.6f,0);
+    private Vector3 eventButtonPos = new Vector3(0f,1.0f,0);
     private float currentStamina;
     private float CurrentStamina { 
         get { return currentStamina; } 
@@ -25,6 +30,7 @@ public class Minion : MonoBehaviour
     private bool isActive;
     private float defaultTime;
     private float specialTime;
+    private float eventTime; //상호작용 주기
 
     #endregion
 
@@ -75,13 +81,33 @@ public class Minion : MonoBehaviour
         if (placeManager.selectedTile == tile)
         {  
             data = placeManager.selectedCard.data;
-            staminabar = Instantiate(staminabarPrefab, transform.position + staminabarPos, Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
+            staminabar = Instantiate(staminabarPrefab, Camera.main.WorldToScreenPoint(transform.position + staminabarPos) , 
+                Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
             CurrentStamina = data.stamina;
             SetImage();
             isActive = true;
             defaultTime = 0.0f;
             specialTime = 0.0f;
-            //WorkSceneManager.Instance.minions.Add(this);
+            WorkSceneManager.Instance.minions.Add(this);
+            switch (WorkSceneManager.Instance.minions.Count)
+            {
+                case 1:
+                    eventTime = 2.0f;
+                    break;
+                case 2:
+                    eventTime = 3.0f;
+                    break;
+                case 3:
+                    eventTime = 5.0f;
+                    break;
+                case 4:
+                    eventTime = 7.0f;
+                    break;
+                default:
+                    eventTime = 10.0f;
+                    break;
+            }
+            StartCoroutine(MinionEvent(eventTime));
         }
     }
 
@@ -91,14 +117,14 @@ public class Minion : MonoBehaviour
         tile.UnSelectTile();
         GetComponent<SpriteRenderer>().sprite = null;
         Destroy(staminabar.gameObject);
+        StopAllCoroutines();
 
     }
 
     private bool CanProduceGem()
     {
-        float temp = Time.time * 100f;
-        Random.InitState((int)temp);
-        if(Random.Range(1,11) <= data.goodsProbability)
+        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
+        if (random.Next(1, 11) <= data.goodsProbability)
         {
             return true;
         }
@@ -136,5 +162,85 @@ public class Minion : MonoBehaviour
         return;
     }
 
+    // 랜덤으로 선택된 상호작용 버튼을 띄우고 버튼을 누르거나 1초가 지나면 사라지도록
+    // 지금은 버튼 누르면 로그 출력만. 기능은 이후 추가해야함
+    IEnumerator MinionEvent(float repeatTime)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(repeatTime);
+            //상호작용 표시
+            switch (selectRandomEvent())
+            {
+                case MINON_EVENT.EXTRA_GEM:
+                    eventButton = Instantiate(eventButtonPrefab, Camera.main.WorldToScreenPoint(transform.position + eventButtonPos),
+                                                Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
+                    eventButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "추가재화";
+                    eventButton.onClick.AddListener(() => {
+                        Debug.Log("extragem event");
+                        Destroy(eventButton.gameObject);
+                        });
+                    StartCoroutine(DestroyEventButton());
+                    break;
+                case MINON_EVENT.TRUST:
+                    eventButton = Instantiate(eventButtonPrefab, Camera.main.WorldToScreenPoint(transform.position + eventButtonPos),
+                                                Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
+                    eventButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "신뢰도";
+                    eventButton.onClick.AddListener(() => {
+                        Debug.Log("trust event");
+                        Destroy(eventButton.gameObject);
+                    });
+                    StartCoroutine(DestroyEventButton());
+                    break;
+                case MINON_EVENT.FEVER_TIME:
+                    eventButton = Instantiate(eventButtonPrefab, Camera.main.WorldToScreenPoint(transform.position + eventButtonPos),
+                                                Quaternion.identity, GameObject.FindGameObjectWithTag("StaminaCanvas").transform);
+                    eventButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "피버타임";
+                    eventButton.onClick.AddListener(() => {
+                        Debug.Log("fever event");
+                        Destroy(eventButton.gameObject);
+                    });
+                    StartCoroutine(DestroyEventButton());
+                    break;
+            }
+        }
+    }
+    IEnumerator DestroyEventButton()
+    {
+        yield return new WaitForSeconds(1.0f);
+        if (eventButton != null)
+        {
+            Destroy(eventButton.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 3개의 상호작용 중 하나를 랜덤으로 반환
+    /// </summary>
+    /// <returns></returns>
+    private MINON_EVENT selectRandomEvent()
+    {
+        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
+        var chance = random.Next(1, 31);
+        if (chance <= 10)
+        {
+            return MINON_EVENT.EXTRA_GEM;
+        }
+        else if (chance <= 20)
+        {
+            return MINON_EVENT.TRUST;
+        }
+        else
+        {
+            return MINON_EVENT.FEVER_TIME;
+        }
+    }
     #endregion
+}
+
+public enum MINON_EVENT
+{
+    EXTRA_GEM,
+    TRUST,
+    FEVER_TIME
 }
