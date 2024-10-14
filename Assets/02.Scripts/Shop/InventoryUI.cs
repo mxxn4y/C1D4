@@ -5,12 +5,26 @@ using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
+    public static InventoryUI Instance { get; private set; }
 
     public GameObject inventoryPanel;
     public GameObject inventoryItemPrefab;
+    private List<ShopItemSO> itemList = new List<ShopItemSO>();
 
-    // 아이템과 슬롯 매칭 딕셔너리
-    private Dictionary<ShopItemSO, GameObject> inventoryItems = new Dictionary<ShopItemSO, GameObject>();
+    private Dictionary<ShopItemSO, GameObject> inventoryItems = new Dictionary<ShopItemSO, GameObject>(); //UI프리팹과 매칭
+    private Dictionary<ShopItemSO, int> itemCounts = new Dictionary<ShopItemSO, int>();
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -22,16 +36,23 @@ public class InventoryUI : MonoBehaviour
         UpdateInventoryUI();
     }
 
+    public void AddItem(ShopItemSO _item) // 구매되면 우선 리스트에 삽입
+    {
+        itemList.Add(_item);
+        Debug.Log("인벤토리에 넣음");
+
+        Debug.Log(itemList.Count);
+    }
+
     public void UpdateInventoryUI()
     {
         //ClearInventoryUI();
-        var inventory = InventoryManager.Instance.GetInventory();
-        Dictionary<ShopItemSO, int> itemCounts = new Dictionary<ShopItemSO, int>();
 
-        // 아이템 개수 셈
-        foreach (var item in inventory)
+        itemCounts.Clear();
+
+        // 리스트에 있는 각각의 아이템의 개수 셈
+        foreach (var item in itemList)
         {
-
             if (itemCounts.ContainsKey(item))
             { itemCounts[item]++; }
             else
@@ -54,10 +75,14 @@ public class InventoryUI : MonoBehaviour
                 itemGO = inventoryItems[item.Key];
             }
 
-            var itemUI = itemGO.GetComponent<InventoryTemplate>();
+            var itemUI = itemGO.GetComponent<PurchasedCardUI>();
             itemUI.SetItem(item.Key, item.Value);
         }
+}
 
+    public Dictionary<ShopItemSO, int> GetInventoryDic()
+    {
+        return new Dictionary<ShopItemSO, int>(itemCounts);
     }
 
     private void ClearInventoryUI()

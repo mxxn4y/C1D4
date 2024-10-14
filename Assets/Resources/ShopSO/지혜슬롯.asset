@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a7f3eb14bd4f424fb42fefcdffdaa9e, type: 3}
-  m_Name: clock
+  m_Name: "\uC9C0\uD61C\uC2AC\uB86F"
   m_EditorClassIdentifier: 
-  itemName: clock
-  price: 25
-  itemType: 0
+  itemName: "\uC9C0\uD61C\uC2AC\uB86F"
+  price: 10
+  itemType: 4
   gemType: 0
   itemImg: {fileID: 0}
   maxDailyPurchase: 0
-  maxTotalPurchase: 0
-  isUnlimited: 1
+  maxTotalPurchase: 6
+  isUnlimited: 0

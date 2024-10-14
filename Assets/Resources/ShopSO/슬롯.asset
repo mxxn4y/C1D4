@@ -18,5 +18,5 @@ MonoBehaviour:
   gemType: 0
   itemImg: {fileID: 0}
   maxDailyPurchase: 0
-  maxTotalPurchase: 0
-  isUnlimited: 1
+  maxTotalPurchase: 6
+  isUnlimited: 0
