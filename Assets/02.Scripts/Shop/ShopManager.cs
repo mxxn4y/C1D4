@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class ShopManager : MonoBehaviour
 {
 
     public static ShopManager Instance { get; private set; }
 
-    private int gem;
+    public int gem;
     public int specialGem;
     public TMP_Text gemUI;
     public TMP_Text specialGemUI;
@@ -20,8 +19,8 @@ public class ShopManager : MonoBehaviour
     //public Button[] purchaseBtns; /// 수정중
     public int itemCount=0;
 
-    private Dictionary<ShopItemSO, int> dailyPurchaseCount = new Dictionary<ShopItemSO, int>();
-    private Dictionary<ShopItemSO, int> totalPurchaseCount = new Dictionary<ShopItemSO, int>();
+    public Dictionary<ShopItemData, int> dailyPurchaseCount = new Dictionary<ShopItemData, int>();
+    public Dictionary<ShopItemData, int> totalPurchaseCount = new Dictionary<ShopItemData, int>();
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,6 +35,7 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        /*
         for (int i = 0; i < shopItemSO.Length; i++)
         {
             dailyPurchaseCount[shopItemSO[i]] = 0;
@@ -45,7 +45,12 @@ public class ShopManager : MonoBehaviour
         gemUI.text = gem.ToString();
         specialGemUI.text = specialGem.ToString();
         LoadPanel();
+        */
+
         //UpdatePurchaseButtons();
+
+        gemUI.text = gem.ToString();
+        specialGemUI.text = specialGem.ToString();
     }
 
     /* 필요 없을 듯
@@ -81,6 +86,7 @@ public class ShopManager : MonoBehaviour
     }
     */
 
+    /*
     public bool CanPurchaseItem(ShopItemSO _item)
     {
         if (_item.isUnlimited)
@@ -99,6 +105,7 @@ public class ShopManager : MonoBehaviour
                    (specialGem >= _item.price && _item.gemType == ShopItemSO.GemType.SPECIAL));
         }
     }
+
 
     public void PurchaseItem(int _btnNum)
     {
@@ -142,6 +149,56 @@ public class ShopManager : MonoBehaviour
             //UpdatePurchaseButtons();
         }
     }
+    */
+
+    public bool CanPurchaseItem(ShopItemData item)
+    {
+        if (item.isUnlimited)
+        {
+            return ((gem >= item.price && item.gemType == GemType.NORMAL) ||
+                    (specialGem >= item.price && item.gemType == GemType.SPECIAL));
+        }
+        else
+        {
+            // Maximum purchase limit check
+            bool canBuyDaily = item.maxDailyPurchase == 0 || dailyPurchaseCount[item] < item.maxDailyPurchase;
+            bool canBuyTotal = item.maxTotalPurchase == 0 || totalPurchaseCount[item] < item.maxTotalPurchase;
+            return (canBuyDaily && canBuyTotal) &&
+                   ((gem >= item.price && item.gemType == GemType.NORMAL) ||
+                   (specialGem >= item.price && item.gemType == GemType.SPECIAL));
+        }
+    }
+
+    public void OnPurchase(List<ShopItemData> items)
+    {
+        foreach (var item in items)
+        {
+            if (item.gemType == GemType.NORMAL && gem >= item.price)
+            {
+                gem -= item.price;
+                gemUI.text = "일반 재화: " + gem.ToString();
+            }
+            else if (item.gemType == GemType.SPECIAL && specialGem >= item.price)
+            {
+                specialGem -= item.price;
+                specialGemUI.text = "특수 재화: " + specialGem.ToString();
+            }
+        }
+
+    }
+
+    public void UpdateNormalGem(int _amount)
+    {
+        gem -= _amount;
+        gemUI.text = gem.ToString();
+        Debug.Log("일반재화 계산");
+    }
+
+    public void UpdateSpecialGem(int _amount)
+    {
+        specialGem -= _amount;
+        specialGemUI.text = specialGem.ToString();
+    }
 
     //임시 gem얻기
     public void AddCoins()
@@ -159,6 +216,7 @@ public class ShopManager : MonoBehaviour
     }
     //
 
+    /*
     public void LoadPanel()
     {
         for(int i = 0; i < shopItemSO.Length; i++)
@@ -180,5 +238,6 @@ public class ShopManager : MonoBehaviour
             
         }
     }
+    */
 
 }

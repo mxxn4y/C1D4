@@ -14,7 +14,7 @@ public class SellingCardUI : MonoBehaviour/*, IPointerClickHandler*/
     //public TMP_Text gemTxt;
     public Image tempImg;
     //public Image gemType;
-    //Spublic ShopItemSO itemData;
+    //public ShopItemSO itemData;
 
     //private void Awake()
     //{
@@ -36,6 +36,7 @@ public class SellingCardUI : MonoBehaviour/*, IPointerClickHandler*/
         tempImg.sprite = _item.itemImg;
         */
         SetCardText(_data);
+        //SetCardImage(_data);
     }
 
     public void SetCardText(ShopItemData _data)
@@ -48,8 +49,4 @@ public class SellingCardUI : MonoBehaviour/*, IPointerClickHandler*/
     {
 
     }
-    //public void OnPointerClick(PointerEventData _eventData)
-    //{
-    //    ShopEvent.Instance.OnItemClick(itemData);
-    //}
 }
