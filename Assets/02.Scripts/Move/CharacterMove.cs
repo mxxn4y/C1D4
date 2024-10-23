@@ -9,7 +9,7 @@ public class CharacterMove : MonoBehaviour
     private int desIndex;
     private int startIndex;
     int cur = 0;
-    private bool isMove = false;
+    private static bool isMove = true;
 
     [SerializeField] private float speed = 0.1f;
 
@@ -27,7 +27,7 @@ public class CharacterMove : MonoBehaviour
         AFTERNOON
     }
 
-    //Ãâ¹ßÁö ¼³Á¤
+    //ì¶œë°œì§€ ì„¤ì •
     public void SetStart()
     {
         for (int i = 0; i < waypoints.Length; i++) 
@@ -40,13 +40,13 @@ public class CharacterMove : MonoBehaviour
         }
     }
 
-    //¸ñÀûÁö ¼³Á¤
+    //ëª©ì ì§€ ì„¤ì •
     public void SetDestination(string _destination)
     {
-        //Ãâ¹ßÁö ¼³Á¤
+        //ì¶œë°œì§€ ì„¤ì •
         SetStart();
 
-        //¸ñÀûÁö ¼³Á¤
+        //ëª©ì ì§€ ì„¤ì •
         if (_destination == "Shop")
             desIndex = (int)room.SHOP;
         else if (_destination == "Morning")
@@ -54,19 +54,25 @@ public class CharacterMove : MonoBehaviour
         else if (_destination == "Afternoon")
             desIndex = (int)room.AFTERNOON;
 
-        //¿òÁ÷ÀÓ »óÅÂ·Î ¼³Á¤
+        //ì›€ì§ì„ ìƒíƒœë¡œ ì„¤ì •
         isMove = true;
+        if (des == "House")
+            _destination = waypoints[(int)room.House];
+        else if (des == "Morning")
+            _destination = waypoints[(int)room.Morning];
+        else if (des == "Afternoon")
+            _destination = waypoints[(int)room.Afternoon];
+
     }
 
     public void Move()
     {
-
         if (transform.position != waypoints[cur].position)
         {
             Vector2 p = Vector2.MoveTowards(transform.position, waypoints[cur].position, speed);
             GetComponent<Rigidbody2D>().MovePosition(p);
         }
-        //¸ñÀûÁö¿Í ÇöÀç À§Ä¡°¡ °°À¸¸é ÀÌµ¿ ¸ØÃã
+        //ëª©ì ì§€ì™€ í˜„ì¬ ìœ„ì¹˜ê°€ ê°™ìœ¼ë©´ ì´ë™ ë©ˆì¶¤
         else if (transform.position == waypoints[desIndex].position)
         {
             isMove = false;

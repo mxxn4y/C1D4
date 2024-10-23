@@ -11,7 +11,7 @@ public class ShopList : ScriptableObject
         itemList.Add(_shopitem);
     }
 
-    public void RemoveitemList(ShopItemSO _shopitem)
+    public void RemoveItemList(ShopItemSO _shopitem)
     {
         if (itemList.Contains(_shopitem))
         {

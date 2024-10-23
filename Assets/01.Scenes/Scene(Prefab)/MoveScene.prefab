@@ -179,7 +179,7 @@ MonoBehaviour:
   roomName: Afternoon
   characterMove: {fileID: 1177904275939489282}
 --- !u!1 &1177904275194383098
-GameObject:
+ameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
