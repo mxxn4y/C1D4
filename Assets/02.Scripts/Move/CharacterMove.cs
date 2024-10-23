@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SerializeField] private static Transform[] waypoints;
-    private static Transform _destination;
+    [SerializeField] private Transform[] waypoints;
+    private int desIndex;
+    private int startIndex;
     int cur = 0;
     private static bool isMove = true;
 
@@ -13,18 +15,46 @@ public class CharacterMove : MonoBehaviour
 
     enum room
     {
-        House = 0, 
-        Morning= 5, 
-        Afternoon  = 10
-    }
-    void Update()
-    {
-        if(isMove)
-            Move();
+        MORNING = 0, 
+        SHOP = 3, 
+        AFTERNOON = 6
     }
 
-    public static void SetMove(string des)
+    enum prevWork
     {
+        HOUSE,
+        MORNING,
+        AFTERNOON
+    }
+
+    //출발지 설정
+    public void SetStart()
+    {
+        for (int i = 0; i < waypoints.Length; i++) 
+        {
+            if (transform.position == waypoints[i].position)
+            {
+                startIndex = i;
+                break;
+            }
+        }
+    }
+
+    //목적지 설정
+    public void SetDestination(string _destination)
+    {
+        //출발지 설정
+        SetStart();
+
+        //목적지 설정
+        if (_destination == "Shop")
+            desIndex = (int)room.SHOP;
+        else if (_destination == "Morning")
+            desIndex = (int)room.MORNING;
+        else if (_destination == "Afternoon")
+            desIndex = (int)room.AFTERNOON;
+
+        //움직임 상태로 설정
         isMove = true;
         if (des == "House")
             _destination = waypoints[(int)room.House];
@@ -37,19 +67,28 @@ public class CharacterMove : MonoBehaviour
 
     public void Move()
     {
-        if (transform.position != waypoints[cur+1].position)
+        if (transform.position != waypoints[cur].position)
         {
             Vector2 p = Vector2.MoveTowards(transform.position, waypoints[cur].position, speed);
             GetComponent<Rigidbody2D>().MovePosition(p);
         }
-        else if (cur<waypoints.Length-1)
-        {
-            cur++;
-        }
-
-        if(transform.position == waypoints[waypoints.Length-1].position)
+        //목적지와 현재 위치가 같으면 이동 멈춤
+        else if (transform.position == waypoints[desIndex].position)
         {
             isMove = false;
         }
+        else
+        {
+            if (desIndex > startIndex)
+                cur++;
+            else
+                cur--;
+        }
+    }
+
+    void Update()
+    {
+        if (isMove)
+            Move();
     }
 }

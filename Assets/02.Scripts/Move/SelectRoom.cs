@@ -4,27 +4,36 @@ using UnityEngine;
 
 public class SelectRoom : MonoBehaviour
 {
-    //ÇÏÀÌ¶óÀÌÆ® ¿ÀºêÁ§Æ®(ÀÚ½Ä ¿ÀºêÁ§Æ®¿¡ µÒ)
+    //í•˜ì´ë¼ì´íŠ¸ ì˜¤ë¸Œì íŠ¸(ìì‹ ì˜¤ë¸Œì íŠ¸ì— ë‘ )
     [SerializeField] GameObject highlight;
-    //ÇöÀç À§Ä¡ ¾ÆÀÌµğ
+    //í˜„ì¬ ìœ„ì¹˜ ì•„ì´ë””
     [SerializeField] string roomName;
 
+    [SerializeField] CharacterMove characterMove;
+
+
+    //ì´ì „ì— ë­ ì§„í–‰í–ˆëŠ”ì§€ íŒë³„
+    public void SetStart(string _prevRoom)
+    {
+        if (_prevRoom == "Morning")
+        {
+
+        }
+    }
     private void OnMouseEnter()
     {
-        //Äİ¶óÀÌ´õ ³»·Î µé¾î¿Ã ¶§ TRUE
+        //ì½œë¼ì´ë” ë‚´ë¡œ ë“¤ì–´ì˜¬ ë•Œ TRUE
         highlight.SetActive(true);
     }
     private void OnMouseExit()
     {
-        //Äİ¶óÀÌ´õ ¹ÛÀ¸·Î ³ª°¥ ¶§ FALSE
+        //ì½œë¼ì´ë” ë°–ìœ¼ë¡œ ë‚˜ê°ˆ ë•Œ FALSE
         highlight.SetActive(false);
     }
 
-    //Å¬¸¯ÇßÀ» ¶§ À§Ä¡ º¸³¿
     private void OnMouseDown()
     {
-        //String ¸Å°³º¯¼ö·Î ¾²±â
-        Debug.Log("Å¬¸¯");
-        CharacterMove.SetMove(roomName);
+        //í´ë¦­í–ˆì„ ë•Œ ëª©ì ì§€ ìœ„ì¹˜ ë³´ëƒ„
+        characterMove?.SetDestination(roomName);
     }
 }
