@@ -1,0 +1,15 @@
+itemName,price,itemType,gemType,maxDailyPurchase,maxTotalPurchase,isUnlimited
+포스터,10,WALL,일반,0,0,TRUE
+액자,15,WALL,일반,0,0,TRUE
+시계,25,WALL,일반,0,0,TRUE
+쓰레기통,10,FLOOR,일반,0,1,FALSE
+화분,5,FLOOR,일반,0,0,TRUE
+책장,30,WALLFLOOR,일반,0,0,TRUE
+조명,25,CEILING,일반,0,0,TRUE
+가위,35,NONE,특수,3,0,FALSE
+다이어리,30,NONE,특수,0,1,FALSE
+일일신문,15,NONE,특수,1,0,FALSE
+열정슬롯,10,SLOT,일반,0,6,FALSE
+냉철슬롯,10,SLOT,일반,0,6,FALSE
+지혜슬롯,10,SLOT,일반,0,6,FALSE
+감시카메라,10,NONE,일반,0,14,FALSE
