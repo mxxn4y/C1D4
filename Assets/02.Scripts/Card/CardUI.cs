@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditorInternal.ReorderableList;
 
 /// <summary>
 /// 보여지는 카드 UI 제어
@@ -13,29 +12,29 @@ public class CardUI : MonoBehaviour
     #region Fields and Properties
 
     [Header("Prefab Elements")] // 카드 프리팹 object들의 참조
-    [SerializeField] private Image _cardImage;
-    [SerializeField] private Image _characterImage;
-    [SerializeField] private GameObject _stackImage;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private Image characterImage;
+    [SerializeField] private GameObject stackImage;
 
-    [SerializeField] private TextMeshProUGUI _IDText;
-    [SerializeField] private TextMeshProUGUI _nameText;
-    [SerializeField] private TextMeshProUGUI _staminaText;
-    [SerializeField] private TextMeshProUGUI _attackText;
-    [SerializeField] private TextMeshProUGUI _defenceText;
-    [SerializeField] private TextMeshProUGUI _speedText;
-    [SerializeField] private TextMeshProUGUI _amountText;
-    [SerializeField] private TextMeshProUGUI _probabilityText;
-    [SerializeField] private TextMeshProUGUI _stackNum;
+    [SerializeField] private TextMeshProUGUI IDText;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI staminaText;
+    [SerializeField] private TextMeshProUGUI attackText;
+    [SerializeField] private TextMeshProUGUI defenceText;
+    [SerializeField] private TextMeshProUGUI speedText;
+    [SerializeField] private TextMeshProUGUI amountText;
+    [SerializeField] private TextMeshProUGUI probabilityText;
+    [SerializeField] private TextMeshProUGUI stackNum;
 
-    [SerializeField] private RectTransform _rectTransform;
-    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Sprite Assets")] //속성별 카드 이미지
-    [SerializeField] private Sprite _passion;
-    [SerializeField] private Sprite _calm;
-    [SerializeField] private Sprite _wisdom;
+    [SerializeField] private Sprite passion;
+    [SerializeField] private Sprite calm;
+    [SerializeField] private Sprite wisdom;
    
-    private Vector3 _hoverScale = new Vector3(1.1f, 1.1f, 1);
+    private Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1);
     
 
     #endregion
@@ -45,55 +44,66 @@ public class CardUI : MonoBehaviour
     /// <summary>
     /// 매개변수로 받은 state에 따라 카드 크기 및 알파값 조절
     /// </summary>
-    /// <param name="state"></param>
-    public void SetUIState(CARD_STATE state)
+    /// <param name="_state"></param>
+    public void SetUIState(CARD_STATE _state)
     {
-        switch (state)
+        switch (_state)
         {
             case CARD_STATE.DEFAULT:
-                _rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                _canvasGroup.alpha = 1.0f;
+                rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                canvasGroup.alpha = 1.0f;
                 return;
             case CARD_STATE.MOUSE_HOVER:
-                _rectTransform.localScale = _hoverScale;
+                rectTransform.localScale = hoverScale;
                 return;
             case CARD_STATE.HIDE:
-                _canvasGroup.alpha = 0f;
+                canvasGroup.alpha = 0f;
                 return;
         }
     }
-
-    public void UpdateUIStacking(int num)
+    /// <summary>
+    /// 카드 수량이 1 이하이면 스택킹 표시를 끄고 
+    /// 2 이상이면 스택킹 이미지를 숫자와 함께 표시
+    /// </summary>
+    /// <param name="_num"></param>
+    public void UpdateUIStacking(int _num)
     {
-        if(num <= 1)
+        if(_num <= 1)
         {
-            _stackImage.SetActive(false);
+            stackImage.SetActive(false);
         }
         else
         {
-            _stackImage.SetActive(true);
-            _stackNum.text = num.ToString();
+            stackImage.SetActive(true);
+            stackNum.text = _num.ToString();
         }
     }
-    public void SetUIData(CardData data)
+    /// <summary>
+    /// UI의 텍스트, 캐릭터 이미지, 타입별 배경 이미지를 입력받은 카드 정보에 맞게 설정
+    /// </summary>
+    /// <param name="_data"></param>
+    public void SetUIData(CardData _data)
     {
-        SetCardText(data);
-        SetCardImage(data);
+        SetCardText(_data);
+        SetCharacterImage(_data);
+        SetTypeImage(_data);
     }
-    private void SetCardText(CardData data)
+
+
+    private void SetCardText(CardData _data)
     {
-        _IDText.text = data._cid;
-        _nameText.text = data._name;
-        _staminaText.text = data._stamina.ToString();
-        _attackText.text = data._attack.ToString();
-        _defenceText.text = data._defence.ToString();
-        _speedText.text = data._productSpeed.ToString();
-        _amountText.text = data._productYield.ToString();
-        _probabilityText.text = data._goodsProbability.ToString();
+        IDText.text = _data.cid;
+        nameText.text = _data.name;
+        staminaText.text = _data.stamina.ToString();
+        attackText.text = _data.attack.ToString();
+        defenceText.text = _data.defence.ToString();
+        speedText.text = _data.produceSpeed.ToString();
+        amountText.text = _data.productYield.ToString();
+        probabilityText.text = _data.goodsProbability.ToString();
 
     }
 
-    private void SetCardImage(CardData data)
+    private void SetCharacterImage(CardData _data)
     {
         Sprite[] characterImages = Resources.LoadAll<Sprite>("Character/CharacterImage");
         if (0 == characterImages.Length)
@@ -104,15 +114,30 @@ public class CardUI : MonoBehaviour
 
         foreach (var image in characterImages)
         {
-            if (image.name == data._cid)
+            if (image.name == _data.cid)
             {
-                _characterImage.sprite = image;
+                characterImage.sprite = image;
                 return;
             }
         }
 
-        Debug.LogError($"스프라이트가 없음. imageName : {data._cid}");
+        Debug.LogError($"스프라이트가 없음. imageName : {_data.cid}");
         return;
+    }
+    private void SetTypeImage(CardData _data)
+    {
+        switch (_data.type)
+        {
+            case CARD_TYPE.PASSION:
+                cardImage.sprite = passion;
+                break;
+            case CARD_TYPE.CALM:
+                cardImage.sprite = calm;
+                break;
+            case CARD_TYPE.WISDOM:
+                cardImage.sprite = wisdom;
+                break;
+        }
     }
 
     #endregion

@@ -24,10 +24,10 @@ public class CardPlaceManager : MonoBehaviour
 
     #region Fields and Properties
 
-    [SerializeField] private Card _movingCard;
-    public Card _selectedCard { get; private set; }
-    public bool _isCardMoving { get; private set; }
-    public TileInfo _selectedTile { get; private set; }
+    [SerializeField] private Card movingCard;
+    public Card selectedCard { get; private set; }
+    public bool isCardMoving { get; private set; }
+    public TileInfo selectedTile { get; private set; }
 
     public Action<Card> OnCardSelect {  get; set; }
     public Action OnCardMove { get; set; }
@@ -51,23 +51,25 @@ public class CardPlaceManager : MonoBehaviour
         OnCardSelect += ActivateMovingCard;
         OnCardMove += DragMovingCard;
         OnCardPlace += DeactivateMovingCard;
-        OnCardPlace += UpdateSelectedCard;
+        OnCardPlace += RemoveUsedCard;
         OnCardMoveCancel += DeactivateMovingCard;
 
     }
     private void Update()
     {
-        if (_isCardMoving)
+        if (isCardMoving)
         {
+            //Tile Layer에 raycast 사용해서 마우스 위치의 타일 _selectedTile에 저장
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Tile"));
-            _selectedTile = hit.collider?.gameObject.GetComponent<TileInfo>();
+            selectedTile = hit.collider?.gameObject.GetComponent<TileInfo>();
+
             OnCardMove?.Invoke();
 
             if (Input.GetMouseButtonUp(0))
             {
-                _isCardMoving = false;
-                if (_selectedTile?._tileState == TILE_STATE.SELECTED)
+                isCardMoving = false;
+                if (selectedTile?.TileState == TILE_STATE.SELECTED)
                 {
                     OnCardPlace?.Invoke();
                 }
@@ -81,29 +83,52 @@ public class CardPlaceManager : MonoBehaviour
 
     }
 
-    private void ActivateMovingCard(Card selectedCard)
+    /// <summary>
+    /// 선택한 카드와 동일한 움직임 전용 카드 활성화(위치, UI 일치)
+    /// </summary>
+    /// <param name="_selectedCard"></param>
+    private void ActivateMovingCard(Card _selectedCard)
     {
-        _selectedCard = selectedCard;
-        _movingCard.gameObject.SetActive(true);
-        _movingCard.SetCard(_selectedCard._data);
-        _movingCard.GetComponent<RectTransform>().position = _selectedCard.GetComponent<RectTransform>().position;
-        _isCardMoving = true;
+        this.selectedCard = _selectedCard;
+        movingCard.gameObject.SetActive(true);
+        movingCard.SetCard(this.selectedCard.data);
+        movingCard.GetComponent<RectTransform>().position = this.selectedCard.GetComponent<RectTransform>().position;
+        isCardMoving = true;
     }
 
     private void DragMovingCard()
     {
-        _movingCard.GetComponent<RectTransform>().position = Input.mousePosition;
+        movingCard.GetComponent<RectTransform>().position = Input.mousePosition;
     }
-
+    /// <summary>
+    /// 움직임 전용 카드 비활성화, 원본 카드 상태 디폴트로 복구
+    /// </summary>
     private void DeactivateMovingCard()
     {
-        _movingCard.gameObject.SetActive(false);
-        _selectedCard._state = CARD_STATE.DEFAULT;
+        movingCard.gameObject.SetActive(false);
+        selectedCard.State = CARD_STATE.DEFAULT;
     }
-
-    private void UpdateSelectedCard()
+    /// <summary>
+    /// 배치하여 소모한 카드 플레이어 덱에서 제거, 원본카드 갱신된 정보 반영하여 활성화
+    /// </summary>
+    private void RemoveUsedCard()
     {
-        DeckManager.Instance.UpdatePlayerDeck(_selectedCard);
+        var playerDeck = PlayerInfoManager.playerCards;
+        if (playerDeck.ContainsKey(selectedCard.data.cid))
+        {
+
+            if (playerDeck[selectedCard.data.cid] <= 1)
+            {
+                PlayerInfoManager.playerCards.Remove(selectedCard.data.cid);
+                Destroy(selectedCard.gameObject);
+            }
+            else
+            {
+                PlayerInfoManager.playerCards[selectedCard.data.cid] -= 1;
+                selectedCard.UpdateCard(playerDeck[selectedCard.data.cid]);
+            }
+
+        }
     }
     #endregion
 }

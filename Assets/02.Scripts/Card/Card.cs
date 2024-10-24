@@ -1,52 +1,59 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 /// <summary>
-/// 실제 카드 객체 생성용 클래스
+/// 카드 프리팹이 가지고 있고 카드 정보와 상태 저장
+/// 실제 카드 객체(gameObject) 생성할 때 사용
 /// </summary>
 [RequireComponent(typeof(CardUI))]
 public class Card : MonoBehaviour
 {
-    [SerializeField] CardUI _cardUI;
-    public CardData _data { get; private set; }
+    #region Fields and Properties
+    [SerializeField] CardUI cardUI;
+    public CardData data { get; private set; }
     private CARD_STATE state;
-    public CARD_STATE _state{
+    public CARD_STATE State{
         get { return state;}
         set {
             state = value;
-            _cardUI.SetUIState(state);
+            cardUI.SetUIState(state);
         }
     }
+    #endregion
+
+    #region Methods
     /// <summary>
-    /// 카드 데이터 삽입
+    /// 카드 데이터 삽입, UI 갱신
     /// </summary>
-    /// <param name="data"></param>
-    public void SetCard(CardData data)
+    /// <param name="_data"></param>
+    public void SetCard(CardData _data)
     {
-        _data = data;
-        _cardUI.SetUIData(data);
+        this.data = _data;
+        cardUI.SetUIData(this.data);
     }
-    public void SetCard(CardData data, int num)
+    /// <summary>
+    /// 카드 데이터 삽입, UI 갱신
+    /// </summary>
+    /// <param name="_data"></param>
+    /// <param name="_num"></param>
+    public void SetCard(CardData _data, int _num)
     {
-        _data = data;
-        _cardUI.SetUIData(data);
-        _cardUI.UpdateUIStacking(num);
+        this.data = _data;
+        cardUI.SetUIData(this.data);
+        cardUI.UpdateUIStacking(_num);
 
     }
 
     /// <summary>
     /// 스택킹 표시 갱신
     /// </summary>
-    /// <param name="num"></param>
-    public void UpdateCard(int num)
+    /// <param name="_num"></param>
+    public void UpdateCard(int _num)
     {
-        _cardUI.UpdateUIStacking(num);
-    }   
-
+        cardUI.UpdateUIStacking(_num);
+    }
+    #endregion
 }
 
 
