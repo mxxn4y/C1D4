@@ -56,12 +56,12 @@ public class CharacterMove : MonoBehaviour
 
         //움직임 상태로 설정
         isMove = true;
-        if (des == "House")
-            _destination = waypoints[(int)room.House];
-        else if (des == "Morning")
-            _destination = waypoints[(int)room.Morning];
-        else if (des == "Afternoon")
-            _destination = waypoints[(int)room.Afternoon];
+        //if (des == "House")
+        //    _destination = waypoints[(int)room.House];
+        //else if (des == "Morning")
+        //    _destination = waypoints[(int)room.Morning];
+        //else if (des == "Afternoon")
+        //    _destination = waypoints[(int)room.Afternoon];
 
     }
 
