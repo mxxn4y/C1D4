@@ -76,7 +76,7 @@ public class InventoryUI : MonoBehaviour
             }
 
             var itemUI = itemGO.GetComponent<PurchasedCardUI>();
-            itemUI.SetItem(item.Key, item.Value);
+            //itemUI.SetItem(item.Key, item.Value);
         }
 }
 

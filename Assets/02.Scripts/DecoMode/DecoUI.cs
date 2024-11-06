@@ -64,7 +64,7 @@ public class DecoUI : MonoBehaviour
 
             // 아이템 정보를 UI에 설정
             var decoItemUI = decoItemGO.GetComponent<PurchasedCardUI>();
-            decoItemUI.SetItem(decoItem.Key, decoItem.Value); // 개수와 함께 아이템 정보 설정
+            //decoItemUI.SetItem(decoItem.Key, decoItem.Value); // 개수와 함께 아이템 정보 설정
         }
     }
 }

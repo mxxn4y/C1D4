@@ -485,8 +485,7 @@ MonoBehaviour:
   itemNameText: {fileID: 5720133636839616103}
   itemQuantityText: {fileID: 5335611227689676971}
   itemGemTypeText: {fileID: 2915621597844434598}
-  GemType: {fileID: 8123975702437151588}
-  itemImage: {fileID: 2081852532156418276}
+  itemImg: {fileID: 2081852532156418276}
 --- !u!1 &5335611227689676965
 GameObject:
   m_ObjectHideFlags: 0
