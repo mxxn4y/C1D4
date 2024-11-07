@@ -11,7 +11,8 @@ public class SelectedItemsUI : MonoBehaviour
     public GameObject InventoryPanel;
     public GameObject purchasedCard;
     public Dictionary<ShopItemData, int> selectedItems = new Dictionary<ShopItemData, int>();
-    
+    private Dictionary<GameObject, int> selectedItemsPrefab = new Dictionary<GameObject, int>();
+
 
     private void Awake()
     {
@@ -37,61 +38,41 @@ public class SelectedItemsUI : MonoBehaviour
         else
         {
             // 새로운 아이템이면 딕셔너리에 추가
-            selectedItems.Add(item,1);
+            selectedItems.Add(item, 1);
         }
-
-        // InventoryPanel을 업데이트
-        /*
-        GameObject cardUI = Instantiate(purchasedCard, verticalLayout);
-        PurchasedCardUI cardUIComponent = cardUI.GetComponent<PurchasedCardUI>(); 
-        cardUIComponent.SetItem(item, _selectedItems[item]);
-        */
 
         UpdateInventoryPanel();
     }
 
-
-    //    public void UpdateInventoryPanel(ShopItemData item)
-    //    {
-    //        foreach (Transform items in verticalLayout)
-    //        {
-    //            Destroy(items.gameObject);  // 기존 아이템 삭제
-    //        }
-    ///*
-    //        foreach (Transform child in InventoryPanel.transform)
-    //        {
-    //            PurchasedCardUI cardUIComponent = child.GetComponent<PurchasedCardUI>();
-    //            if (cardUIComponent != null && cardUIComponent.GetItem().ID == item.ID)
-    //            { cardUIComponent.SetItem(item, _selectedItems[item]); }
-    //        }
-    //*/
-
-    //        foreach (var itemData in item)
-    //        {
-    //            GameObject cardUI = Instantiate(purchasedCard, verticalLayout);
-    //            PurchasedCardUI cardUIComponent = cardUI.GetComponent<PurchasedCardUI>();
-    //            cardUIComponent.SetItem(itemData, _selectedItems[itemData]);
-    //        }
-    //    }
-
-
     public void UpdateInventoryPanel()
     {
 
-        //foreach (Transform item in verticalLayout)
-        //{
-        //    Destroy(item.gameObject);  // 기존 아이템 삭제
-        //}
-
-        //List<KeyValuePair<ShopItemData, int>> itemList = new List<KeyValuePair<ShopItemData, int>>(selectedItems);
+        foreach (Transform item in verticalLayout)
+        {
+            Destroy(item.gameObject);  // 기존 아이템 삭제
+        }
 
         foreach (var item in selectedItems)
         {
-            Debug.Log("SelectedUI"+item.Key.itemName);
+
+            Debug.Log("SelectedUI" + item.Key.itemName + " 수량: " + item.Value);
+
             GameObject cardUI = Instantiate(purchasedCard, verticalLayout);
-            //PurchasedCardUI cardUIComponent = cardUI.GetComponent<PurchasedCardUI>();
-            //cardUIComponent.SetItem(item.Key, item.Value);
-            PurchasedCardUI.Instance.SetItem(item.Key, item.Value);
+            cardUI.name = item.Key.itemName;
+            PurchasedCardUI cardUIComponent = cardUI.GetComponent<PurchasedCardUI>();
+            cardUIComponent.SetItem(item.Key, item.Value);
+            Debug.Log("Instantiated cardUI with item: " + item.Key.itemName + " 수량: " + item.Value);
+
+        }
+
+    }
+
+    public void ClearInventoryPanel()
+    {
+
+        foreach (Transform item in verticalLayout)
+        {
+            Destroy(item.gameObject);  // 기존 아이템 삭제
         }
     }
 

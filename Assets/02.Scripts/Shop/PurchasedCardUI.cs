@@ -7,19 +7,6 @@ using System.Reflection;
 
 public class PurchasedCardUI : MonoBehaviour // PurchasedCardUI
 {
-    public static PurchasedCardUI Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public TMP_Text itemNameText;
     public TMP_Text itemQuantityText;
@@ -33,7 +20,7 @@ public class PurchasedCardUI : MonoBehaviour // PurchasedCardUI
         itemNameText.text = _item.itemName;
         itemQuantityText.text = _quantity.ToString() + " 개";
         //itemImg.sprite = _item.itemImg;
-
+        Debug.Log("setItem함수 ");
         if (_item.gemType == GemType.NORMAL)
         {
             itemGemTypeText.text = "일반";

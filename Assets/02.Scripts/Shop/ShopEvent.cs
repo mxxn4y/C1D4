@@ -10,13 +10,12 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
 {
     public static ShopEvent Instance { get; private set; }
 
-    public List<ShopItemData> normalItem=new List<ShopItemData>(); 
-    public List<ShopItemData> specialItem=new List<ShopItemData>();
-    public List<ShopItemData> slotItem=new List<ShopItemData>();
+    public List<ShopItemData> normalItem = new List<ShopItemData>();
+    public List<ShopItemData> specialItem = new List<ShopItemData>();
+    public List<ShopItemData> slotItem = new List<ShopItemData>();
 
     public int totalPrice = 0;
-    private Dictionary<ShopItemData,int> selectedItems = new Dictionary<ShopItemData,int>();
- 
+
     private void Awake()
     {
         if (Instance == null)
@@ -106,9 +105,9 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 Debug.Log("인덱스3");
                 break;
         }
-        selectedItems.Clear();
+        SelectedItemsUI.Instance.selectedItems.Clear();
     }
- 
+
     /*
     // 아이템 클릭 시 총액 계산
     public void OnItemClick(ShopItemData _itemData)
@@ -134,17 +133,10 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
 
     public void OnItemClick(ShopItemData _itemData)
     {
- 
+
         totalPrice += _itemData.price;
-        //selectedItems[_itemData] = selectedItems.ContainsKey(_itemData) ? selectedItems[_itemData] + 1 : 1;
 
-
-        foreach (var item in selectedItems)
-        {
-            Debug.Log("1"+item.Key.itemName);
-        }
         SelectedItemsUI.Instance.AddItemToInventory(_itemData);
-        //SelectedItemsUI.Instance.UpdateInventoryPanel();
         ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
 
         foreach (var item in SelectedItemsUI.Instance.selectedItems)
@@ -154,21 +146,16 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public Dictionary<ShopItemData, int> GetDictionary()
-    {
-        return selectedItems;
-    }
-
     public void OnInventoryItemClick(ShopItemData _itemData)
     {
-        if (selectedItems.ContainsKey(_itemData))
+        if (SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData))
         {
             totalPrice -= _itemData.price;
-            selectedItems[_itemData]--;
+            SelectedItemsUI.Instance.selectedItems[_itemData]--;
 
-            if (selectedItems[_itemData] <= 0)
+            if (SelectedItemsUI.Instance.selectedItems[_itemData] <= 0)
             {
-                selectedItems.Remove(_itemData);
+                SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
             }
 
             //SelectedItemsUI.Instance.UpdateInventoryPanel(selectedItems);
@@ -181,8 +168,9 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
     private void OnPurchase()
     {
         // 구매 처리 로직
-        foreach (var item in selectedItems)
+        foreach (var item in SelectedItemsUI.Instance.selectedItems)
         {
+
             if (item.Key.gemType == GemType.NORMAL && ShopManager.Instance.gem >= totalPrice)
             {
                 ShopManager.Instance.UpdateNormalGem(totalPrice);
@@ -199,8 +187,9 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         }
         Debug.Log("총 구매 금액: " + totalPrice);
         ShopUI.Instance.ResetTotalPrice();
-        selectedItems.Clear();
-       // ShopUI.Instance.ClearInventoryPanel();
+        SelectedItemsUI.Instance.selectedItems.Clear();
+        SelectedItemsUI.Instance.ClearInventoryPanel();
+        // ShopUI.Instance.ClearInventoryPanel();
     }
-  
+
 }
