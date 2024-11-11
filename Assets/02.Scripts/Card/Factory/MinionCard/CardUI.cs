@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
-/// <summary>
-/// 보여지는 카드 UI 제어
-/// </summary>
 public class CardUI : MonoBehaviour
 {
     #region Fields and Properties
@@ -14,38 +14,40 @@ public class CardUI : MonoBehaviour
     [Header("Prefab Elements")] // 카드 프리팹 object들의 참조
     [SerializeField] private Image cardImage;
     [SerializeField] private Image characterImage;
-    [SerializeField] private GameObject stackImage;
 
     [SerializeField] private TextMeshProUGUI IDText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI staminaText;
-    [SerializeField] private TextMeshProUGUI attackText;
-    [SerializeField] private TextMeshProUGUI defenceText;
     [SerializeField] private TextMeshProUGUI speedText;
-    [SerializeField] private TextMeshProUGUI amountText;
+    [SerializeField] private TextMeshProUGUI efficiencyText;
     [SerializeField] private TextMeshProUGUI probabilityText;
-    [SerializeField] private TextMeshProUGUI stackNum;
 
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private CanvasGroup canvasGroup;
 
-    [Header("Sprite Assets")] //속성별 카드 이미지
+    [Header("Sprite Assets")] //속성별 카드 이미지 -> 이거 불러오는걸로 바꾸자
     [SerializeField] private Sprite passion;
     [SerializeField] private Sprite calm;
     [SerializeField] private Sprite wisdom;
    
     private Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1);
-    
 
     #endregion
 
     #region Methods
 
+    // SetUIData 이걸로 변경
+    public void Set(Minion _minion)
+    {
+        SetText(_minion.BaseData);
+        SetCharacterImage(_minion.BaseData);
+        SetTypeImage(_minion.BaseData);
+    }
+    
     /// <summary>
     /// 매개변수로 받은 state에 따라 카드 크기 및 알파값 조절
     /// </summary>
-    /// <param name="_state"></param>
-    public void SetUIState(CARD_STATE _state)
+    public void UpdateState(CARD_STATE _state)
     {
         switch (_state)
         {
@@ -61,49 +63,32 @@ public class CardUI : MonoBehaviour
                 return;
         }
     }
-    /// <summary>
-    /// 카드 수량이 1 이하이면 스택킹 표시를 끄고 
-    /// 2 이상이면 스택킹 이미지를 숫자와 함께 표시
-    /// </summary>
-    /// <param name="_num"></param>
-    public void UpdateUIStacking(int _num)
+    //스택킹 이미지 관련 -> 삭제
+    // public void UpdateUIStacking(int _num)
+    // {
+    //     if(_num <= 1)
+    //     {
+    //         stackImage.SetActive(false);
+    //     }
+    //     else
+    //     {
+    //         stackImage.SetActive(true);
+    //         stackNum.text = _num.ToString();
+    //     }
+    // }
+    
+    private void SetText(MinionBaseData _baseData)
     {
-        if(_num <= 1)
-        {
-            stackImage.SetActive(false);
-        }
-        else
-        {
-            stackImage.SetActive(true);
-            stackNum.text = _num.ToString();
-        }
-    }
-    /// <summary>
-    /// UI의 텍스트, 캐릭터 이미지, 타입별 배경 이미지를 입력받은 카드 정보에 맞게 설정
-    /// </summary>
-    /// <param name="_data"></param>
-    public void SetUIData(MinionStructs.CardData _data)
-    {
-        SetCardText(_data);
-        SetCharacterImage(_data);
-        SetTypeImage(_data);
-    }
-
-
-    private void SetCardText(MinionStructs.CardData _data)
-    {
-        IDText.text = _data.cid;
-        nameText.text = _data.name;
-        staminaText.text = _data.stamina.ToString();
-        attackText.text = _data.attack.ToString();
-        defenceText.text = _data.defence.ToString();
-        speedText.text = _data.produceSpeed.ToString();
-        amountText.text = _data.productYield.ToString();
-        probabilityText.text = _data.goodsProbability.ToString();
+        IDText.text = _baseData.mid;
+        nameText.text = _baseData.name;
+        staminaText.text = _baseData.stamina.ToString();
+        speedText.text = _baseData.speed.ToString();
+        efficiencyText.text = _baseData.efficiency.ToString();
+        probabilityText.text = _baseData.sGemProb.ToString();
 
     }
 
-    private void SetCharacterImage(MinionStructs.CardData _data)
+    private void SetCharacterImage(MinionBaseData _baseData)
     {
         Sprite[] characterImages = Resources.LoadAll<Sprite>("Character/CharacterImage");
         if (0 == characterImages.Length)
@@ -114,30 +99,39 @@ public class CardUI : MonoBehaviour
 
         foreach (var image in characterImages)
         {
-            if (image.name == _data.cid)
+            if (image.name == _baseData.mid)
             {
                 characterImage.sprite = image;
                 return;
             }
         }
 
-        Debug.LogError($"스프라이트가 없음. imageName : {_data.cid}");
-        return;
+        Debug.LogError($"스프라이트가 없음. imageName : {_baseData.mid}");
     }
-    private void SetTypeImage(MinionStructs.CardData _data)
+    private void SetTypeImage(MinionBaseData _baseData)
     {
-        switch (_data.type)
+        Sprite[] cardImages = Resources.LoadAll<Sprite>("Image/CardImage");
+        if (0 == cardImages.Length)
         {
-            case MinionEnums.MINION_TYPE.PASSION:
-                cardImage.sprite = passion;
-                break;
-            case MinionEnums.MINION_TYPE.CALM:
-                cardImage.sprite = calm;
-                break;
-            case MinionEnums.MINION_TYPE.WISDOM:
-                cardImage.sprite = wisdom;
-                break;
+            Debug.LogError($"카드 이미지가 없음 imagePath: {cardImages}");
+            return;
         }
+
+        var type = _baseData.type switch
+        {
+            MinionEnums.TYPE.PASSION => "passion",
+            MinionEnums.TYPE.CALM => "calm",
+            MinionEnums.TYPE.WISDOM => "wisdom",
+            _ => "unknown"
+        };
+        
+        foreach (var image in cardImages.Where(_image => _image.name == type))
+        {
+            cardImage.sprite = image;
+            return;
+        }
+        
+        Debug.LogError($"존재하지 않는 타입: {_baseData.type}");
     }
 
     #endregion

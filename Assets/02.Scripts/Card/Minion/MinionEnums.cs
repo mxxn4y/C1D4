@@ -1,10 +1,13 @@
-﻿
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class MinionEnums
 {
     /// <summary>
     /// 카드 속성 PASSION,CALM,WISDOM
     /// </summary>
-    public enum MINION_TYPE
+    public enum TYPE
     {
         PASSION,
         CALM,
@@ -14,11 +17,17 @@ public class MinionEnums
     /// <summary>
     /// 카드 등급 A,B,C
     /// </summary>
-    public enum MINION_GRADE
+    public enum GRADE
     {
-        NONE,
         A,
         B,
         C
+    }
+    
+    public enum EVENT
+    {
+        EXTRA_GEM,
+        TRUST,
+        FEVER_TIME
     }
 }

@@ -24,12 +24,11 @@ public class CardPlaceManager : MonoBehaviour
 
     #region Fields and Properties
 
-    [SerializeField] private Card movingCard;
-    public Card SelectedCard { get; private set; }
+    [SerializeField] private GameObject movingCard;
+    public CardController SelectedCard { get; private set; }
     public TileInfo SelectedTile { get; private set; }
     private bool isCardMoving;
-
-    public Action<Card> OnCardSelect {  get; set; }
+    
     public Action OnCardMove { get; set; }
     public Action OnCardPlace { get; set;}
     public Action OnCardMoveCancel { get; set;}
@@ -47,8 +46,7 @@ public class CardPlaceManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        OnCardSelect += ActivateMovingCard;
+        
         OnCardMove += DragMovingCard;
         OnCardPlace += DeactivateMovingCard;
         OnCardPlace += RemoveUsedCard;
@@ -86,11 +84,11 @@ public class CardPlaceManager : MonoBehaviour
     /// <summary>
     /// 선택한 카드와 동일한 움직임 전용 카드 활성화(위치, UI 일치)
     /// </summary>
-    private void ActivateMovingCard(Card _selectedCard)
+    public void ActivateMovingCard(CardController _selectedCard)
     {
-        this.SelectedCard = _selectedCard;
+        SelectedCard = _selectedCard;
         movingCard.gameObject.SetActive(true);
-        movingCard.SetCard(this.SelectedCard.data);
+        movingCard.GetComponent<CardUI>().Set(_selectedCard.Minion);
         movingCard.GetComponent<RectTransform>().position = this.SelectedCard.GetComponent<RectTransform>().position;
         isCardMoving = true;
     }
@@ -99,6 +97,7 @@ public class CardPlaceManager : MonoBehaviour
     {
         movingCard.GetComponent<RectTransform>().position = Input.mousePosition;
     }
+    
     /// <summary>
     /// 움직임 전용 카드 비활성화, 원본 카드 상태 디폴트로 복구
     /// </summary>
@@ -108,26 +107,11 @@ public class CardPlaceManager : MonoBehaviour
         SelectedCard.State = CARD_STATE.DEFAULT;
     }
     /// <summary>
-    /// 배치하여 소모한 카드 플레이어 덱에서 제거, 원본카드 갱신된 정보 반영하여 활성화
+    /// 사용한 카드 제거
     /// </summary>
     private void RemoveUsedCard()
     {
-        var playerDeck = PlayerInfoManager.playerCards;
-        if (playerDeck.ContainsKey(SelectedCard.data.cid))
-        {
-
-            if (playerDeck[SelectedCard.data.cid] <= 1)
-            {
-                PlayerInfoManager.playerCards.Remove(SelectedCard.data.cid);
-                Destroy(SelectedCard.gameObject);
-            }
-            else
-            {
-                PlayerInfoManager.playerCards[SelectedCard.data.cid] -= 1;
-                SelectedCard.UpdateCard(playerDeck[SelectedCard.data.cid]);
-            }
-
-        }
+        Destroy(SelectedCard.gameObject);
     }
     #endregion
 }

@@ -10,21 +10,22 @@ public class TileInfo: MonoBehaviour
     [SerializeField] private Sprite defaultImage;
     [SerializeField] private Sprite selectedImage;
     [SerializeField] private Sprite placedImage;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public Vector2 TilePos { get; private set; }
     public TILE_TYPE Type { get; private set; }
     
     private TILE_STATE tileState;
     public TILE_STATE TileState { 
         get { return tileState; } 
-        private set
+        set
         {
             tileState = value;
-            GetComponentInChildren<SpriteRenderer>().sprite = tileState switch
+            spriteRenderer.sprite = tileState switch
             {
                 TILE_STATE.DEFAULT => defaultImage,
                 TILE_STATE.SELECTED => selectedImage,
                 TILE_STATE.OCCUPIED => placedImage,
-                _ => GetComponentInChildren<SpriteRenderer>().sprite
+                _ => spriteRenderer.sprite
             };
         } }
     
@@ -39,11 +40,6 @@ public class TileInfo: MonoBehaviour
         TileState = TILE_STATE.DEFAULT;
         CardPlaceManager.Instance.OnCardMove += ShowTileSelected;
         CardPlaceManager.Instance.OnCardPlace += SelectTile;
-    }
-
-    public void UnselectTile()
-    {
-        TileState = TILE_STATE.DEFAULT;
     }
 
     private void ShowTileSelected()

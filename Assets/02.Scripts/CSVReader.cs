@@ -7,7 +7,7 @@ public class CSVReader
     static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     static char[] TRIM_CHARS = { '\"' };
 
-    /// <summary> Dictionary의 키(string): 속성 이름, 값(object): 실제 값 </summary>
+    /// <summary> Dictionary의 키(string): 속성 이름, 값(object): 속성값 </summary>
     public static List<Dictionary<string, object>> Read(string _file)
     {
         var list = new List<Dictionary<string, object>>();
