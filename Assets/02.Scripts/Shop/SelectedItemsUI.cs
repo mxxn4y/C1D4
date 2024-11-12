@@ -11,7 +11,6 @@ public class SelectedItemsUI : MonoBehaviour
     public GameObject InventoryPanel;
     public GameObject purchasedCard;
     public Dictionary<ShopItemData, int> selectedItems = new Dictionary<ShopItemData, int>();
-    private Dictionary<GameObject, int> selectedItemsPrefab = new Dictionary<GameObject, int>();
 
 
     private void Awake()

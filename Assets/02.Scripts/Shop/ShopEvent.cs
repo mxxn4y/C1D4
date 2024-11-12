@@ -106,6 +106,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 break;
         }
         SelectedItemsUI.Instance.selectedItems.Clear();
+        SelectedItemsUI.Instance.ClearInventoryPanel();
     }
 
     /*
@@ -133,7 +134,11 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
 
     public void OnItemClick(ShopItemData _itemData)
     {
-
+        if (!ShopManager.Instance.CanPurchaseItem(_itemData))
+        {
+            Debug.Log($"{_itemData.itemName}은(는) 구매 제한에 도달했습니다.");
+            return;
+        }
         totalPrice += _itemData.price;
 
         SelectedItemsUI.Instance.AddItemToInventory(_itemData);
@@ -156,40 +161,84 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
             if (SelectedItemsUI.Instance.selectedItems[_itemData] <= 0)
             {
                 SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
+                //Destroy()
             }
 
             //SelectedItemsUI.Instance.UpdateInventoryPanel(selectedItems);
+            //ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
+        }
+        SelectedItemsUI.Instance.UpdateInventoryPanel();
+        ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
+    }
+
+    public void RemoveItemFromInventory(ShopItemData _itemData)
+    {
+        if (SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData))
+        {
+            totalPrice -= _itemData.price;  // 총액에서 가격을 뺌
+            SelectedItemsUI.Instance.selectedItems[_itemData]--;
+
+            // 수량이 0이 되면 딕셔너리에서 아이템을 제거
+            if (SelectedItemsUI.Instance.selectedItems[_itemData] <= 0)
+            {
+                SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
+            }
+
+            // UI 갱신
+            SelectedItemsUI.Instance.UpdateInventoryPanel();
             ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
         }
-        //SelectedItemsUI.Instance.UpdateInventoryPanel();
     }
 
     // 구매하기 버튼 클릭 시
     private void OnPurchase()
     {
-        // 구매 처리 로직
+        // 전체 구매 가능 여부 먼저 확인
+        if (totalPrice > ShopManager.Instance.gem && totalPrice > ShopManager.Instance.specialGem)
+        {
+            Debug.Log("재화가 부족합니다.");
+            return;
+        }
+
+        // 실제 구매 처리 로직
         foreach (var item in SelectedItemsUI.Instance.selectedItems)
         {
-
-            if (item.Key.gemType == GemType.NORMAL && ShopManager.Instance.gem >= totalPrice)
+            int itemTotalPrice = item.Key.price * item.Value; // 아이템 가격 * 수량
+            if (item.Key.gemType == GemType.NORMAL)
             {
-                ShopManager.Instance.UpdateNormalGem(totalPrice);
+                if (ShopManager.Instance.gem >= itemTotalPrice)
+                {
+                    ShopManager.Instance.UpdateNormalGem(itemTotalPrice);
+                }
+                else
+                {
+                    Debug.Log("재화가 부족합니다.");
+                    return;
+                }
             }
-            else if (item.Key.gemType == GemType.SPECIAL && ShopManager.Instance.specialGem >= totalPrice)
+            else if (item.Key.gemType == GemType.SPECIAL)
             {
-                ShopManager.Instance.UpdateSpecialGem(totalPrice);
+                if (ShopManager.Instance.specialGem >= itemTotalPrice)
+                {
+                    ShopManager.Instance.UpdateSpecialGem(itemTotalPrice);
+                }
+                else
+                {
+                    Debug.Log("재화가 부족합니다.");
+                    return;
+                }
             }
-            else
+            for (int i = 0; i < item.Value; i++) // 아이템의 수량만큼 반복
             {
-                Debug.Log("재화가 부족합니다.");
-                return;
+                ShopManager.Instance.TrackPurchase(item.Key);
             }
         }
+
         Debug.Log("총 구매 금액: " + totalPrice);
         ShopUI.Instance.ResetTotalPrice();
         SelectedItemsUI.Instance.selectedItems.Clear();
         SelectedItemsUI.Instance.ClearInventoryPanel();
-        // ShopUI.Instance.ClearInventoryPanel();
     }
+
 
 }

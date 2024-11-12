@@ -31,6 +31,13 @@ public class PurchasedCardUI : MonoBehaviour // PurchasedCardUI
             itemGemTypeText.text = "특수";
             //GemTypeImg.color = new Color(149 / 255f, 97 / 255f, 166 / 255f);
         }
+        GetComponent<Button>().onClick.AddListener(() => OnRemoveItemClick(_item));
+    }
+
+    private void OnRemoveItemClick(ShopItemData _item)
+    {
+        ShopEvent.Instance.RemoveItemFromInventory(_item);  // 선택 취소
+        Destroy(gameObject);  // 현재 프리팹 인스턴스 제거
     }
 
 
