@@ -25,6 +25,7 @@ public class CardPlaceManager : MonoBehaviour
     #region Fields and Properties
 
     [SerializeField] private GameObject movingCard;
+    [SerializeField] private RectTransform scrollContentRect;
     public CardController SelectedCard { get; private set; }
     public TileInfo SelectedTile { get; private set; }
     private bool isCardMoving;
@@ -112,6 +113,20 @@ public class CardPlaceManager : MonoBehaviour
     private void RemoveUsedCard()
     {
         Destroy(SelectedCard.gameObject);
+        SetScrollUI();
+    }
+
+    /// <summary>
+    /// 스크롤 하단에서 카드가 사라졌다면 줄어든 스크롤 길이만큼 자동으로 조절
+    /// </summary>
+    private void SetScrollUI()
+    {
+        var currentPos = scrollContentRect.anchoredPosition;
+        var hDelta = Math.Max(0,scrollContentRect.sizeDelta.y - 340f);
+        if (currentPos.y > hDelta)
+        {
+            scrollContentRect.anchoredPosition = new Vector2(currentPos.x, hDelta);
+        }
     }
     #endregion
 }
