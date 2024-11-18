@@ -1,54 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+
 /// <summary>
 /// 타일 데이터 csv파일 읽어서 타일 객체 생성
 /// </summary>
-public class TileLoadManager : MonoBehaviour
+public class TileLoadManager : MonoSingleton<TileLoadManager>
 {
-    #region Singleton
-
-    private static TileLoadManager instance = null;
-
-    void Awake()
-    {
-        if (null == instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-    public static TileLoadManager Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-
-    #endregion
-
     /// <summary> 타일의 크기 </summary>
-    public GameObject tilePrefab;
+    [SerializeField] private GameObject tilePrefab;
     [SerializeField] private Grid tilemap;
 
     #region Methods
-    private void Start()
-    {
-        LoadAllTiles();
-    }
 
     /// <summary> csv 파일에서 읽어온 모든 타일 각각의 좌표에 배치 </summary>
-    private void LoadAllTiles()
+    public void LoadAllTiles()
     {
         var tiles = CSVReader.Read("TileTable");
 

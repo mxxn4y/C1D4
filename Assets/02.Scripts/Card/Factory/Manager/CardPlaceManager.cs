@@ -3,25 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardPlaceManager : MonoBehaviour
+public class CardPlaceManager : MonoSingleton<CardPlaceManager>
 {
-    #region Singleton
-
-    private static CardPlaceManager instance = null;
-    public static CardPlaceManager Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-
-    #endregion
-
     #region Fields and Properties
 
     [SerializeField] private GameObject movingCard;
@@ -37,22 +20,13 @@ public class CardPlaceManager : MonoBehaviour
     #endregion
 
     #region Methods
-    private void Awake()
+
+    protected override void Awake()
     {
-        if (null == instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-        
         OnCardMove += DragMovingCard;
         OnCardPlace += DeactivateMovingCard;
         OnCardPlace += RemoveUsedCard;
         OnCardMoveCancel += DeactivateMovingCard;
-
     }
     private void Update()
     {

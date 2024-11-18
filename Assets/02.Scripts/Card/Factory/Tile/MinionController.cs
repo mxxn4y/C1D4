@@ -65,6 +65,7 @@ public class MinionController : MonoBehaviour
         eventBtnText = eventButton.GetComponentInChildren<TextMeshProUGUI>();
         eventButton.gameObject.SetActive(false);
     }
+    
     private void Update()
     {
         if (isActive)
@@ -100,10 +101,10 @@ public class MinionController : MonoBehaviour
             {
                 gainStaminaTimer -= 1.0f;
                 CurrentStamina = Math.Min(CurrentStamina + 0.5f, minion.BaseData.stamina);
-                Debug.Log($"{minion.BaseData.mid}의 현재 체력: {CurrentStamina}");
             }
         }
     }
+    
     /// <summary>
     /// 선택된 카드가 해당 미니언이 존재하는 타일과 일치한다면 미니언 활성화
     /// </summary>
@@ -118,8 +119,8 @@ public class MinionController : MonoBehaviour
             CurrentStamina = minion.BaseData.stamina;
             SetImage();
             eventCoroutine = new Coroutine[2];
-            FactoryManager.Instance.minions.Add(this);
-            eventTimer = FactoryManager.Instance.minions.Count switch
+            FactoryManager.Instance.ActiveMinionList.Add(this);
+            eventTimer = FactoryManager.Instance.ActiveMinionList.Count switch
             {
                 1 => 4.0f,
                 2 => 6.0f,
