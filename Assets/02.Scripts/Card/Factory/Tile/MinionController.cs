@@ -71,10 +71,10 @@ public class MinionController : MonoBehaviour
         if (isActive)
         {
             gemTimer += Time.deltaTime;
-            if (gemTimer >= minion.BaseData.speed)
+            if (gemTimer >= minion.Data.speed)
             {
-                gemTimer -= minion.BaseData.speed;
-                FactoryManager.Instance.AddGem(minion.BaseData.efficiency);
+                gemTimer -= minion.Data.speed;
+                FactoryManager.Instance.AddGem(minion.Data.efficiency);
             }
 
             sGemAndStaminaTimer += Time.deltaTime;
@@ -100,7 +100,7 @@ public class MinionController : MonoBehaviour
             if (gainStaminaTimer >= 1.0f)
             {
                 gainStaminaTimer -= 1.0f;
-                CurrentStamina = Math.Min(CurrentStamina + 0.5f, minion.BaseData.stamina);
+                CurrentStamina = Math.Min(CurrentStamina + 0.5f, minion.Data.stamina);
             }
         }
     }
@@ -116,7 +116,7 @@ public class MinionController : MonoBehaviour
             minion = placeManager.SelectedCard.Minion;
             minionGo.SetActive(true);
             staminaBar.gameObject.SetActive(true);
-            CurrentStamina = minion.BaseData.stamina;
+            CurrentStamina = minion.Data.stamina;
             SetImage();
             eventCoroutine = new Coroutine[2];
             FactoryManager.Instance.ActiveMinionList.Add(this);
@@ -169,7 +169,7 @@ public class MinionController : MonoBehaviour
 
     private void SetStaminaBar()
     {
-        staminaBar.fillAmount = CurrentStamina / minion.BaseData.stamina;
+        staminaBar.fillAmount = CurrentStamina / minion.Data.stamina;
     }
     
     //이미지 -> 애니메이션으로 넣으면 수정 필요
@@ -188,14 +188,14 @@ public class MinionController : MonoBehaviour
         var spriteRenderer = minionGo.GetComponent<SpriteRenderer>();
         foreach (var image in characterImages)
         {
-            if (image.name == minion.BaseData.mid)
+            if (image.name == minion.Data.mid)
             {
                 spriteRenderer.sprite = image;
                 return;
             }
         }
 
-        Debug.LogError($"스프라이트가 없음. imageName : {minion.BaseData.mid}");
+        Debug.LogError($"스프라이트가 없음. imageName : {minion.Data.mid}");
 
     }
 

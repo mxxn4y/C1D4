@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MinionRandomDraw : MonoBehaviour
@@ -7,7 +8,10 @@ public class MinionRandomDraw : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject[] buttons = new GameObject[3];
     [SerializeField] private GameObject closeBtn;
+    [SerializeField] private GameObject gridLayout;
+    [SerializeField] private GameObject[] emptyCards = new GameObject[5];
     private PlayerData playerData;
+    private int newCardCount;
 
     private void Awake()
     {
@@ -17,6 +21,7 @@ public class MinionRandomDraw : MonoBehaviour
             button.SetActive(true);
         }
         closeBtn.SetActive(false);
+        
     }
 
     /// <summary>
@@ -63,14 +68,61 @@ public class MinionRandomDraw : MonoBehaviour
             _ => MinionEnums.GRADE.C
         };
     }
-    
-    private void ShowEarnedCards(List<string> _minions)
+
+    /// <summary>
+    /// 미니언 해금 + 강화 상태 체크해서 플레이어 데이터에 추가, 얻은 미니언 카드 형태로 화면에 표시
+    /// </summary>
+    private void AddToPlayerAndShow(List<string> _midList)
     {
-        foreach (var mid in _minions)
+        newCardCount = 0;
+        foreach (var card in emptyCards)
         {
-            var card = Instantiate(cardPrefab, transform);
-            card.GetComponent<CardController>().Set(new Minion(mid));
+            card.SetActive(false);
         }
+        foreach (var mid in _midList)
+        {
+            var playerMinions = PlayerData.Instance.MinionList;
+            // 플레이어가 이미 소유한 미니언
+            if (playerMinions.Exists(_minion => _minion.Data.mid == mid))
+            {
+                var minion = playerMinions.Find(_minion => _minion.Data.mid == mid);
+                // 등급에 따른 최대 강화 횟수
+                int maxGainNum = minion.Data.grade switch
+                {
+                    MinionEnums.GRADE.A => 5,
+                    MinionEnums.GRADE.B => 10,
+                    _ => 20
+                };
+                //최대 강화 한도 도달한 상태라면
+                if (minion.GainCount >= maxGainNum)
+                {
+                    Debug.Log($"최대 한도 도달: {mid} -> {minion.GainCount} / {maxGainNum}");
+                    // 최대 강화 상태라는 것 표시
+                    return;
+                }
+                
+                minion.IncreaseCount(); // 강화 +1 증가
+                ShowEarnedCards(minion); // 얻은 미니언 카드 형태로 화면에 표시
+                newCardCount++;
+                Debug.Log($"미니언 강화 +1: {mid} -> {minion.GainCount} / {maxGainNum}");
+            }
+            // 플레이어가 처음 획득하는 미니언
+            else
+            {
+                PlayerData.Instance.AddMinion(mid);
+                ShowEarnedCards(new Minion(mid)); // 얻은 미니언 카드 형태로 화면에 표시
+                newCardCount++;
+                Debug.Log($"미니언 해금: {mid} -> " +
+                          $"{PlayerData.Instance.MinionList.Find(_minion => _minion.Data.mid == mid).GainCount}");
+            }
+        }
+    }
+
+    private void ShowEarnedCards(Minion _newMinion)
+    {
+        var card = emptyCards[newCardCount];
+        card.SetActive(true);
+        card.GetComponent<CardUI>().Set(_newMinion);
     }
 
     public void CloseRandomDrawUI()
@@ -82,8 +134,7 @@ public class MinionRandomDraw : MonoBehaviour
     public void SelectPassionButton()
     {
         var minions = RandomDraw(MinionEnums.TYPE.PASSION);
-        playerData.AddMinions(minions);
-        ShowEarnedCards(minions);
+        AddToPlayerAndShow(minions);
         foreach (var button in buttons)
         {
             button.SetActive(false);
@@ -93,8 +144,7 @@ public class MinionRandomDraw : MonoBehaviour
     public void SelectWisdomButton()
     {
         var minions = RandomDraw(MinionEnums.TYPE.WISDOM);
-        playerData.AddMinions(minions);
-        ShowEarnedCards(minions); 
+        AddToPlayerAndShow(minions);
         foreach (var button in buttons)
         {
             button.SetActive(false);
@@ -104,12 +154,18 @@ public class MinionRandomDraw : MonoBehaviour
     public void SelectCalmButton()
     {
         var minions = RandomDraw(MinionEnums.TYPE.CALM);
-        playerData.AddMinions(minions);
-        ShowEarnedCards(minions);
+        AddToPlayerAndShow(minions);
         foreach (var button in buttons)
         {
             button.SetActive(false);
         }
         closeBtn.SetActive(true);
+    }
+
+    // 테스트용!!
+    public void TestButton()
+    {
+        var minions = RandomDraw(MinionEnums.TYPE.PASSION);
+        AddToPlayerAndShow(minions);
     }
 }

@@ -59,22 +59,9 @@ public class PlayerData: Singleton<PlayerData>
 
     //매개변수로 받은 미니언 플레이어 덱에 없으면 추가, 존재하면 획득 카운트 +1
     
-    public void AddMinions(List<string> _midList)
+    public void AddMinion(string _mid)
     {
-        foreach (var _mid in _midList)
-        {
-            Debug.Log("획득한 카드: " + _mid);
-
-            if (MinionList.Exists(_minion => _minion.BaseData.mid == _mid))
-            {
-                MinionList.Find(_minion => _minion.BaseData.mid == _mid).IncreaseCount();
-            }
-            else
-            {
-                MinionList.Add(new Minion(_mid));
-                MinionList = MinionList.OrderBy(_minion => _minion.BaseData.mid).ToList();
-            }
-        }
-        
+        MinionList.Add(new Minion(_mid));
+        MinionList = MinionList.OrderBy(_m => _m.Data.mid).ToList();
     }
 }
