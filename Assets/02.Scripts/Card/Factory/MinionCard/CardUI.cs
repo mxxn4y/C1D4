@@ -39,9 +39,9 @@ public class CardUI : MonoBehaviour
     // SetUIData 이걸로 변경
     public void Set(Minion _minion)
     {
-        SetText(_minion.BaseData);
-        SetCharacterImage(_minion.BaseData);
-        SetTypeImage(_minion.BaseData);
+        SetText(_minion.Data);
+        SetCharacterImage(_minion.Data);
+        SetTypeImage(_minion.Data);
     }
     
     /// <summary>

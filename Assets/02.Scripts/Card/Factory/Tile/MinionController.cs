@@ -65,15 +65,16 @@ public class MinionController : MonoBehaviour
         eventBtnText = eventButton.GetComponentInChildren<TextMeshProUGUI>();
         eventButton.gameObject.SetActive(false);
     }
+    
     private void Update()
     {
         if (isActive)
         {
             gemTimer += Time.deltaTime;
-            if (gemTimer >= minion.BaseData.speed)
+            if (gemTimer >= minion.Data.speed)
             {
-                gemTimer -= minion.BaseData.speed;
-                FactoryManager.Instance.AddGem(minion.BaseData.efficiency);
+                gemTimer -= minion.Data.speed;
+                FactoryManager.Instance.AddGem(minion.Data.efficiency);
             }
 
             sGemAndStaminaTimer += Time.deltaTime;
@@ -99,11 +100,11 @@ public class MinionController : MonoBehaviour
             if (gainStaminaTimer >= 1.0f)
             {
                 gainStaminaTimer -= 1.0f;
-                CurrentStamina = Math.Min(CurrentStamina + 0.5f, minion.BaseData.stamina);
-                Debug.Log($"{minion.BaseData.mid}의 현재 체력: {CurrentStamina}");
+                CurrentStamina = Math.Min(CurrentStamina + 0.5f, minion.Data.stamina);
             }
         }
     }
+    
     /// <summary>
     /// 선택된 카드가 해당 미니언이 존재하는 타일과 일치한다면 미니언 활성화
     /// </summary>
@@ -115,11 +116,11 @@ public class MinionController : MonoBehaviour
             minion = placeManager.SelectedCard.Minion;
             minionGo.SetActive(true);
             staminaBar.gameObject.SetActive(true);
-            CurrentStamina = minion.BaseData.stamina;
+            CurrentStamina = minion.Data.stamina;
             SetImage();
             eventCoroutine = new Coroutine[2];
-            FactoryManager.Instance.minions.Add(this);
-            eventTimer = FactoryManager.Instance.minions.Count switch
+            FactoryManager.Instance.ActiveMinionList.Add(this);
+            eventTimer = FactoryManager.Instance.ActiveMinionList.Count switch
             {
                 1 => 4.0f,
                 2 => 6.0f,
@@ -168,7 +169,7 @@ public class MinionController : MonoBehaviour
 
     private void SetStaminaBar()
     {
-        staminaBar.fillAmount = CurrentStamina / minion.BaseData.stamina;
+        staminaBar.fillAmount = CurrentStamina / minion.Data.stamina;
     }
     
     //이미지 -> 애니메이션으로 넣으면 수정 필요
@@ -187,14 +188,14 @@ public class MinionController : MonoBehaviour
         var spriteRenderer = minionGo.GetComponent<SpriteRenderer>();
         foreach (var image in characterImages)
         {
-            if (image.name == minion.BaseData.mid)
+            if (image.name == minion.Data.mid)
             {
                 spriteRenderer.sprite = image;
                 return;
             }
         }
 
-        Debug.LogError($"스프라이트가 없음. imageName : {minion.BaseData.mid}");
+        Debug.LogError($"스프라이트가 없음. imageName : {minion.Data.mid}");
 
     }
 
