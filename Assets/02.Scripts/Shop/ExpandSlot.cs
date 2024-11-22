@@ -6,7 +6,6 @@ public class ExpandSlot : MonoBehaviour
 {
     public static ExpandSlot Instance { get; private set; }
 
-    private List<Card> itemList = new List<Card>(); //임시
     // 초기 덱을 선택하면  -> 카드 저장(& 나중에 사용하면 제거)하는 클래스에서 받아옴
     // 내가 카드 슬롯에 맞춰서 카드를 Add하고 Remove하는 로직은 안해도 되는 거..? ( ex.이미 슬롯 개수만큼 개수가 꽉 찼을 때, 카드 더 이상 받을 수 없게 하는 로직같은 거)
 
@@ -33,7 +32,7 @@ public class ExpandSlot : MonoBehaviour
         {
             currentMaxSlot = Mathf.Min(currentMaxSlot + _additionalSlot, maxSlot);
             Debug.Log("인벤토리가 확장 되었음.최대 슬롯 : " + currentMaxSlot);
-            Debug.Log("현재 슬롯 : " + itemList.Count + "/" + currentMaxSlot);
+            //Debug.Log("현재 슬롯 : " + itemList.Count + "/" + currentMaxSlot);
         }
         else
         {

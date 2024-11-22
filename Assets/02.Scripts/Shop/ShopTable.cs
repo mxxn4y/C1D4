@@ -85,7 +85,8 @@ public struct ShopItemData
         public int maxDailyPurchase;
         public int maxTotalPurchase;
         public bool isUnlimited;
-    }
+    public string ID;
+}
 
     public enum ItemType
     {

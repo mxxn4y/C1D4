@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class SellingCardEvent : MonoBehaviour
+public class CollectCard : MonoBehaviour
 {
+    private string cardName;
+    private string cardId;
+    private CARD_TYPE cardType;
+    private Image cardImage;
+
     // Start is called before the first frame update
     void Start()
     {
