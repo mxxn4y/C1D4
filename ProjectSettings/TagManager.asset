@@ -7,7 +7,9 @@ TagManager:
   - CardCanvas
   - RoomCanvas
   - Tile
-  - StaminaCanvas
+  - Canvas
+  - Product
+  - WayPoints
   layers:
   - Default
   - TransparentFX
