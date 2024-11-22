@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class ShopManager : MonoBehaviour
 {
 
@@ -16,11 +17,14 @@ public class ShopManager : MonoBehaviour
     public GameObject[] shopPanelsGO;
     public ShopItemSO[] shopItemSO;
     public SellingCardUI[] shopPanels;
-    //public Button[] purchaseBtns; /// 수정중
+
     public int itemCount=0;
+    public delegate void PurchaseStateChanged(string itemName);
+    public event PurchaseStateChanged OnPurchaseStateChanged;
 
     public Dictionary<string, int> dailyPurchaseCount = new Dictionary<string, int>();
     public Dictionary<string, int> totalPurchaseCount = new Dictionary<string, int>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -35,141 +39,41 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        /*
-        for (int i = 0; i < shopItemSO.Length; i++)
-        {
-            dailyPurchaseCount[shopItemSO[i]] = 0;
-            totalPurchaseCount[shopItemSO[i]] = 0;
-            shopPanelsGO[i].SetActive(true);
-        }
-        gemUI.text = gem.ToString();
-        specialGemUI.text = specialGem.ToString();
-        LoadPanel();
-        */
 
-        //UpdatePurchaseButtons();
 
         gemUI.text = gem.ToString();
         specialGemUI.text = specialGem.ToString();
     }
 
-    /* 필요 없을 듯
-    public void UpdatePurchaseButtons()
+    public bool CanClickItem(ShopItemData _itemData)
     {
-        for (int i = 0; i < shopItemSO.Length; i++)
-        {
-            var item = shopItemSO[i];
-            bool canPurchase = false;
-            if (item.isUnlimited)
-            {
-                canPurchase= ((gem >= item.price && item.gemType == ShopItemSO.GemType.NORMAL) ||
-                (specialGem >= item.price && item.gemType == ShopItemSO.GemType.SPECIAL));
-            }
-            //if ((gem >= shopItemSO[i].price && shopItemSO[i].gemType == ShopItemSO.GemType.NORMAL) ||
-                //(specialGem >= shopItemSO[i].price && shopItemSO[i].gemType == ShopItemSO.GemType.SPECIAL))
-            //{
-                //purchaseBtns[i].interactable = true;
-            //}
-            else
-            {
-                bool canBuyDaily = item.maxDailyPurchase == 0 || dailyPurchaseCount[item] < item.maxDailyPurchase;
-                bool canBuyTotal = item.maxTotalPurchase == 0 || totalPurchaseCount[item] < item.maxTotalPurchase;
-                if (canBuyDaily && canBuyTotal)
-                {
-                    canPurchase = ((gem >= item.price && item.gemType == ShopItemSO.GemType.NORMAL) ||
-                    (specialGem >= item.price && item.gemType == ShopItemSO.GemType.SPECIAL));
-                }
-                //purchaseBtns[i].interactable = false;
-            }
-            // purchaseBtns[i].interactable = canPurchase; ////
-        }
-    }
-    */
+        // 무제한 아이템은 언제나 클릭 가능
+        if (_itemData.isUnlimited)
+            return true;
 
-    /*
-    public bool CanPurchaseItem(ShopItemSO _item)
-    {
-        if (_item.isUnlimited)
-        {
-            return ((gem >= _item.price && _item.gemType == ShopItemSO.GemType.NORMAL) ||
-                (specialGem >= _item.price && _item.gemType == ShopItemSO.GemType.SPECIAL));
-        }
-        else
-        {
-            // 최대 구매 제한이 있는 경우에는 "<"를 사용해야 함.
-            bool canBuyDaily = _item.maxDailyPurchase == 0 || dailyPurchaseCount[_item] < _item.maxDailyPurchase;
-            bool canBuyTotal = _item.maxTotalPurchase == 0 || totalPurchaseCount[_item] < _item.maxTotalPurchase;
+            // 남은 하루 구매 횟수 계산
+            int remainingDaily = _itemData.maxDailyPurchase > 0 && ShopManager.Instance.dailyPurchaseCount.ContainsKey(_itemData.itemName)
+                ? _itemData.maxDailyPurchase - ShopManager.Instance.dailyPurchaseCount[_itemData.itemName]
+                : _itemData.maxDailyPurchase;
 
-            return (canBuyDaily && canBuyTotal) &&
-                   ((gem >= _item.price && _item.gemType == ShopItemSO.GemType.NORMAL) ||
-                   (specialGem >= _item.price && _item.gemType == ShopItemSO.GemType.SPECIAL));
+            // 남은 전체 구매 횟수 계산
+            int remainingTotal = _itemData.maxTotalPurchase > 0 && ShopManager.Instance.totalPurchaseCount.ContainsKey(_itemData.itemName)
+                ? _itemData.maxTotalPurchase - ShopManager.Instance.totalPurchaseCount[_itemData.itemName]
+                : _itemData.maxTotalPurchase;
+
+        if (_itemData.maxDailyPurchase > 0)
+        {
+            return remainingDaily > 0;
+            Debug.Log(_itemData.itemName + remainingDaily + "개 남음");
         }
+        if (_itemData.maxTotalPurchase > 0)
+        {
+            return remainingTotal > 0;
+            Debug.Log(_itemData.itemName + remainingTotal + "개 남음");
+        }
+        return true;
     }
 
-
-    public void PurchaseItem(int _btnNum)
-    {
-
-        //if (shopItemSO[_btnNum].itemType == ShopItemSO.ItemType.SLOT)
-        //{
-        //    InventoryManager.Instance.ExpendSlot(2);
-        //    gem -= shopItemSO[_btnNum].price;
-        //    gemUI.text = "Gem : " + gem.ToString();
-        //}
-        //else
-        //{
-        var item = shopItemSO[_btnNum];
-
-        if (CanPurchaseItem(item))
-        {
-            if (item.gemType == ShopItemSO.GemType.NORMAL && gem >= item.price)
-            {
-                if (item.itemType == ShopItemSO.ItemType.SLOT)
-                {
-                    ExpandSlot.Instance.UpdateSlot(2);
-                }
-                gem -= shopItemSO[_btnNum].price;
-                gemUI.text = "일반 재화 : " + gem.ToString();
-            }
-
-            if (item.gemType == ShopItemSO.GemType.SPECIAL && specialGem >= item.price)
-            {
-                specialGem -= shopItemSO[_btnNum].price;
-                specialGemUI.text = "특수 재화 : " + specialGem.ToString();
-            }
-
-            ++itemCount;
-            InventoryUI.Instance.AddItem(item);
-            Debug.Log(_btnNum + "넣음");
-
-            dailyPurchaseCount[item]++;
-            totalPurchaseCount[item]++;
-            //}
-
-            //UpdatePurchaseButtons();
-        }
-    }
-    */
-
-    /*
-    public bool CanPurchaseShopItem(ShopItemData item)
-    {
-        if (item.isUnlimited)
-        {
-            return ((gem >= item.price && item.gemType == GemType.NORMAL) ||
-                    (specialGem >= item.price && item.gemType == GemType.SPECIAL));
-        }
-        else
-        {
-            // Maximum purchase limit check
-            bool canBuyDaily = item.maxDailyPurchase == 0 || dailyPurchaseCount[item] < item.maxDailyPurchase;
-            bool canBuyTotal = item.maxTotalPurchase == 0 || totalPurchaseCount[item] < item.maxTotalPurchase;
-            return (canBuyDaily && canBuyTotal) &&
-                   ((gem >= item.price && item.gemType == GemType.NORMAL) ||
-                   (specialGem >= item.price && item.gemType == GemType.SPECIAL));
-        }
-    }
-    */
 
     public bool CanPurchaseItem(ShopItemData item)
     {
@@ -193,13 +97,45 @@ public class ShopManager : MonoBehaviour
 
         return true;
     }
-
-    public void TrackPurchase(ShopItemData item)
+    /*
+    public bool CanPurchaseItem(ShopItemData item, int currentlySelected = 0)
     {
-        if (!item.isUnlimited)
+        if (item.isUnlimited) return true;
+
+        // 하루 최대 구매 횟수 확인
+        if (item.maxDailyPurchase > 0)
+        {
+            dailyPurchaseCount.TryGetValue(item.itemName, out int dailyCount);
+            int totalDailyCount = dailyCount + currentlySelected;
+
+            if (totalDailyCount >= item.maxDailyPurchase)
+            {
+                return false;
+            }
+        }
+
+        // 전체 최대 구매 횟수 확인
+        if (item.maxTotalPurchase > 0)
+        {
+            totalPurchaseCount.TryGetValue(item.itemName, out int totalCount);
+            int realtotalCount = totalCount + currentlySelected;
+
+            if (realtotalCount >= item.maxTotalPurchase)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    */
+    public void TrackPurchase(ShopItemData item) // 각 아이템 별 하루 또는 전체 최대 구매 횟수 추적
+    {
+        if (!item.isUnlimited) // CSV에서 isUnlimited확인 가능
         {
             // 하루 최대 구매 횟수 증가
-            if (item.maxDailyPurchase > 0)
+            if (item.maxDailyPurchase > 0) // CSV에서 확인 가능
             {
                 // item.itemName을 키로 사용하여 dailyPurchaseCount 딕셔너리에 접근
                 if (!dailyPurchaseCount.ContainsKey(item.itemName))
@@ -216,31 +152,44 @@ public class ShopManager : MonoBehaviour
                 totalPurchaseCount[item.itemName]++;
             }
         }
+        OnPurchaseStateChanged?.Invoke(item.itemName);
+        Debug.Log(item.itemName+CanPurchaseItem(item));
     }
+
+    public void RemovePurchase(ShopItemData item)
+    {
+        if (!item.isUnlimited)
+        {
+            // 하루 구매 횟수 감소
+            if (item.maxDailyPurchase > 0 &&
+                dailyPurchaseCount.ContainsKey(item.itemName) &&
+                dailyPurchaseCount[item.itemName] > 0)
+            {
+                dailyPurchaseCount[item.itemName]--;
+                Debug.Log(item.itemName+ "하루 횟수 감소 {dailyPurchaseCount[item.itemName]}");
+            }
+
+            // 전체 구매 횟수 감소
+            if (item.maxTotalPurchase > 0 &&
+                totalPurchaseCount.ContainsKey(item.itemName) &&
+                totalPurchaseCount[item.itemName] > 0)
+            {
+                totalPurchaseCount[item.itemName]--;
+                Debug.Log(item.itemName + "전체 횟수 감소 {totalPurchaseCount[item.itemName]}");
+            }
+        }
+        OnPurchaseStateChanged?.Invoke(item.itemName);
+        Debug.Log(item.itemName + "이미지 변경 이벤트");
+        Debug.Log(item.itemName + CanPurchaseItem(item));
+
+    }
+
 
     public void ResetDailyPurchases()
     {
-        dailyPurchaseCount.Clear();
+        dailyPurchaseCount.Clear(); // 나중에 하루 지나갈 때 호출
     }
-    /*
-    public void OnPurchase(List<ShopItemData> items)
-    {
-        foreach (var item in items)
-        {
-            if (item.gemType == GemType.NORMAL && gem >= item.price)
-            {
-                gem -= item.price;
-                gemUI.text = "일반 재화: " + gem.ToString();
-            }
-            else if (item.gemType == GemType.SPECIAL && specialGem >= item.price)
-            {
-                specialGem -= item.price;
-                specialGemUI.text = "특수 재화: " + specialGem.ToString();
-            }
-        }
 
-    }
-    */
     public void UpdateNormalGem(int _amount)
     {
         gem -= _amount;
@@ -257,7 +206,7 @@ public class ShopManager : MonoBehaviour
     //임시 gem얻기
     public void AddCoins()
     {
-        gem+=100;
+        gem+=1000;
         gemUI.text = gem.ToString();
         //UpdatePurchaseButtons();
     }
@@ -268,30 +217,5 @@ public class ShopManager : MonoBehaviour
         specialGemUI.text = specialGem.ToString();
        // UpdatePurchaseButtons();
     }
-    //
-
-    /*
-    public void LoadPanel()
-    {
-        for(int i = 0; i < shopItemSO.Length; i++)
-        {
-            shopPanels[i].titleTxt.text = shopItemSO[i].itemName;
-            shopPanels[i].costTxt.text = shopItemSO[i].price.ToString();
-            //shopPanels[i].gemTxt.text = shopItemSO[i].gemTypeTxt;
-            if (shopItemSO[i].gemType == ShopItemSO.GemType.NORMAL)
-            {
-                //shopPanels[i].gemTxt.text = "일반";
-                //shopPanels[i].gemType.color = new Color(150/255f, 107/255f , 81/255f);
-            }
-            else if (shopItemSO[i].gemType == ShopItemSO.GemType.SPECIAL)
-            {
-                //shopPanels[i].gemTxt.text = "특수";
-                //shopPanels[i].gemType.color = new Color(149 / 255f, 97 / 255f, 166 / 255f);
-            }
-            shopPanels[i].tempImg.sprite = shopItemSO[i].itemImg;
-            
-        }
-    }
-    */
 
 }

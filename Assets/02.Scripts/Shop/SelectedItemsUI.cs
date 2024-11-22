@@ -60,7 +60,7 @@ public class SelectedItemsUI : MonoBehaviour
             cardUI.name = item.Key.itemName;
             PurchasedCardUI cardUIComponent = cardUI.GetComponent<PurchasedCardUI>();
             cardUIComponent.SetItem(item.Key, item.Value);
-            Debug.Log("Instantiated cardUI with item: " + item.Key.itemName + " 수량: " + item.Value);
+            //Debug.Log("Instantiated cardUI with item: " + item.Key.itemName + " 수량: " + item.Value);
 
         }
 
@@ -68,7 +68,6 @@ public class SelectedItemsUI : MonoBehaviour
 
     public void ClearInventoryPanel()
     {
-
         foreach (Transform item in verticalLayout)
         {
             Destroy(item.gameObject);  // 기존 아이템 삭제

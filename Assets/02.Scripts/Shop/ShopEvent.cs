@@ -90,23 +90,27 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
             case "Index1":
                 ShopUI.Instance.UpdateItemList(normalItem);
                 ShopUI.Instance.ResetTotalPrice();
+                SelectedItemsUI.Instance.selectedItems.Clear();
+                SelectedItemsUI.Instance.ClearInventoryPanel();
                 Debug.Log("인덱스1");
                 break;
 
             case "Index2":
                 ShopUI.Instance.UpdateItemList(specialItem);
                 ShopUI.Instance.ResetTotalPrice();
+                SelectedItemsUI.Instance.selectedItems.Clear();
+                SelectedItemsUI.Instance.ClearInventoryPanel();
                 Debug.Log("인덱스2");
                 break;
 
             case "Index3":
                 ShopUI.Instance.UpdateItemList(slotItem);
                 ShopUI.Instance.ResetTotalPrice();
+                SelectedItemsUI.Instance.selectedItems.Clear();
+                SelectedItemsUI.Instance.ClearInventoryPanel();
                 Debug.Log("인덱스3");
                 break;
         }
-        SelectedItemsUI.Instance.selectedItems.Clear();
-        SelectedItemsUI.Instance.ClearInventoryPanel();
     }
 
     /*
@@ -131,48 +135,58 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
     */
 
 
-
+    
     public void OnItemClick(ShopItemData _itemData)
     {
-        if (!ShopManager.Instance.CanPurchaseItem(_itemData))
+        if (!ShopManager.Instance.CanClickItem(_itemData))
         {
             Debug.Log($"{_itemData.itemName}은(는) 구매 제한에 도달했습니다.");
             return;
         }
-        totalPrice += _itemData.price;
+        if (ShopManager.Instance.CanClickItem(_itemData))
+        {
+            totalPrice += _itemData.price;
 
+            SelectedItemsUI.Instance.AddItemToInventory(_itemData);
+            ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
+            ShopManager.Instance.TrackPurchase(_itemData);
+        }
+        
+        foreach (var item in SelectedItemsUI.Instance.selectedItems)
+        {
+            Debug.Log($" 추가할 때 selected딕셔너리 Item: {item.Key.itemName}, Quantity: {item.Value}");
+            //ShopManager.Instance.TrackPurchase(item.Key);
+        }
+
+    }
+    /*
+    public void OnItemClick(ShopItemData _itemData)
+    {
+        // 현재 선택된 아이템 수량 확인
+        int currentlySelected = SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData)
+            ? SelectedItemsUI.Instance.selectedItems[_itemData]
+            : 0;
+
+        // CanPurchaseItem에 현재 선택된 수량을 전달
+        if (!ShopManager.Instance.CanPurchaseItem(_itemData, currentlySelected + 1))
+        {
+            Debug.Log($"{_itemData.itemName}은(는) 구매 제한에 도달했습니다.");
+            return;
+        }
+
+        // 구매 가능하면 선택한 아이템에 추가
+        totalPrice += _itemData.price;
         SelectedItemsUI.Instance.AddItemToInventory(_itemData);
         ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
 
-        foreach (var item in SelectedItemsUI.Instance.selectedItems)
-        {
-            Debug.Log($"Item: {item.Key.itemName}, Quantity: {item.Value}");
-        }
-
+        Debug.Log($"selected딕셔너리 안의 Item: {_itemData.itemName}, Quantity: {currentlySelected + 1}");
     }
 
-    public void OnInventoryItemClick(ShopItemData _itemData)
-    {
-        if (SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData))
-        {
-            totalPrice -= _itemData.price;
-            SelectedItemsUI.Instance.selectedItems[_itemData]--;
-
-            if (SelectedItemsUI.Instance.selectedItems[_itemData] <= 0)
-            {
-                SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
-                //Destroy()
-            }
-
-            //SelectedItemsUI.Instance.UpdateInventoryPanel(selectedItems);
-            //ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
-        }
-        SelectedItemsUI.Instance.UpdateInventoryPanel();
-        ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
-    }
+    */
 
     public void RemoveItemFromInventory(ShopItemData _itemData)
     {
+       
         if (SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData))
         {
             totalPrice -= _itemData.price;  // 총액에서 가격을 뺌
@@ -183,10 +197,16 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
             {
                 SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
             }
-
+           
+            ShopManager.Instance.RemovePurchase(_itemData);
             // UI 갱신
             SelectedItemsUI.Instance.UpdateInventoryPanel();
             ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
+       
+        }
+        foreach (var item in SelectedItemsUI.Instance.selectedItems)
+        {
+            Debug.Log($" 제거되고 나서 selected딕셔너리 Item: {item.Key.itemName}, Quantity: {item.Value}");
         }
     }
 
@@ -201,6 +221,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         }
 
         // 실제 구매 처리 로직
+        
         foreach (var item in SelectedItemsUI.Instance.selectedItems)
         {
             int itemTotalPrice = item.Key.price * item.Value; // 아이템 가격 * 수량
@@ -228,10 +249,10 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                     return;
                 }
             }
-            for (int i = 0; i < item.Value; i++) // 아이템의 수량만큼 반복
-            {
-                ShopManager.Instance.TrackPurchase(item.Key);
-            }
+            //for (int i = 0; i < item.Value; i++) // 아이템의 수량만큼 반복
+            //{
+            //    ShopManager.Instance.TrackPurchase(item.Key);
+            //}
         }
 
         Debug.Log("총 구매 금액: " + totalPrice);

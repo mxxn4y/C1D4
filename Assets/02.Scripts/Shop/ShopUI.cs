@@ -29,11 +29,6 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        // Initialize the shop UI elements here if needed
-    }
-
     public void UpdateItemList(List<ShopItemData> items)
     {
         foreach (Transform item in itemGrid)
@@ -66,4 +61,12 @@ public class ShopUI : MonoBehaviour
     {
         shopUI.SetActive(false);  // 상점 UI를 비활성화
     }
+
+    public void SoldOutUI()
+    {
+       
+        Debug.Log("솔드아웃ui");
+    }
+
+    // 구매 횟수가 초과되면 그 해당 카드 아이템 프리팹UI의 Item Image의 Image컴포넌트에서 이미지가 솔드아웃 이미지로 바뀌었으면 좋겠어
 }
