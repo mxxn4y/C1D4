@@ -8,6 +8,8 @@ TagManager:
   - RoomCanvas
   - Tile
   - Canvas
+  - Product
+  - WayPoints
   layers:
   - Default
   - TransparentFX
