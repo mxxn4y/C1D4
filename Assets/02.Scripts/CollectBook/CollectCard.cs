@@ -7,7 +7,6 @@ public class CollectCard : MonoBehaviour
 {
     private string cardName;
     private string cardId;
-    private CARD_TYPE cardType;
     private Image cardImage;
 
     // Start is called before the first frame update
