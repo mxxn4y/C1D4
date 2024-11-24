@@ -47,6 +47,8 @@ public class CardEvent : MonoBehaviour
     public void CardEnter()
     {
         //sInstantiate(cardProperyImg,)
+        Vector2 mousePos = Input.mousePosition;
+        //Instantiate(cardProperyImg, mousePos.position + (new Vector2(50, 0)));
     }
 
     public void CardExit()
