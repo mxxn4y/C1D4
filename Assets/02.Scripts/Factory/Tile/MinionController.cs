@@ -17,16 +17,20 @@ public class MinionController : MonoBehaviour
     [SerializeField] private GameObject minionGo;
     [SerializeField] private Image staminaBarPrefab;
     [SerializeField] private Button eventButtonPrefab;
+    [SerializeField] private Text coolTimeTextPrefab;
     private Image staminaBar;
+    private SpriteRenderer minionSprite;
     private Button eventButton;
     private TextMeshProUGUI eventBtnText;
-    private readonly Vector3 staminaBarPos = new Vector3(0.5f,0.4f,0);
-    private readonly Vector3 eventButtonPos = new Vector3(0f,1.0f,0);
+    private Text coolTimeText;
+    private readonly Vector3 staminaBarPos = new (0.5f,0.4f,0);
+    private readonly Vector3 eventButtonPos = new (0f,1.0f,0);
+    private readonly Vector3 coolTimeTextPos = new (0f,0.5f,0);
     
     private Minion minion;
     private float currentStamina;
     private float CurrentStamina { 
-        get { return currentStamina; } 
+        get => currentStamina;
         set { 
             currentStamina = value;
             SetStaminaBar();
@@ -34,11 +38,11 @@ public class MinionController : MonoBehaviour
     }
     private bool isActive;
     private bool isResting;
-    private int restTimer; // 휴식 쿨타임
-    private float gemTimer; //일반재화 생산 주기
-    private float sGemAndStaminaTimer; //특수재화 생산 주기
+    private int restTimer; 
+    private float gemTimer; 
+    private float sGemAndStaminaTimer; 
     private float gainStaminaTimer;
-    private float eventTimer; //상호작용 주기
+    private float eventTime; // 상호작용 주기
     private Coroutine[] eventCoroutine;
 
     #endregion
@@ -64,6 +68,12 @@ public class MinionController : MonoBehaviour
                     Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
         eventBtnText = eventButton.GetComponentInChildren<TextMeshProUGUI>();
         eventButton.gameObject.SetActive(false);
+        // 쿨타임 텍스트 생성
+        coolTimeText = Instantiate(coolTimeTextPrefab,
+            Camera.main.WorldToScreenPoint(transform.position + coolTimeTextPos),
+            Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
+        coolTimeText.gameObject.SetActive(false);
+        minionSprite = minionGo.GetComponent<SpriteRenderer>();
     }
     
     private void Update()
@@ -90,6 +100,7 @@ public class MinionController : MonoBehaviour
                 // 체력 감소   
                 if (--CurrentStamina <= 0)
                 {
+                    minion.SetExhaustion(true);
                     DeactivateMinion();
                 }
             }
@@ -110,26 +121,25 @@ public class MinionController : MonoBehaviour
     /// </summary>
     private void SetMinion()
     {
-        var placeManager = CardPlaceManager.Instance;
-        if (placeManager.SelectedTile == tile)
-        {  
-            minion = placeManager.SelectedCard.Minion;
-            minionGo.SetActive(true);
-            staminaBar.gameObject.SetActive(true);
-            CurrentStamina = minion.Data.stamina;
-            SetImage();
-            eventCoroutine = new Coroutine[2];
-            FactoryManager.Instance.ActiveMinionList.Add(this);
-            eventTimer = FactoryManager.Instance.ActiveMinionList.Count switch
-            {
-                1 => 4.0f,
-                2 => 6.0f,
-                3 => 7.0f,
-                4 => 9.0f,
-                _ => 11.0f
-            };
-            ActivateMinion();
-        }
+        CardPlaceManager placeManager = CardPlaceManager.Instance;
+        if (placeManager.SelectedTile != tile) { return; }
+
+        minion = placeManager.SelectedCard.Minion;
+        minionGo.SetActive(true);
+        staminaBar.gameObject.SetActive(true);
+        CurrentStamina = minion.Data.stamina;
+        SetImage();
+        eventCoroutine = new Coroutine[2];
+        FactoryManager.Instance.ActiveMinionList.Add(this);
+        eventTime = FactoryManager.Instance.ActiveMinionList.Count switch
+        {
+            1 => 4.0f,
+            2 => 6.0f,
+            3 => 7.0f,
+            4 => 9.0f,
+            _ => 11.0f
+        };
+        ActivateMinion();
     }
 
     private void ActivateMinion()
@@ -138,8 +148,9 @@ public class MinionController : MonoBehaviour
         isResting = false;
         gemTimer = 0.0f;
         sGemAndStaminaTimer = 0.0f;
-        minionGo.GetComponent<SpriteRenderer>().color = Color.white;
-        eventCoroutine[0] = StartCoroutine(MinionEvent(eventTimer));
+        minionSprite.color = Color.white;
+        coolTimeText.color = Color.clear;
+        eventCoroutine[0] = StartCoroutine(MinionEvent(eventTime));
     }
 
     private void RestMinion()
@@ -148,8 +159,9 @@ public class MinionController : MonoBehaviour
         isResting = true;
         gainStaminaTimer = 0.0f;
         eventButton.gameObject.SetActive(false);
-        minionGo.GetComponent<SpriteRenderer>().color = Color.black;
-        foreach (var coroutine in eventCoroutine.Where(_c=>_c!=null))
+        minionSprite.color = Color.black;
+        coolTimeText.color = Color.white;
+        foreach (Coroutine coroutine in eventCoroutine.Where(_c=>_c!=null))
         {
             StopCoroutine(coroutine);
         }
@@ -162,6 +174,7 @@ public class MinionController : MonoBehaviour
         minionGo.SetActive(false);
         staminaBar.gameObject.SetActive(false);
         eventButton.gameObject.SetActive(false);
+        coolTimeText.gameObject.SetActive(false);
         StopAllCoroutines();
     }
 
@@ -184,15 +197,13 @@ public class MinionController : MonoBehaviour
             Debug.LogError($"캐릭터 이미지가 없음 imagePath: {characterImages}");
             return;
         }
-
-        var spriteRenderer = minionGo.GetComponent<SpriteRenderer>();
-        foreach (var image in characterImages)
+        
+        foreach (Sprite image in characterImages)
         {
-            if (image.name == minion.Data.mid)
-            {
-                spriteRenderer.sprite = image;
-                return;
-            }
+            if (image.name != minion.Data.mid) { continue; }
+
+            minionSprite.sprite = image;
+            return;
         }
 
         Debug.LogError($"스프라이트가 없음. imageName : {minion.Data.mid}");
@@ -206,7 +217,7 @@ public class MinionController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_repeatTime);
-            var buttonGo = eventButton.gameObject;
+            GameObject buttonGo = eventButton.gameObject;
             //상호작용 표시
             switch (SelectRandomEvent())
             {
@@ -252,27 +263,20 @@ public class MinionController : MonoBehaviour
     /// </summary>
     private MinionEnums.EVENT SelectRandomEvent()
     {
-        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
-        var chance = random.Next(1, 31);
-        if (chance <= 10)
+        System.Random random = new (Guid.NewGuid().GetHashCode());
+        int chance = random.Next(1, 31);
+        return chance switch
         {
-            return MinionEnums.EVENT.EXTRA_GEM;
-        }
-        else if (chance <= 20)
-        {
-            return MinionEnums.EVENT.TRUST;
-        }
-        else
-        {
-            return MinionEnums.EVENT.FEVER_TIME;
-        }
+            <= 10 => MinionEnums.EVENT.EXTRA_GEM,
+            <= 20 => MinionEnums.EVENT.TRUST,
+            _ => MinionEnums.EVENT.FEVER_TIME
+        };
     }
 
     public void TryChangeRestState()
     {
         if (restTimer > 0f)
         {
-            Debug.Log($"쿨타임 {restTimer}초 남음");
             return;
         }
         
@@ -280,23 +284,25 @@ public class MinionController : MonoBehaviour
         if (isActive)
         {
             RestMinion();
-            Debug.Log("휴식 시작, 노동 종료");
         }
         else if(isResting)
         {
             ActivateMinion();
-            Debug.Log("휴식 종료, 노동 시작");
         }
     }
 
     private IEnumerator RestTimerStart()
     {
         restTimer = 15;
-        while (restTimer > 0f)
+        coolTimeText.gameObject.SetActive(true);
+        while (restTimer > 0)
         {
-            Debug.Log($"restTimer : {restTimer}초");
+            coolTimeText.text = restTimer.ToString("00");
             yield return new WaitForSeconds(1.0f);
-            restTimer -= 1;
+            if (--restTimer == 0)
+            {
+                coolTimeText.gameObject.SetActive(false);
+            }
         }
     }
     

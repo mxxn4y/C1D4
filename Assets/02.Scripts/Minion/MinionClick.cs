@@ -11,4 +11,14 @@ public class MinionClick : MonoBehaviour
     {
         minionController.TryChangeRestState();
     }
+
+    private void OnMouseEnter()
+    {
+        
+    }
+
+    private void OnMouseExit()
+    {
+        
+    }
 }
