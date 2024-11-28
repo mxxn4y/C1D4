@@ -43,17 +43,14 @@ public class IndexEvent : MonoBehaviour
         if (gameObject.name.Contains("PASSION"))
         {
             indexName = "PASSION";
-            int passionCount = 0;
         }
         else if (gameObject.name.Contains("CALM"))
         {
             indexName = "CALM";
-            int calmCount = 0;
         }
         else if (gameObject.name.Contains("WISDOM"))
         {
             indexName = "WISDOM";
-            int wisdomCount = 0;
         }
         else
         {
@@ -68,14 +65,17 @@ public class IndexEvent : MonoBehaviour
         {
             case "PASSION":
                 PassionIndex();
+                BookUI.Instance.DisplayMinionsByType(MinionEnums.TYPE.PASSION);
                 break;
 
             case "CALM":
                 CalmIndex();
+                BookUI.Instance.DisplayMinionsByType(MinionEnums.TYPE.CALM);
                 break;
 
             case "WISDOM":
                 WisdomIndex();
+                BookUI.Instance.DisplayMinionsByType(MinionEnums.TYPE.WISDOM);
                 break;
             default:
                 break;

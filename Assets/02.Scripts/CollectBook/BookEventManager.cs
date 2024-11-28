@@ -32,9 +32,11 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
         {
             index.IndexEventAction();
         }
-        else if (!CardEvent.Instance==null)
+        else if (clickedObj.TryGetComponent<CardEvent>(out CardEvent card)) //이 부분 구현 안 돼 -> 카드 프리팹에 CardEvent 스크립트 부착 안 할 거라..
+                                                                            //그래서 그냥 카드 프리팹 내 이벤트 트리거로 구현
         {
-            CardEvent.Instance.CardClick();
+            card.CardClick(); 
+            Debug.Log("카드 클릭 이벤트 호출");
         }
         else
         {
@@ -44,15 +46,27 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
 
     public void OnPointerEnter(PointerEventData _eventData) //속성 보여죽기
     {
-            //Debug.Log("카드 프리팹 들어옴");
-            //CardEvent.Instance.CardEnter();
-        
+        // 너도 그냥 이벤트 트리거로 구현
+      /*
+         GameObject hoveredObj = _eventData.pointerCurrentRaycast.gameObject;
+        Debug.Log("클릭된 오브젝트: " + hoveredObj.name);
+
+        if (hoveredObj != null && hoveredObj.TryGetComponent<CardEvent>(out CardEvent card))
+        {
+            Debug.Log($"카드 프리팹 진입: {hoveredObj.name}");
+            card.CardEnter(); // CardEvent 스크립트의 CardEnter 메서드 호출
+        }
+        else
+        {
+            Debug.Log("카드 프리팹 영역이 아닙니다.");
+        }
+       */
+
     }
 
     public void OnPointerExit(PointerEventData _eventData)
     {
-            //CardEvent.Instance.CardExit();
-            //Debug.Log("카드 프리팹에 나감");
+        // 너도 이벤트 트리거로
     }
 
 }
