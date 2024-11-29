@@ -90,11 +90,11 @@ GameObject:
   m_Component:
   - component: {fileID: 573104957028889664}
   - component: {fileID: 336277481177647097}
+  - component: {fileID: 9124301036236095370}
   - component: {fileID: -7492132247404263522}
   - component: {fileID: 9091218578626252349}
   - component: {fileID: 9161783632865434815}
   - component: {fileID: 4552697452414877183}
-  - component: {fileID: 5682251872433484016}
   m_Layer: 5
   m_Name: CollectCard
   m_TagString: Untagged
@@ -131,6 +131,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541056083701208716}
   m_CullTransparentMesh: 1
+--- !u!114 &9124301036236095370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541056083701208716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f6db94efae009408fc6a0582ff920d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardImg: {fileID: 4089082499294861941}
+  cardLvImg: {fileID: 8992156076585050272}
+  nameText: {fileID: 7636171979477056836}
+  levelText: {fileID: 74611497173607192}
 --- !u!223 &-7492132247404263522
 Canvas:
   m_ObjectHideFlags: 0
@@ -225,9 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232355a4517e7eb4eb99d6da2b171c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unOutlineImg: {fileID: 21300000, guid: 9ec02ebee51011140bb65c5a2e990306, type: 3}
-  OutlineImg: {fileID: 21300000, guid: 24a3825f787bf774f907d722978b4f53, type: 3}
-  cardPropertyPrefab: {fileID: 573104957028889664}
+  cardPropertyPrefab: {fileID: 0}
   Rect: {fileID: 0}
   uiCamera: {fileID: 0}
 --- !u!114 &4552697452414877183
@@ -247,23 +261,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5682251872433484016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541056083701208716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f6db94efae009408fc6a0582ff920d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardImg: {fileID: 4089082499294861941}
-  cardLvImg: {fileID: 8992156076585050272}
-  cardBack: {fileID: 1478597967690312207}
-  nameText: {fileID: 7636171979477056836}
-  levelText: {fileID: 74611497173607192}
 --- !u!1 &1882893029491537811
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +353,7 @@ GameObject:
   - component: {fileID: 1478597967690312207}
   m_Layer: 5
   m_Name: CardBack
-  m_TagString: CardBack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,7 +407,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ec02ebee51011140bb65c5a2e990306, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

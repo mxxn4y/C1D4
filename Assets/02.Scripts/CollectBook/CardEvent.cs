@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardEvent : MonoBehaviour
 {
     //public static CardEvent Instance { get; private set; }
 
     private Minion minionData;
-    private Image collectCard;
-    public Sprite unOutlineImg;
-    public Sprite OutlineImg;
     private bool isSelected=false;
     public RectTransform cardPropertyPrefab;
     private GameObject InstantiatedProperty;
@@ -36,12 +32,6 @@ public class CardEvent : MonoBehaviour
     {
         uiCamera = Camera.main;
         Rect = GetComponent<RectTransform>();
-
-        GameObject[] CardBack= GameObject.FindGameObjectsWithTag("CardBack");
-        for (int i = 0; i < CardBack.Length; i++)
-        {
-            collectCard = CardBack[i].GetComponent<Image>();
-        }
     }
 
     // Update is called once per frame
@@ -52,14 +42,11 @@ public class CardEvent : MonoBehaviour
 
     public void CardClick()
     {
-        
         if (isSelected)
         {
             PlayerData.Instance.SelectedMinions.Remove(minionData);
             isSelected = false;
-            //UpdateCardOutline(false);
-            // CollectCard의 SetOutline()호출
-            //collectCard.sprite = unOutlineImg;
+            UpdateCardOutline(false);
             Debug.Log("카드 선택 취소");
         }
         else
@@ -68,9 +55,7 @@ public class CardEvent : MonoBehaviour
             {
                 PlayerData.Instance.SelectedMinions.Add(minionData);
                 isSelected = true;
-                //UpdateCardOutline(true);
-                // CollectCard의 UnsetOutline() 호출
-                //collectCard.sprite = OutlineImg;
+                UpdateCardOutline(true);
                 Debug.Log("카드 선택");
             }
             else
