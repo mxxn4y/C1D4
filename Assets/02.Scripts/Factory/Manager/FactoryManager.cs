@@ -99,6 +99,12 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         todaySpecialGem++;
         gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
     }
+    
+    public void AddSpecialGem(int _amount)
+    {
+        todaySpecialGem += _amount;
+        gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
+    }
 
     #endregion
 }

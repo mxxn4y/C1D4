@@ -11,7 +11,7 @@ public class MinionUI : MonoBehaviour
     [SerializeField] private Image staminaBarPrefab;
     [SerializeField] private Button eventBtnPrefab;
     [SerializeField] private Text coolTimeTxtPrefab;
-    [FormerlySerializedAs("minionSpriteRenderer")] [SerializeField] private SpriteRenderer minionSprite;
+    [SerializeField] private SpriteRenderer minionSprite;
     
     private Image staminaBar;
     private Button eventBtn;
@@ -22,6 +22,7 @@ public class MinionUI : MonoBehaviour
     private readonly Vector3 coolTimeTxtPos = new (0f,0.5f,0);
 
     public Action tryChangeState;
+    public Action<MinionEnums.EVENT> eventBtnClicked;
     
     private void OnMouseDown()
     {
@@ -133,33 +134,18 @@ public class MinionUI : MonoBehaviour
     {
         GameObject btnGo = eventBtn.gameObject;
         btnGo.SetActive(true);
-
-        switch (_event)
+        eventBtn.onClick.RemoveAllListeners();
+        eventBtn.onClick.AddListener(() =>
         {
-            case MinionEnums.EVENT.EXTRA_GEM:
-                eventBtnTxt.text = "추가재화";
-                eventBtn.onClick.AddListener(() => {
-                    Debug.Log("extraGem event");
-                    btnGo.SetActive(false);
-                });
-                break;
-            case MinionEnums.EVENT.TRUST:
-                eventBtnTxt.text = "신뢰도";
-                eventBtn.onClick.AddListener(() => {
-                    Debug.Log("trust event");
-                    btnGo.SetActive(false);
-                });
-                break;
-            case MinionEnums.EVENT.FEVER_TIME:
-                eventBtnTxt.text = "피버타임";
-                eventBtn.onClick.AddListener(() => {
-                    Debug.Log("fever event");
-                    btnGo.SetActive(false);
-                });
-                break;
-        }
+            eventBtnClicked?.Invoke(_event);
+            btnGo.SetActive(false);
+        });
     }
 
+    public void SetBtnText(string _text)
+    {
+        eventBtnTxt.text = _text;
+    }
     public void DeactivateBtn()
     {
         eventBtn.gameObject.SetActive(false);

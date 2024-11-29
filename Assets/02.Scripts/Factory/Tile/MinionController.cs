@@ -48,6 +48,8 @@ public class MinionController : MonoBehaviour
             }
         }
     }
+    private bool[] feverArray;
+    private int currentFever;
 
     #endregion
 
@@ -63,6 +65,7 @@ public class MinionController : MonoBehaviour
         isActive = false;
         minionUI.Init();
         minionUI.tryChangeState += TryChangeRestState;
+        minionUI.eventBtnClicked += EventClicked;
     }
     
     private void Update()
@@ -77,16 +80,16 @@ public class MinionController : MonoBehaviour
             }
 
             sGemAndStaminaTimer += Time.deltaTime;
-            if (sGemAndStaminaTimer >= 1.0f)
+            if (sGemAndStaminaTimer >= 10.0f)
             {
-                sGemAndStaminaTimer -= 1.0f;
+                sGemAndStaminaTimer -= 10.0f;
                 // 특수재화 생산 시도
                 if (minion.TryEarnSpecialGem())
                 {
                     FactoryManager.Instance.AddSpecialGem();
                 }
 
-                // 체력 감소   
+                // 체력 감소
                 if (--CurrentStamina <= 0)
                 {
                     minion.SetExhaustion(true);
@@ -94,7 +97,7 @@ public class MinionController : MonoBehaviour
                 }
             }
         }
-        else if (isResting)
+        else if (isResting && CurrentStamina <= minion.Data.stamina)
         {
             gainStaminaTimer += Time.deltaTime;
             if (gainStaminaTimer >= 1.0f)
@@ -115,6 +118,7 @@ public class MinionController : MonoBehaviour
 
         minion = placeManager.SelectedCard.Minion;
         minionGo.SetActive(true);
+        RestTimer = 0;
         CurrentStamina = minion.Data.stamina;
         minionUI.SetImage(minion.Data.mid);
         eventCoroutine = new Coroutine[2];
@@ -127,6 +131,8 @@ public class MinionController : MonoBehaviour
             4 => 9.0f,
             _ => 11.0f
         };
+        feverArray = new bool[5];
+        ResetFeverList();
         ActivateMinion();
     }
 
@@ -169,18 +175,7 @@ public class MinionController : MonoBehaviour
         {
             yield return new WaitForSeconds(_repeatTime);
             //상호작용 표시
-            switch (SelectRandomEvent())
-            {
-                case MinionEnums.EVENT.EXTRA_GEM:
-                    minionUI.ActivateEventBtn(MinionEnums.EVENT.EXTRA_GEM);
-                    break;
-                case MinionEnums.EVENT.TRUST:
-                    minionUI.ActivateEventBtn(MinionEnums.EVENT.TRUST);
-                    break;
-                case MinionEnums.EVENT.FEVER_TIME:
-                    minionUI.ActivateEventBtn(MinionEnums.EVENT.FEVER_TIME);
-                    break;
-            }
+            minionUI.ActivateEventBtn(SelectRandomEvent());
             eventCoroutine[1] = StartCoroutine(EndEvent());
         }
     }
@@ -198,17 +193,66 @@ public class MinionController : MonoBehaviour
     {
         System.Random random = new (Guid.NewGuid().GetHashCode());
         int chance = random.Next(1, 31);
-        return chance switch
+        switch (chance)
         {
-            <= 10 => MinionEnums.EVENT.EXTRA_GEM,
-            <= 20 => MinionEnums.EVENT.TRUST,
-            _ => MinionEnums.EVENT.FEVER_TIME
-        };
+            case <= 10:
+                minionUI.SetBtnText("extraGem");
+                return MinionEnums.EVENT.EXTRA_GEM;
+            case <= 20:
+                minionUI.SetBtnText("trust");
+                return MinionEnums.EVENT.TRUST;
+            default:
+                currentFever = random.Next(0, 5);
+                string text = currentFever switch
+                {
+                    0 => "A",
+                    1 => "B",
+                    2 => "C",
+                    3 => "D",
+                    _ => "E"
+                };
+                minionUI.SetBtnText(text);
+                return MinionEnums.EVENT.FEVER_TIME;
+        }
+    }
+
+    private void EventClicked(MinionEnums.EVENT _event)
+    {
+        switch (_event)
+        {
+            case MinionEnums.EVENT.EXTRA_GEM:
+                FactoryManager.Instance.AddGem(minion.Data.efficiency);
+                return;
+            case MinionEnums.EVENT.TRUST:
+                minion.GainTrust();
+                Debug.Log($"{minion.Data.mid} // Trust: {minion.Trust}");
+                return;
+            case MinionEnums.EVENT.FEVER_TIME:
+                feverArray[currentFever] = true;
+                Debug.Log($"{minion.Data.mid} // " +
+                          $"Fever: {currentFever} feverList:{string.Concat(feverArray)}");
+                if (feverArray.All(_b => _b.Equals(true)))
+                {
+                    FactoryManager.Instance.AddSpecialGem(5);
+                    ResetFeverList();
+                }
+                return;
+            default:
+                return;
+        }
+    }
+
+    private void ResetFeverList()
+    {
+        for (int i = 0; i < feverArray.Length; i++)
+        {
+            feverArray[i] = false;
+        }
     }
 
     public void TryChangeRestState()
     {
-        if (RestTimer > 0f)
+        if (RestTimer > 0)
         {
             return;
         }
