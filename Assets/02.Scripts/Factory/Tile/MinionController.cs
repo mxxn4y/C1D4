@@ -250,7 +250,7 @@ public class MinionController : MonoBehaviour
         }
     }
 
-    public void TryChangeRestState()
+    private void TryChangeRestState()
     {
         if (RestTimer > 0)
         {
@@ -278,7 +278,14 @@ public class MinionController : MonoBehaviour
             RestTimer--;
         }
     }
-    
+
+    public void TimeEnd()
+    {
+        minionUI.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        minionUI.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        isActive = false;
+        StopAllCoroutines(); 
+    }
     #endregion
 }
 

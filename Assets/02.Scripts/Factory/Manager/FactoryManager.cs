@@ -17,7 +17,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
     public List<MinionController> ActiveMinionList { get; set; } = new List<MinionController>();
     private bool isStart;
-    private float workTime = 180; //제한시간 3분(180초)
+    private float workTime = 10; //제한시간 3분(180초)
     
     [SerializeField] private Text timeText;
 
@@ -51,6 +51,11 @@ public class FactoryManager : MonoSingleton<FactoryManager>
             else
             {
                 timeText.text = "time over";
+                DestroyAllCards();
+                foreach (MinionController minion in ActiveMinionList)
+                {
+                    minion.TimeEnd();
+                }
             }
         }
     }
