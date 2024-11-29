@@ -11,11 +11,19 @@ public class CollectCard : MonoBehaviour
     private string cardId;
     public Image cardImg;
     public Image cardLvImg;
+    public Image cardBack;
+    //public Sprite unOutlineImg;
+    //public Sprite outlineImg;
 
     public Text nameText;
     //public TMP_Text typeText;
     //public TMP_Text gradeText;
     public Text levelText;
+
+    void Start()
+    {
+        cardBack = GetComponent<Image>();
+    }
 
     public void Setup(Minion _minion)
     {
@@ -46,7 +54,17 @@ public class CollectCard : MonoBehaviour
 
         Debug.LogError($"스프라이트가 없음. imageName : {_baseData.mid}");
     }
+    /*
+    public void SetOutline()
+    {
+        cardBack.sprite = outlineImg;
+    }
 
+    public void UnsetOutline()
+    {
+        cardBack.sprite = unOutlineImg;
+    }
+    */
     public void SetColorImg(Minion _minion)
     {
         if (_minion.Data.type == MinionEnums.TYPE.PASSION)
