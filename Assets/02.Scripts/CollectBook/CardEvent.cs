@@ -53,6 +53,7 @@ public class CardEvent : MonoBehaviour
 
     public void CardClick()
     {
+        /*
         //if (minionData.Exhaustion != false)
         //{
         if (isSelected)
@@ -78,21 +79,9 @@ public class CardEvent : MonoBehaviour
             }
         }
         Debug.Log("탈진으로 선택 불가");
+        */
     }
         
-    
-
-    private void UpdateCardOutline(bool _enable)
-    {
-        if (_enable)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
     /*
     public void RandomCard()
     {

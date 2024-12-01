@@ -7,7 +7,8 @@ using System;
 
 public class CollectCard : MonoBehaviour
 {
-    private Minion minionData;
+    public Minion minionData;
+    public MinionBaseData minionBase;
     private string cardName;
     private string cardId;
     public Image cardImg;
@@ -24,7 +25,14 @@ public class CollectCard : MonoBehaviour
 
     public void Setup(Minion _minion)
     {
+        if (_minion == null )
+        {
+            Debug.Log("Setup 호출 시 전달된 Minion이 null");
+            return;
+        }
         minionData = _minion;
+        minionBase = _minion.Data;
+        Debug.Log(minionBase.name);
         nameText.text = _minion.Data.name;
         //bool isSelected = PlayerData.Instance.SelectedMinions.Contains(_minion);
 
@@ -43,6 +51,10 @@ public class CollectCard : MonoBehaviour
         //gradeText.text = minion.Data.grade.ToString();
     }
 
+    public Minion GetCardMinion(Minion _minion)
+    {
+        return minionData;
+    }
 
     public void SetCollectCardImg(MinionBaseData _baseData)
     {

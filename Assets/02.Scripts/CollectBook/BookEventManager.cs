@@ -22,6 +22,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
     public void OnPointerClick(PointerEventData _eventData) //카드 클릭, 인덱스 클릭
     {      
         GameObject clickedObj = _eventData.pointerCurrentRaycast.gameObject;
+        CollectCard collectCard = clickedObj.GetComponentInParent<CollectCard>();
         Debug.Log("클릭된 오브젝트: " + clickedObj.name);
 
         if (clickedObj == null)
@@ -33,16 +34,40 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
             index.IndexEventAction();
             Debug.Log("IndexEventAction");
         }
-        else if (clickedObj.TryGetComponent<CardEvent>(out CardEvent card)) //이 부분 구현 안 돼 -> 카드 프리팹에 CardEvent 스크립트 부착 안 할 거라..
+        else if (collectCard!=null) //이 부분 구현 안 돼 -> 카드 프리팹에 CardEvent 스크립트 부착 안 할 거라..
                                                                             //그래서 그냥 카드 프리팹 내 이벤트 트리거로 구현
         {
             //card.CardClick(); 
             Debug.Log("카드 클릭 이벤트 호출");
+            Debug.Log($"CollectCard의 Minion 데이터: {collectCard.minionData.Data.name}");
+            if (PlayerData.Instance.SelectedMinions.Contains(collectCard.minionData))
+            {
+                PlayerData.Instance.SelectedMinions.Remove(collectCard.minionData);
+                collectCard.SetUnClickImg();
+                Debug.Log("선택된 리스트에 클릭 미니언이 있을 때");
+
+                foreach (var item in PlayerData.Instance.SelectedMinions)
+                {
+                    Debug.Log("선택된 리스트에서 남은 미니언"+item.Data.name);
+                }
+            }
+            else
+            {
+                PlayerData.Instance.SelectedMinions.Add(collectCard.minionData);
+                collectCard.SetClickImg();
+                Debug.Log("선택된 리스트에 클릭 미니언이 없을 때");
+
+                foreach (var item in PlayerData.Instance.SelectedMinions)
+                {
+                    Debug.Log("선택된 리스트에서 추가:" + item.Data.name);
+                }
+            }
         }
         else
         {
-            Debug.Log("IndexEvent 컴포넌트가 없습니다.");
+            Debug.Log("");
         }
+
     }
 
     public void OnPointerEnter(PointerEventData _eventData) //속성 보여죽기

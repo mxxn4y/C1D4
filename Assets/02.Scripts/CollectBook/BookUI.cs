@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
 public class BookUI : MonoBehaviour
 {
     public static BookUI Instance { get; private set; }
@@ -44,7 +43,6 @@ public class BookUI : MonoBehaviour
     {
         
     }
-
     public void DisplayMinionsByType(MinionEnums.TYPE type)
     {
         // 기존 카드 삭제
@@ -55,36 +53,73 @@ public class BookUI : MonoBehaviour
                 Destroy(child.gameObject); // grid 내부의 자식 오브젝트를 삭제
             }
         }
-        /*
-        // PlayerData에서 미니언 리스트 가져와 필터링
-        var filteredMinions = PlayerData.Instance.MinionList
-            .Where(minion => minion.Data.type == type)
-            .ToList();
-        int minionsPerGrid = 4; // 각 grid에 표시할 최대 미니언 개수
-        int currentMinionIndex = 0; // 현재 표시된 미니언의 인덱스
+
+        // 모든 미니언과 플레이어 데이터 가져오기
+        var stringAllList = MinionTable.Instance.FindAllMinions(type);
+        var minionAllList = MinionTable.Instance.AllMinionList(stringAllList); // type에 따른 모든 미니언 호출
+        var ownMinionList = PlayerData.Instance.MinionList;
+        var ownedMinionIds = ownMinionList.Select(minion => minion.Data.mid).ToHashSet(); // 보유한 미니언 ID 집합
+        var selectedMinions = PlayerData.Instance.SelectedMinions; // 선택된 미니언 리스트 가져오기
+
+        int currentMinionIndex = 0;
 
         foreach (GameObject grid in gridLayouts)
         {
-            for (int i = 0; i < minionsPerGrid; i++)
+            int cardsPerGrid = grid == gridLayouts[0] ? 4 : 1; // 첫 번째 그리드: 4개, 두 번째 그리드: 1개
+
+            for (int i = 0; i < cardsPerGrid; i++)
             {
-                if (currentMinionIndex >= filteredMinions.Count)
-                {
-                    // 더 이상 표시할 미니언이 없으면 반복 종료
+                if (currentMinionIndex >= minionAllList.Count)
                     break;
+
+                var minion = minionAllList[currentMinionIndex];
+                GameObject card;
+
+                // 카드 생성 및 상태 설정
+                if (ownedMinionIds.Contains(minion.Data.mid)) // 보유한 미니언인 경우
+                {
+                    card = Instantiate(unlockCard, grid.transform);
+                    var collectCard = card.GetComponent<CollectCard>();
+                    collectCard.Setup(minion);
+                    collectCard.SetCollectCardImg(minion.Data);
+                    collectCard.SetColorImg(minion);
+
+                    // 선택 상태 반영
+                    if (selectedMinions.Contains(minion))
+                    {
+                        collectCard.SetClickImg(); // 선택된 상태로 렌더링
+                    }
+                    else
+                    {
+                        collectCard.SetUnClickImg(); // 선택되지 않은 상태로 렌더링
+                        Debug.Log("BookUI의 언클릭 호출됨");
+                    }
+                }
+                else // 보유하지 않은 미니언인 경우
+                {
+                    card = Instantiate(lockCard, grid.transform);
+                    var collectCard = card.GetComponent<CollectCard>();
+                    collectCard.Setup(minion);
+                    collectCard.SetCollectCardImg(minion.Data);
+                    collectCard.SetColorImg(minion);
                 }
 
-                // 필터링된 미니언으로 카드 생성
-                var minion = filteredMinions[currentMinionIndex];
-                GameObject card = Instantiate(unlockCard, grid.transform);
-                // 카드에 미니언 정보 연결
-                card.GetComponent<CollectCard>().Setup(minion);
-                card.GetComponent<CollectCard>().SetCollectCardImg(minion.Data);
-                card.GetComponent<CollectCard>().SetColorImg(minion);
-
-                currentMinionIndex++;
+                currentMinionIndex++; // 다음 미니언으로 이동
             }
         }
-        */
+    }
+
+    /*
+    public void DisplayMinionsByType(MinionEnums.TYPE type)
+    {
+        // 기존 카드 삭제
+        foreach (GameObject grid in gridLayouts)
+        {
+            foreach (Transform child in grid.transform)
+            {
+                Destroy(child.gameObject); // grid 내부의 자식 오브젝트를 삭제
+            }
+        }
         var stringAllList=MinionTable.Instance.FindAllMinions(type);
         var minionAllList = MinionTable.Instance.AllMinionList(stringAllList); // 인덱스 이벤트에서 호출하면 type에 따른 모든 미니언 호출
         //var filteredMinions = PlayerData.Instance.MinionList
@@ -110,15 +145,24 @@ public class BookUI : MonoBehaviour
                 var minion = minionAllList[currentMinionIndex];
 
                 GameObject card;
-                if (ownedMinionIds.Contains(minion.Data.mid))
+                if (ownedMinionIds.Contains(minion.Data.mid)) //전체 미니언에서 보유한 미니언이 있다면
                 {
                     // 보유한 미니언: unlockCard 프리팹 사용
                     card = Instantiate(unlockCard, grid.transform);
                     card.GetComponent<CollectCard>().Setup(minion);
                     card.GetComponent<CollectCard>().SetCollectCardImg(minion.Data);
                     card.GetComponent<CollectCard>().SetColorImg(minion);
-                  
+                    card.GetComponent<CollectCard>().SetUnClickImg();
+
+                    foreach (var ownMinion in ownMinonList)
+                    {
+                        if (selectedMinion.Contains(ownMinion)) // 그리고 그 보유한 미니언 중에서 선택된 미니언이 있다면 
+                        {
+                            card.GetComponent<CollectCard>().SetClickImg();
+                        }
+                    }
                 }
+                  
                 else
                 {
                     // 보유하지 않은 미니언: lockCard 프리팹 사용
@@ -135,7 +179,7 @@ public class BookUI : MonoBehaviour
 
        
     }
-
+    */
     public void RandomCard()
     {
         var selectedCards = PlayerData.Instance.SelectedMinions;
