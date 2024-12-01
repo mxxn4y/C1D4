@@ -7,10 +7,15 @@ using System;
 
 public class CollectCard : MonoBehaviour
 {
+    private Minion minionData;
     private string cardName;
     private string cardId;
     public Image cardImg;
     public Image cardLvImg;
+    public Image cardBackImg;
+    public Sprite click;
+    public Sprite unclick;
+
 
     public Text nameText;
     //public TMP_Text typeText;
@@ -19,8 +24,21 @@ public class CollectCard : MonoBehaviour
 
     public void Setup(Minion _minion)
     {
+        minionData = _minion;
         nameText.text = _minion.Data.name;
-        
+        //bool isSelected = PlayerData.Instance.SelectedMinions.Contains(_minion);
+
+        /*
+        if (isSelected)
+        {
+            SetClickImg(); // 클릭 상태로 초기화
+        }
+        else
+        {
+            SetUnClickImg(); // 언클릭 상태로 초기화
+        }
+        */
+
         //typeText.text = minion.Data.type.ToString();
         //gradeText.text = minion.Data.grade.ToString();
     }
@@ -45,6 +63,21 @@ public class CollectCard : MonoBehaviour
         }
 
         Debug.LogError($"스프라이트가 없음. imageName : {_baseData.mid}");
+    }
+
+
+
+    public void SetClickImg()
+    {
+        cardBackImg.sprite = click;
+        Debug.Log("CollectCard 클릭이미지 함수");
+
+    }
+
+    public void SetUnClickImg()
+    {
+        cardBackImg.sprite = unclick;
+        Debug.Log("CollectCard 언클릭이미지 함수");
     }
 
     public void SetColorImg(Minion _minion)

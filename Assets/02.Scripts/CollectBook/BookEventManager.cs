@@ -31,11 +31,12 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
         else if (clickedObj.TryGetComponent<IndexEvent>(out IndexEvent index))
         {
             index.IndexEventAction();
+            Debug.Log("IndexEventAction");
         }
         else if (clickedObj.TryGetComponent<CardEvent>(out CardEvent card)) //이 부분 구현 안 돼 -> 카드 프리팹에 CardEvent 스크립트 부착 안 할 거라..
                                                                             //그래서 그냥 카드 프리팹 내 이벤트 트리거로 구현
         {
-            card.CardClick(); 
+            //card.CardClick(); 
             Debug.Log("카드 클릭 이벤트 호출");
         }
         else

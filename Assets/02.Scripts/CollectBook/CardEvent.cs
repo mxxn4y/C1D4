@@ -7,46 +7,60 @@ public class CardEvent : MonoBehaviour
     //public static CardEvent Instance { get; private set; }
 
     private Minion minionData;
-    private bool isSelected=false;
+    private CollectCard collectCard;
+    public bool isSelected;
     public RectTransform cardPropertyPrefab;
-    private GameObject InstantiatedProperty;
-    public RectTransform Rect;
+    private GameObject instantiatedProperty;
+    public Canvas parentCanvas;
+
+    //public RectTransform Rect;
     public Camera uiCamera;
     private Vector2 screenPoint;
-/*
-    private void Awake()
-    {
-        if (Instance == null)
+    /*
+        private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-*/
+    */
 
     // Start is called before the first frame update
     void Start()
     {
         uiCamera = Camera.main;
-        Rect = GetComponent<RectTransform>();
-    }
+        //Rect = GetComponent<RectTransform>();
+        collectCard = GetComponent<CollectCard>();
+        if (uiCamera == null)
+        {
+            uiCamera = Camera.main; // UI 카메라 설정
+        }
+        if (parentCanvas == null)
+        {
+            parentCanvas = GetComponentInParent<Canvas>();
 
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void CardClick()
     {
+        //if (minionData.Exhaustion != false)
+        //{
         if (isSelected)
         {
             PlayerData.Instance.SelectedMinions.Remove(minionData);
+            Debug.Log(PlayerData.Instance.SelectedMinions);
             isSelected = false;
-            UpdateCardOutline(false);
+            collectCard.SetUnClickImg();
             Debug.Log("카드 선택 취소");
         }
         else
@@ -55,7 +69,7 @@ public class CardEvent : MonoBehaviour
             {
                 PlayerData.Instance.SelectedMinions.Add(minionData);
                 isSelected = true;
-                UpdateCardOutline(true);
+                collectCard.SetClickImg();
                 Debug.Log("카드 선택");
             }
             else
@@ -63,7 +77,10 @@ public class CardEvent : MonoBehaviour
                 Debug.Log("카드 선택할 수 없다요");
             }
         }
+        Debug.Log("탈진으로 선택 불가");
     }
+        
+    
 
     private void UpdateCardOutline(bool _enable)
     {
@@ -114,36 +131,35 @@ public class CardEvent : MonoBehaviour
 
     public void CardEnter()
     {
-        //sInstantiate(cardProperyImg,)
         Debug.Log("호버링");
         /*
-        Vector3 mousePos = Input.mousePosition; 
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
-
-        // ������ ���� (z�� ���� �ʿ�)
-        worldPos.z = 0; // z �� ���� (UI ��� �� ����)
-
-        if (cardPropertyPrefab != null)
+        if (cardPropertyPrefab == null)
         {
-            InstantiatedProperty = Instantiate(cardPropertyPrefab, worldPos, Quaternion.identity);
-            Debug.Log("���콺 ��ġ�� ������ ����");
+            Debug.LogError("cardPropertyPrefab이 설정되지 않았습니다!");
+            return;
         }
-        else
-        {
-            Debug.LogError("cardPropertyPrefab�� �������� �ʾҽ��ϴ�!");
-        }
+
+        // 마우스 위치를 캔버스 공간으로 변환
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentCanvas.transform as RectTransform,
+            Input.mousePosition,
+            uiCamera,
+            out Vector2 localPoint);
+
+        // 프리팹 생성 및 위치 설정
+        instantiatedProperty = Instantiate(cardPropertyPrefab, parentCanvas.transform).gameObject;
+        RectTransform rectTransform = instantiatedProperty.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = localPoint + new Vector2(200, -200); // 마우스 기준으로 오른쪽 하단
+        Debug.Log("카드 속성 프리팹 생성");
         */
-        //잠시 주석 처리
-        // RectTransformUtility.ScreenPointToLocalPointInRectangle(Rect, Input.mousePosition, GetComponent<Camera>(), out screenPoint);
-        //cardPropertyPrefab.localPosition = screenPoint;
     }
 
     public void CardExit()
     {
         Debug.Log("호버링 취소");
-        if (InstantiatedProperty != null)
+        if (instantiatedProperty != null)
         {
-            Destroy(InstantiatedProperty);
+            //Destroy(instantiatedProperty);
         }
     }
 

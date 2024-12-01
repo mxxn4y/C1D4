@@ -110,6 +110,37 @@ public class MinionTable
         
         return idList;
     }
+
+    public List<string> FindAllMinions(MinionEnums.TYPE _type)
+    {
+        var idList = new List<string>();
+
+        string type = _type switch
+        {
+            MinionEnums.TYPE.PASSION => "passion",
+            MinionEnums.TYPE.CALM => "calm",
+            MinionEnums.TYPE.WISDOM => "wisdom",
+            _ => "unknown"
+        };
+
+        foreach (var data in minionTable
+                     .Where(_data => _data["type"].ToString() == type))
+        {
+            idList.Add(data["mid"].ToString());
+        }
+        return idList;
+    }
+
+    public List<Minion> AllMinionList(List<string> _idList)
+    {
+        var allMinionList = new List<Minion>();
+        foreach (var id in _idList)
+        {
+            allMinionList.Add(new Minion(id));
+        }
+        return allMinionList;
+    }
+
 }
 
 
