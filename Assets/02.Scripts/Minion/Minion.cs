@@ -22,7 +22,7 @@ public class Minion
 
     public int GainCount {get; private set;} // 획득 횟수
     public bool Exhaustion {get; private set;} // 사용 가능 여부
-    // 다시 사용 가능한 상태가 되는 날짜 변수도 필요할듯
+    
     public float Trust { get; private set; }
 
     /// <summary>

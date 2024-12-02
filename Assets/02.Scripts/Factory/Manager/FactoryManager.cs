@@ -13,6 +13,8 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     [SerializeField] private Text[] gemTexts;
     [SerializeField] private GameObject randomDrawUI;
     [SerializeField] private GameObject factoryUI;
+    [SerializeField] private GameObject settlementUI;
+    [SerializeField] private Text[] settlementTexts;
     
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
     public List<MinionController> ActiveMinionList { get; set; } = new List<MinionController>();
@@ -55,6 +57,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
                 foreach (MinionController minion in ActiveMinionList)
                 {
                     minion.TimeEnd();
+                    ShowTodaySettlement();
                 }
             }
         }
@@ -109,6 +112,13 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         todaySpecialGem += _amount;
         gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
+    }
+
+    public void ShowTodaySettlement()
+    {
+        settlementUI.SetActive(true);
+        settlementTexts[0].text = todayGem.ToString();
+        settlementTexts[1].text = todaySpecialGem.ToString();
     }
 
     #endregion
