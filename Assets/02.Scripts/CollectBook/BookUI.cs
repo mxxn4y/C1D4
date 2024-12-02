@@ -45,6 +45,7 @@ public class BookUI : MonoBehaviour
     }
     public void DisplayMinionsByType(MinionEnums.TYPE type)
     {
+        
         // 기존 카드 삭제
         foreach (GameObject grid in gridLayouts)
         {
@@ -57,9 +58,11 @@ public class BookUI : MonoBehaviour
         // 모든 미니언과 플레이어 데이터 가져오기
         var stringAllList = MinionTable.Instance.FindAllMinions(type);
         var minionAllList = MinionTable.Instance.AllMinionList(stringAllList); // type에 따른 모든 미니언 호출
-        var ownMinionList = PlayerData.Instance.MinionList;
+        var ownMinionList = PlayerData.Instance.MinionList; //보유한 미니언 리스트
         var ownedMinionIds = ownMinionList.Select(minion => minion.Data.mid).ToHashSet(); // 보유한 미니언 ID 집합
-        var selectedMinions = PlayerData.Instance.SelectedMinions; // 선택된 미니언 리스트 가져오기
+        var selectedMinions = PlayerData.Instance.SelectedMinions; // 선택된 미니언 리스트
+
+    
 
         int currentMinionIndex = 0;
 

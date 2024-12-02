@@ -120,7 +120,7 @@ public class CardEvent : MonoBehaviour
 
     public void CardEnter()
     {
-        Debug.Log("호버링");
+        //Debug.Log("호버링");
         /*
         if (cardPropertyPrefab == null)
         {

@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 9091218578626252349}
   - component: {fileID: 4552697452414877183}
   - component: {fileID: 3273938109709513752}
-  - component: {fileID: 5696914145450469610}
   - component: {fileID: 2511534234589716838}
   - component: {fileID: 218859369532710978}
   m_Layer: 5
@@ -248,21 +247,6 @@ MonoBehaviour:
   cardPropertyPrefab: {fileID: 1714570910562680755, guid: ba32f48aedb9dd74e87e31841ec32c4d, type: 3}
   parentCanvas: {fileID: 0}
   uiCamera: {fileID: 0}
---- !u!114 &5696914145450469610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541056083701208716}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f02a8389d556e42b9dba3ed68a03a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardBackImg: {fileID: 1478597967690312207}
-  click: {fileID: 21300000, guid: b4afc181e69120f4b8b177282f102317, type: 3}
-  unclick: {fileID: 21300000, guid: c9ebcf2cc52ddf54b9b95ecdc73ff0c2, type: 3}
 --- !u!114 &2511534234589716838
 MonoBehaviour:
   m_ObjectHideFlags: 0
