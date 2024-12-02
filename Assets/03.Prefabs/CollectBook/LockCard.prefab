@@ -623,7 +623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7997809655745855306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -674,8 +674,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lv. 4
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4c0cad4f67826c645afa47f1146c0b57, type: 2}
+  m_sharedMaterial: {fileID: -2067399518785379858, guid: 4c0cad4f67826c645afa47f1146c0b57, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -754,7 +754,6 @@ GameObject:
   - component: {fileID: 5815607312885954691}
   - component: {fileID: 6718278559645894084}
   - component: {fileID: 556735723888188691}
-  - component: {fileID: 6069661802515089959}
   m_Layer: 5
   m_Name: LockCard
   m_TagString: Untagged
@@ -848,19 +847,3 @@ MonoBehaviour:
   unclick: {fileID: 21300000, guid: c9ebcf2cc52ddf54b9b95ecdc73ff0c2, type: 3}
   nameText: {fileID: 6102655614889006283}
   levelText: {fileID: 5063617365604769207}
---- !u!114 &6069661802515089959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9084717233696336741}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232355a4517e7eb4eb99d6da2b171c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSelected: 0
-  cardPropertyPrefab: {fileID: 1714570910562680755, guid: ba32f48aedb9dd74e87e31841ec32c4d, type: 3}
-  parentCanvas: {fileID: 0}
-  uiCamera: {fileID: 0}

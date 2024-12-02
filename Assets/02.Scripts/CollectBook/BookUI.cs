@@ -43,7 +43,13 @@ public class BookUI : MonoBehaviour
     {
         
     }
-    public void DisplayMinionsByType(MinionEnums.TYPE type)
+
+    void OnEnable()
+    {
+        
+    }
+
+        public void DisplayMinionsByType(MinionEnums.TYPE type)
     {
         
         // 기존 카드 삭제
@@ -58,7 +64,7 @@ public class BookUI : MonoBehaviour
         // 모든 미니언과 플레이어 데이터 가져오기
         var stringAllList = MinionTable.Instance.FindAllMinions(type);
         var minionAllList = MinionTable.Instance.AllMinionList(stringAllList); // type에 따른 모든 미니언 호출
-        var ownMinionList = PlayerData.Instance.MinionList; //보유한 미니언 리스트
+        var ownMinionList = PlayerData.Instance.MinionList; //플레이어가 보유한 미니언 리스트
         var ownedMinionIds = ownMinionList.Select(minion => minion.Data.mid).ToHashSet(); // 보유한 미니언 ID 집합
         var selectedMinions = PlayerData.Instance.SelectedMinions; // 선택된 미니언 리스트
 
@@ -86,16 +92,28 @@ public class BookUI : MonoBehaviour
                     collectCard.Setup(minion);
                     collectCard.SetCollectCardImg(minion.Data);
                     collectCard.SetColorImg(minion);
+                    collectCard.IsUnlockCard = true;
 
+                    bool exsists = false;
+                    foreach(var m in selectedMinions)
+                    {
+                        if(m.Data.mid == minion.Data.mid)
+                        {
+                            exsists = true;
+                            continue;
+                        }
+                    }
+                    selectedMinions.ForEach(_ => _.Equals(minion.Data.mid));
                     // 선택 상태 반영
-                    if (selectedMinions.Contains(minion))
+                    if (exsists)
                     {
                         collectCard.SetClickImg(); // 선택된 상태로 렌더링
+                        Debug.Log("BookUI의 클릭img 호출됨");
                     }
                     else
                     {
                         collectCard.SetUnClickImg(); // 선택되지 않은 상태로 렌더링
-                        Debug.Log("BookUI의 언클릭 호출됨");
+                        Debug.Log("BookUI의 언클릭img 호출됨");
                     }
                 }
                 else // 보유하지 않은 미니언인 경우
@@ -105,6 +123,7 @@ public class BookUI : MonoBehaviour
                     collectCard.Setup(minion);
                     collectCard.SetCollectCardImg(minion.Data);
                     collectCard.SetColorImg(minion);
+                    collectCard.IsUnlockCard = false;
                 }
 
                 currentMinionIndex++; // 다음 미니언으로 이동

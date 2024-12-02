@@ -34,7 +34,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
         public void OnPointerClick(PointerEventData _eventData) //카드 클릭, 인덱스 클릭
         {
             GameObject clickedObj = _eventData.pointerCurrentRaycast.gameObject;
-            CollectCard collectCard = clickedObj.GetComponentInParent<CollectCard>();
+            CollectCard collectCard = clickedObj.GetComponentInParent<CollectCard>(); // 콜렉트북의 모든 카드 프리팹에 부착되어있는 스크립트
 
             Debug.Log("클릭된 오브젝트: " + clickedObj.name);
 
@@ -47,11 +47,10 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
                 index.IndexEventAction();
                 Debug.Log("IndexEventAction");
             }
-            else if (collectCard != null)
+            else if (collectCard != null && collectCard.IsUnlockCard&& (!collectCard.isExhausted)) // 여기 조건문 수정 예정
             {
 
-                //card.CardClick(); 
-                Debug.Log("카드 클릭 이벤트 호출");
+                //card.CardClick();
                 Debug.Log($"CollectCard의 Minion 데이터: {collectCard.minionData.Data.name}");
 
                 if (PlayerData.Instance.SelectedMinions.Contains(collectCard.minionData))
@@ -62,7 +61,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
 
                     foreach (var item in PlayerData.Instance.SelectedMinions)
                     {
-                        Debug.Log("선택된 리스트에서 남은 미니언" + item.Data.name);
+                        Debug.Log("선택된 리스트에서 남은 미니언: " + item.Data.name);
                     }
                 }
                 else
@@ -91,7 +90,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
 
             Debug.Log("호버링된 오브젝트: " + hoveredObj.name);
 
-            if (hoveredObj != null && collectCard != null)
+            if (hoveredObj != null && collectCard != null && collectCard.IsUnlockCard)
             {
                 if (cardPropertyPrefab != null)
                 {
@@ -114,7 +113,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
 
         public void OnPointerExit(PointerEventData _eventData)
         {
-        // 너도 이벤트 트리거로
+
         if (currentCardProperty != null) 
         { 
             Destroy(currentCardProperty); 

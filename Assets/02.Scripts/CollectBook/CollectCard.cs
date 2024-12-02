@@ -16,7 +16,8 @@ public class CollectCard : MonoBehaviour
     public Image cardBackImg;
     public Sprite click;
     public Sprite unclick;
-
+    public bool IsUnlockCard { get; set; }
+    public bool isExhausted;
 
     public Text nameText;
     //public TMP_Text typeText;
@@ -33,7 +34,9 @@ public class CollectCard : MonoBehaviour
         minionData = _minion;
         minionBase = _minion.Data;
         Debug.Log(minionBase.name);
+
         nameText.text = _minion.Data.name;
+        isExhausted = _minion.Exhaustion;
         //bool isSelected = PlayerData.Instance.SelectedMinions.Contains(_minion);
 
         /*
@@ -51,10 +54,12 @@ public class CollectCard : MonoBehaviour
         //gradeText.text = minion.Data.grade.ToString();
     }
 
+    /*
     public Minion GetCardMinion(Minion _minion)
     {
         return minionData;
     }
+    */
 
     public void SetCollectCardImg(MinionBaseData _baseData)
     {
@@ -108,4 +113,5 @@ public class CollectCard : MonoBehaviour
         }
 
     }
+
 }
