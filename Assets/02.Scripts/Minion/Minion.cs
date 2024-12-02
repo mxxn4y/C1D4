@@ -54,18 +54,20 @@ public class Minion
         Exhaustion = _isExhausted;
     }
     
+    /// <summary>
+    /// 미니언의 특수재화 생산확률에 따라 특수 재화 생산 성공여부 반환
+    /// </summary>
     public bool TryEarnSpecialGem()
     {
-        var random = new System.Random(Guid.NewGuid().GetHashCode());
-        if (random.Next(1, 11) <= Data.sGemProb)
-        {
-            return true;
-        }
-        return false;
+        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
+        return random.Next(1, 11) <= Data.sGemProb;
     }
 
+    /// <summary>
+    /// 충성도 / 100만큼의 신뢰도 수치 상승
+    /// </summary>
     public void GainTrust()
     {
-        Trust +=  Data.loyalty / 100;
+        Trust +=  (float)Data.loyalty / 100;
     }
 }

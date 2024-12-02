@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class FactoryManager : MonoSingleton<FactoryManager>
 {
@@ -19,7 +20,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
     public List<MinionController> ActiveMinionList { get; set; } = new List<MinionController>();
     private bool isStart;
-    private float workTime = 10; //제한시간 3분(180초)
+    private float workTime = 60; //제한시간 3분(180초)
     
     [SerializeField] private Text timeText;
 
@@ -27,6 +28,8 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private static int todaySpecialGem;
     private int workMin;
     private int workSec;
+    
+    private bool[] feverArray;
     
     #endregion
 
@@ -38,6 +41,8 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         randomDrawUI.SetActive(true);
         factoryUI.SetActive(false);
         CardPlaceManager.Instance.OnCardPlace += StartWork;
+        feverArray = new bool[5];
+        ResetFeverList();
     }
     private void Update()
     {
@@ -114,11 +119,30 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
     }
 
-    public void ShowTodaySettlement()
+    private void ShowTodaySettlement()
     {
         settlementUI.SetActive(true);
         settlementTexts[0].text = todayGem.ToString();
         settlementTexts[1].text = todaySpecialGem.ToString();
+    }
+
+    public void FeverEventClicked(int _feverIndex)
+    {
+        feverArray[_feverIndex] = true;
+        Debug.Log($"Fever: {_feverIndex} feverList:{string.Concat(feverArray)}");
+        if (feverArray.All(_b => _b.Equals(true)))
+        {
+            AddSpecialGem(5);
+            ResetFeverList();
+        }
+    }
+    
+    private void ResetFeverList()
+    {
+        for (int i = 0; i < feverArray.Length; i++)
+        {
+            feverArray[i] = false;
+        }
     }
 
     #endregion

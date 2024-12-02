@@ -17,6 +17,7 @@ public class MinionController : MonoBehaviour
     [SerializeField] private GameObject minionGo;
     [SerializeField] private MinionUI minionUI;
     
+    private FactoryManager factoryManager;
     private Minion minion;
     private float currentStamina;
     private float CurrentStamina { 
@@ -48,7 +49,7 @@ public class MinionController : MonoBehaviour
             }
         }
     }
-    private bool[] feverArray;
+    
     private int currentFever;
 
     #endregion
@@ -66,6 +67,7 @@ public class MinionController : MonoBehaviour
         minionUI.Init();
         minionUI.tryChangeState += TryChangeRestState;
         minionUI.eventBtnClicked += EventClicked;
+        factoryManager = FactoryManager.Instance;
     }
     
     private void Update()
@@ -76,7 +78,7 @@ public class MinionController : MonoBehaviour
             if (gemTimer >= minion.Data.speed)
             {
                 gemTimer -= minion.Data.speed;
-                FactoryManager.Instance.AddGem(minion.Data.efficiency);
+                factoryManager.AddGem(minion.Data.efficiency);
             }
 
             sGemAndStaminaTimer += Time.deltaTime;
@@ -86,7 +88,7 @@ public class MinionController : MonoBehaviour
                 // 특수재화 생산 시도
                 if (minion.TryEarnSpecialGem())
                 {
-                    FactoryManager.Instance.AddSpecialGem();
+                    factoryManager.AddSpecialGem();
                 }
 
                 // 체력 감소
@@ -122,8 +124,8 @@ public class MinionController : MonoBehaviour
         CurrentStamina = minion.Data.stamina;
         minionUI.SetImage(minion.Data.mid);
         eventCoroutine = new Coroutine[2];
-        FactoryManager.Instance.ActiveMinionList.Add(this);
-        eventTime = FactoryManager.Instance.ActiveMinionList.Count switch
+        factoryManager.ActiveMinionList.Add(this);
+        eventTime = factoryManager.ActiveMinionList.Count switch
         {
             1 => 4.0f,
             2 => 6.0f,
@@ -131,8 +133,6 @@ public class MinionController : MonoBehaviour
             4 => 9.0f,
             _ => 11.0f
         };
-        feverArray = new bool[5];
-        ResetFeverList();
         ActivateMinion();
     }
 
@@ -221,32 +221,18 @@ public class MinionController : MonoBehaviour
         switch (_event)
         {
             case MinionEnums.EVENT.EXTRA_GEM:
-                FactoryManager.Instance.AddGem(minion.Data.efficiency);
+                factoryManager.AddGem(minion.Data.efficiency);
                 return;
             case MinionEnums.EVENT.TRUST:
                 minion.GainTrust();
                 Debug.Log($"{minion.Data.mid} // Trust: {minion.Trust}");
                 return;
             case MinionEnums.EVENT.FEVER_TIME:
-                feverArray[currentFever] = true;
-                Debug.Log($"{minion.Data.mid} // " +
-                          $"Fever: {currentFever} feverList:{string.Concat(feverArray)}");
-                if (feverArray.All(_b => _b.Equals(true)))
-                {
-                    FactoryManager.Instance.AddSpecialGem(5);
-                    ResetFeverList();
-                }
+                factoryManager.FeverEventClicked(currentFever);
+                
                 return;
             default:
                 return;
-        }
-    }
-
-    private void ResetFeverList()
-    {
-        for (int i = 0; i < feverArray.Length; i++)
-        {
-            feverArray[i] = false;
         }
     }
 
