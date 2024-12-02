@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using UnityEngine.Serialization;
 
 public class FactoryManager : MonoSingleton<FactoryManager>
 {
@@ -12,37 +13,54 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     [SerializeField] private GameObject cardPrefab; //각자 다른 CardData 가지고 복사될 프리팹
     [SerializeField] private GameObject cardCanvas; //플레이어가 가진 카드 생성될 캔버스
     [SerializeField] private Text[] gemTexts;
+    [SerializeField] private GameObject factoryCanvas;
     [SerializeField] private GameObject randomDrawUI;
-    [SerializeField] private GameObject factoryUI;
     [SerializeField] private GameObject settlementUI;
+    [SerializeField] private GameObject factorySceneUI;
     [SerializeField] private Text[] settlementTexts;
+    [SerializeField] private GameObject minionUIs;
+    
+    //테스트용 moveScene
+    [SerializeField] private GameObject moveScene;
     
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
+    private List<GameObject> displayedTiles = new List<GameObject>();
     public List<MinionController> ActiveMinionList { get; set; } = new List<MinionController>();
     private bool isStart;
-    private float workTime = 60; //제한시간 3분(180초)
+    private float workTime; //제한시간 3분(180초)
     
     [SerializeField] private Text timeText;
 
-    private static int todayGem;
-    private static int todaySpecialGem;
+    private int todayGem;
+    private int todaySpecialGem;
     private int workMin;
     private int workSec;
     
     private bool[] feverArray;
-    
     #endregion
 
     #region Methods
 
     private void Start()
     {
+        Init();
+    }
+
+    protected override void Init()
+    {
         isStart = false;
+        workTime = 10;
+        todayGem = 0;
+        todaySpecialGem = 0;
+        gemTexts[0].text = $"gem: {todayGem.ToString()}";
+        gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
+        factorySceneUI.SetActive(true);
         randomDrawUI.SetActive(true);
-        factoryUI.SetActive(false);
+        factoryCanvas.SetActive(false);
+        settlementUI.SetActive(false);
         CardPlaceManager.Instance.OnCardPlace += StartWork;
         feverArray = new bool[5];
-        ResetFeverList();
+        ResetFeverList(); // feverList 모두 false로 초기화
     }
     private void Update()
     {
@@ -57,6 +75,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
             }
             else
             {
+                isStart = false;
                 timeText.text = "time over";
                 DestroyAllCards();
                 foreach (MinionController minion in ActiveMinionList)
@@ -73,11 +92,11 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     /// </summary>
     public void ShowFactoryUI()
     {
-        factoryUI.SetActive(true);
-        TileLoadManager.Instance.LoadAllTiles();
+        factoryCanvas.SetActive(true);
+        displayedTiles = TileLoadManager.Instance.LoadAllTiles();
         foreach (var minion in PlayerData.Instance.MinionList)
         {
-            var newCard = Instantiate(cardPrefab, cardCanvas.transform); // 카드 생성
+            GameObject newCard = Instantiate(cardPrefab, cardCanvas.transform); // 카드 생성
             newCard.GetComponent<CardController>().Set(minion);
             displayedCards.Add(newCard.gameObject);
         }
@@ -107,15 +126,9 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         todayGem += _gem;
         gemTexts[0].text = $"gem: {todayGem.ToString()}";
     }
-    public void AddSpecialGem()
+    public void AddSpecialGem(int _amount = 1)
     {
         todaySpecialGem++;
-        gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
-    }
-    
-    public void AddSpecialGem(int _amount)
-    {
-        todaySpecialGem += _amount;
         gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
     }
 
@@ -143,6 +156,29 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         {
             feverArray[i] = false;
         }
+    }
+
+    public void EndFactoryScene()
+    {
+        PlayerData.Instance.AddGems(todayGem, todaySpecialGem);
+        foreach (GameObject tile in displayedTiles)
+        {
+            Destroy(tile);
+        }
+        foreach (Transform child in minionUIs.transform) 
+        {
+            Destroy(child.gameObject);
+        }
+        factorySceneUI.SetActive(false);
+        moveScene.SetActive(true);
+        ActiveMinionList.Clear();
+    }
+
+    public void TestStartFactory()
+    {
+        Init();
+        moveScene.SetActive(false);
+        randomDrawUI.GetComponent<MinionRandomDraw>().Init();
     }
 
     #endregion

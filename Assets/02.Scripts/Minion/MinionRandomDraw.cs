@@ -6,8 +6,8 @@ using UnityEngine;
 public class MinionRandomDraw : MonoBehaviour
 {
     [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private GameObject[] buttons = new GameObject[3];
-    [SerializeField] private GameObject closeBtn;
+    [SerializeField] private GameObject buttons;
+    [SerializeField] private GameObject randDrawResult;
     [SerializeField] private GameObject gridLayout;
     [SerializeField] private GameObject[] emptyCards = new GameObject[5];
     private PlayerData playerData;
@@ -15,13 +15,14 @@ public class MinionRandomDraw : MonoBehaviour
 
     private void Awake()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         playerData = PlayerData.Instance;
-        foreach (var button in buttons)
-        {
-            button.SetActive(true);
-        }
-        closeBtn.SetActive(false);
-        
+        buttons.SetActive(true);
+        randDrawResult.SetActive(false);
     }
 
     /// <summary>
@@ -120,7 +121,7 @@ public class MinionRandomDraw : MonoBehaviour
 
     private void ShowEarnedCards(Minion _newMinion)
     {
-        var card = emptyCards[newCardCount];
+        GameObject card = emptyCards[newCardCount];
         card.SetActive(true);
         card.GetComponent<CardUI>().Set(_newMinion);
     }
@@ -133,33 +134,24 @@ public class MinionRandomDraw : MonoBehaviour
     
     public void SelectPassionButton()
     {
-        var minions = RandomDraw(MinionEnums.TYPE.PASSION);
+        List<string> minions = RandomDraw(MinionEnums.TYPE.PASSION);
         AddToPlayerAndShow(minions);
-        foreach (var button in buttons)
-        {
-            button.SetActive(false);
-        }
-        closeBtn.SetActive(true);
+        buttons.SetActive(false);
+        randDrawResult.SetActive(true);
     }
     public void SelectWisdomButton()
     {
-        var minions = RandomDraw(MinionEnums.TYPE.WISDOM);
+        List<string> minions = RandomDraw(MinionEnums.TYPE.WISDOM);
         AddToPlayerAndShow(minions);
-        foreach (var button in buttons)
-        {
-            button.SetActive(false);
-        }
-        closeBtn.SetActive(true);
+        buttons.SetActive(false);
+        randDrawResult.SetActive(true);
     }
     public void SelectCalmButton()
     {
         var minions = RandomDraw(MinionEnums.TYPE.CALM);
         AddToPlayerAndShow(minions);
-        foreach (var button in buttons)
-        {
-            button.SetActive(false);
-        }
-        closeBtn.SetActive(true);
+        buttons.SetActive(false);
+        randDrawResult.SetActive(true);
     }
 
     // 테스트용!!

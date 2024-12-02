@@ -64,4 +64,10 @@ public class PlayerData: Singleton<PlayerData>
         MinionList.Add(new Minion(_mid));
         MinionList = MinionList.OrderBy(_m => _m.Data.mid).ToList();
     }
+
+    public void AddGems(int _gem, int _specialGem)
+    {
+        Gem += _gem;
+        SpecialGem += _specialGem;
+    }
 }
