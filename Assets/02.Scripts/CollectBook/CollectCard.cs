@@ -18,6 +18,7 @@ public class CollectCard : MonoBehaviour
     public Sprite unclick;
     public bool IsUnlockCard { get; set; }
     public bool isExhausted;
+    private int gainCount;
 
     public Text nameText;
     //public TMP_Text typeText;
@@ -37,29 +38,8 @@ public class CollectCard : MonoBehaviour
 
         nameText.text = _minion.Data.name;
         isExhausted = _minion.Exhaustion;
-        //bool isSelected = PlayerData.Instance.SelectedMinions.Contains(_minion);
-
-        /*
-        if (isSelected)
-        {
-            SetClickImg(); // 클릭 상태로 초기화
-        }
-        else
-        {
-            SetUnClickImg(); // 언클릭 상태로 초기화
-        }
-        */
-
-        //typeText.text = minion.Data.type.ToString();
-        //gradeText.text = minion.Data.grade.ToString();
+        gainCount = _minion.GainCount;
     }
-
-    /*
-    public Minion GetCardMinion(Minion _minion)
-    {
-        return minionData;
-    }
-    */
 
     public void SetCollectCardImg(MinionBaseData _baseData)
     {

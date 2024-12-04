@@ -8,6 +8,11 @@ TagManager:
   - RoomCanvas
   - Tile
   - StaminaCanvas
+  - Canvas
+  - Sold
+  - WayPoints
+  - Product
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -17,9 +22,9 @@ TagManager:
   - UI
   - Tile
   - Card
-  - 
+  - Floor
   - Room
-  - 
+  - Player
   - 
   - 
   - 

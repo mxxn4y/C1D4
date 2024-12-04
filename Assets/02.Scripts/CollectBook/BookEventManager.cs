@@ -47,7 +47,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
                 index.IndexEventAction();
                 Debug.Log("IndexEventAction");
             }
-            else if (collectCard != null && collectCard.IsUnlockCard&& (!collectCard.isExhausted)) // 여기 조건문 수정 예정
+            else if (collectCard != null && collectCard.IsUnlockCard&& (!collectCard.isExhausted))
             {
 
                 //card.CardClick();
@@ -64,8 +64,8 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
                         Debug.Log("선택된 리스트에서 남은 미니언: " + item.Data.name);
                     }
                 }
-                else
-                {
+                else if (PlayerData.Instance.SelectedMinions.Count < 3)
+            {
                     PlayerData.Instance.SelectedMinions.Add(collectCard.minionData);
                     collectCard.SetClickImg();
                     Debug.Log("선택된 리스트에 클릭 미니언이 없을 때");
@@ -75,6 +75,10 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
                         Debug.Log("선택된 리스트에서 추가:" + item.Data.name);
                     }
                 }
+            else
+            {
+                Debug.Log("3개까지만 선택 가능");
+            }
             }
             else
             {
