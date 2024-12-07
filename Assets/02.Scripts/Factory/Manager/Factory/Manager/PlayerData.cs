@@ -74,4 +74,9 @@ public class PlayerData: Singleton<PlayerData>
         return null;
     }
 
+    public void AddGems(int _gem, int _specialGem)
+    {
+        Gem += _gem;
+        SpecialGem += _specialGem;
+    }
 }

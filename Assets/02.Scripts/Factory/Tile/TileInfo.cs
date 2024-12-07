@@ -26,11 +26,7 @@ public class TileInfo: MonoBehaviour
                 TILE_STATE.DEFAULT => defaultImage,
                 TILE_STATE.SELECTED => selectedImage,
                 TILE_STATE.OCCUPIED => placedImage,
-<<<<<<<< HEAD:Assets/02.Scripts/Factory/Manager/Factory/Tile/TileInfo.cs
-                _ => spriteRenderer.sprite
-========
                 _ => null
->>>>>>>> main:Assets/02.Scripts/Factory/Tile/TileInfo.cs
             };
         } }
     
