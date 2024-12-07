@@ -147,8 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 1298364263655985996}
   minionGo: {fileID: 6026369534951145298}
-  staminaBarPrefab: {fileID: 119693514542574599, guid: ad79ab2b85673c0488710d6be25da6b8, type: 3}
-  eventButtonPrefab: {fileID: 1026114231634540823, guid: 328a50d803f4e764a8517c83c76c3cf9, type: 3}
+  minionUI: {fileID: 1950144076307791957}
 --- !u!1 &6026369534951145298
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba2653a544028147b85ec308aa650a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minionController: {fileID: 7234733808246138578}
+  staminaBarPrefab: {fileID: 119693514542574599, guid: ad79ab2b85673c0488710d6be25da6b8, type: 3}
+  eventBtnPrefab: {fileID: 1026114231634540823, guid: 328a50d803f4e764a8517c83c76c3cf9, type: 3}
+  coolTimeTxtPrefab: {fileID: 6416048604005856529, guid: 29ff1d8a3368c884a9fa6c2cbdf141c9, type: 3}
+  minionSprite: {fileID: 468379283184589002}
 --- !u!58 &4824155334229015803
 CircleCollider2D:
   m_ObjectHideFlags: 0
