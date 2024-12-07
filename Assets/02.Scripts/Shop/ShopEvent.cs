@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class ShopEvent : MonoBehaviour, IPointerClickHandler
 {
     public static ShopEvent Instance { get; private set; }
@@ -138,6 +137,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
     
     public void OnItemClick(ShopItemData _itemData)
     {
+        if (PurchasedList.Instance == null) { Debug.LogError("PurchasedList.Instance가 null입니다."); return; }
         if (!ShopManager.Instance.CanClickItem(_itemData))
         {
             Debug.Log($"{_itemData.itemName}은(는) 구매 제한에 도달했습니다.");
@@ -147,7 +147,8 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         {
             totalPrice += _itemData.price;
 
-            SelectedItemsUI.Instance.AddItemToInventory(_itemData);
+            SelectedItemsUI.Instance.AddItemToInventory(_itemData); // 구매하기 버튼 클릭하기 전의 아이템만 저장
+            PurchasedList.Instance.AddItemToPurchasedDic(_itemData); // 전체 구매한 아이템 저장
             ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
             ShopManager.Instance.TrackPurchase(_itemData);
         }
@@ -159,31 +160,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         }
 
     }
-    /*
-    public void OnItemClick(ShopItemData _itemData)
-    {
-        // 현재 선택된 아이템 수량 확인
-        int currentlySelected = SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData)
-            ? SelectedItemsUI.Instance.selectedItems[_itemData]
-            : 0;
-
-        // CanPurchaseItem에 현재 선택된 수량을 전달
-        if (!ShopManager.Instance.CanPurchaseItem(_itemData, currentlySelected + 1))
-        {
-            Debug.Log($"{_itemData.itemName}은(는) 구매 제한에 도달했습니다.");
-            return;
-        }
-
-        // 구매 가능하면 선택한 아이템에 추가
-        totalPrice += _itemData.price;
-        SelectedItemsUI.Instance.AddItemToInventory(_itemData);
-        ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
-
-        Debug.Log($"selected딕셔너리 안의 Item: {_itemData.itemName}, Quantity: {currentlySelected + 1}");
-    }
-
-    */
-
+    
     public void RemoveItemFromInventory(ShopItemData _itemData)
     {
        
@@ -191,11 +168,13 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         {
             totalPrice -= _itemData.price;  // 총액에서 가격을 뺌
             SelectedItemsUI.Instance.selectedItems[_itemData]--;
+            PurchasedList.Instance.purchasedDic[_itemData]--;
 
             // 수량이 0이 되면 딕셔너리에서 아이템을 제거
             if (SelectedItemsUI.Instance.selectedItems[_itemData] <= 0)
             {
                 SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
+                PurchasedList.Instance.purchasedDic.Remove(_itemData);
             }
            
             ShopManager.Instance.RemovePurchase(_itemData);
@@ -258,6 +237,11 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         Debug.Log("총 구매 금액: " + totalPrice);
         ShopUI.Instance.ResetTotalPrice();
         SelectedItemsUI.Instance.selectedItems.Clear();
+       
+        foreach ( KeyValuePair< ShopItemData,int> item in PurchasedList.Instance.purchasedDic)
+        {
+            Debug.Log("전체 구매한 아이템: "+item.Key.itemName + " 개수: " + item.Value);
+        }
         SelectedItemsUI.Instance.ClearInventoryPanel();
     }
 
