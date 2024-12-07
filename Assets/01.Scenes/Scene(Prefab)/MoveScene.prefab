@@ -132,16 +132,21 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -5.537869, y: 1.0091555}
-      - {x: -5.6135974, y: 1.0257565}
-      - {x: -5.7160215, y: 0.9694224}
-      - {x: -5.802838, y: 0.8834889}
-      - {x: -5.8655148, y: 0.74960595}
-      - {x: -5.8975306, y: 0.65288323}
-      - {x: -5.895195, y: -0.035943042}
-      - {x: -5.4558554, y: 0.2166911}
-      - {x: -5.4604387, y: 0.8964028}
-      - {x: -5.4858327, y: 0.95372826}
+    - - {x: -11.332871, y: 0.94290054}
+      - {x: -11.438937, y: 0.9046815}
+      - {x: -11.55746, y: 0.7979963}
+      - {x: -11.638307, y: 0.7164536}
+      - {x: -11.76998, y: 0.4741215}
+      - {x: -11.825955, y: 0.3301693}
+      - {x: -11.855904, y: 0.22150269}
+      - {x: -11.849782, y: -1.1493065}
+      - {x: -10.991978, y: -0.63484603}
+      - {x: -10.98995, y: 0.73293704}
+      - {x: -11.022617, y: 0.83432835}
+      - {x: -11.067947, y: 0.88835895}
+      - {x: -11.121897, y: 0.9312073}
+      - {x: -11.1856575, y: 0.9483737}
+      - {x: -11.262056, y: 0.96103185}
 --- !u!50 &1177904275190476384
 Rigidbody2D:
   serializedVersion: 4
@@ -278,7 +283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1177904275236908496
 Transform:
   m_ObjectHideFlags: 0
@@ -287,8 +292,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177904275236908497}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -11.404, y: -0.099, z: 0}
+  m_LocalScale: {x: 1.9126, y: 1.9126, z: 1.9126}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1177904275190476386}
@@ -335,12 +340,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: bb28ffb0ab5677f42832f9ab29774f31, type: 3}
+  m_Sprite: {fileID: -1755590134, guid: bb28ffb0ab5677f42832f9ab29774f31, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 14.4, y: 5.91}
+  m_Size: {x: 0.49, y: 1.13}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
