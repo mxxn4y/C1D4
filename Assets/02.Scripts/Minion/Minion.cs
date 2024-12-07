@@ -42,7 +42,13 @@ public class Minion
     /// </summary>
     public void IncreaseCount()
     {
-        GainCount++;
+        int maxGain = Data.grade switch
+        {
+            MinionEnums.GRADE.C => 20,
+            MinionEnums.GRADE.B => 10,
+            MinionEnums.GRADE.A => 5
+        };
+        GainCount = Math.Min(GainCount + 1, maxGain);
         // 레벨 증가해야하는지 검사하는 로직
     }
 
@@ -64,7 +70,7 @@ public class Minion
     }
 
     /// <summary>
-    /// 충성도 / 100만큼의 신뢰도 수치 상승
+    /// 신뢰도 수치 +1 상승
     /// </summary>
     public void GainTrust()
     {

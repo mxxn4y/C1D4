@@ -2,10 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 /// <summary>
 /// 카드 정보와 위치한 타일 정보를 가지고 활성화 시 재화 생산
 /// </summary>
@@ -229,7 +226,6 @@ public class MinionController : MonoBehaviour
                 return;
             case MinionEnums.EVENT.FEVER_TIME:
                 factoryManager.FeverEventClicked(currentFever);
-                
                 return;
             default:
                 return;

@@ -103,12 +103,15 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         factoryCanvas.SetActive(true);
         displayedTiles = TileLoadManager.Instance.LoadAllTiles();
-        foreach (var minion in PlayerData.Instance.MinionList)
+        foreach (Minion minion in PlayerData.Instance.MinionList)
         {
             GameObject newCard = Instantiate(cardPrefab, cardCanvas.transform); // 카드 생성
             newCard.GetComponent<CardController>().Set(minion);
             displayedCards.Add(newCard.gameObject);
         }
+
+        bool scrollBtnActive = PlayerData.Instance.MinionList.Count > 3;
+        CardPlaceManager.Instance.SetScrollUpDownBtn(scrollBtnActive);
     }
     
     private void StartWork()
@@ -147,7 +150,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         settlementTexts[0].text = todayGem.ToString();
         settlementTexts[1].text = todaySpecialGem.ToString();
     }
-
+    
     public void FeverEventClicked(int _feverIndex)
     {
         feverArray[_feverIndex] = true;

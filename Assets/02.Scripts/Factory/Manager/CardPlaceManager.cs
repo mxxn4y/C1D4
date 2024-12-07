@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class CardPlaceManager : MonoSingleton<CardPlaceManager>
 {
@@ -9,6 +11,7 @@ public class CardPlaceManager : MonoSingleton<CardPlaceManager>
 
     [SerializeField] private GameObject movingCard;
     [SerializeField] private RectTransform scrollContentRect;
+    [FormerlySerializedAs("upDowBtns")] [SerializeField] private Button[] upDownBtns;
     public CardController SelectedCard { get; private set; }
     public TileInfo SelectedTile { get; private set; }
     private bool isCardMoving;
@@ -33,8 +36,8 @@ public class CardPlaceManager : MonoSingleton<CardPlaceManager>
         if (isCardMoving)
         {
             //Tile Layer에 raycast 사용 -> 마우스 위치의 타일 _selectedTile에 저장
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Tile"));
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Tile"));
             SelectedTile = hit.collider?.gameObject.GetComponent<TileInfo>();
 
             OnCardMove?.Invoke();
@@ -88,6 +91,7 @@ public class CardPlaceManager : MonoSingleton<CardPlaceManager>
     {
         Destroy(SelectedCard.gameObject);
         SetScrollUI();
+        SetScrollUpDownBtn(IsScrollActive());
     }
 
     /// <summary>
@@ -100,6 +104,18 @@ public class CardPlaceManager : MonoSingleton<CardPlaceManager>
         if (currentPos.y > hDelta)
         {
             scrollContentRect.anchoredPosition = new Vector2(currentPos.x, hDelta);
+        }
+    }
+
+    private bool IsScrollActive()
+    {
+        return scrollContentRect.anchoredPosition.y > 0;
+    }
+    public void SetScrollUpDownBtn(bool _isScrollActive)
+    {
+        foreach (Button button in upDownBtns)
+        {
+            button.gameObject.SetActive(_isScrollActive);
         }
     }
 
