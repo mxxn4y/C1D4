@@ -19,6 +19,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     [SerializeField] private GameObject factorySceneUI;
     [SerializeField] private Text[] settlementTexts;
     [SerializeField] private GameObject minionUIs;
+    [SerializeField] private Image[] feverObjs;
     
     //테스트용 moveScene
     [SerializeField] private GameObject moveScene;
@@ -49,11 +50,12 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     protected override void Init()
     {
         isStart = false;
-        workTime = 10;
+        workTime = 180;
         todayGem = 0;
         todaySpecialGem = 0;
         gemTexts[0].text = $"gem: {todayGem.ToString()}";
         gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
+        SetTimeText();
         factorySceneUI.SetActive(true);
         randomDrawUI.SetActive(true);
         factoryCanvas.SetActive(false);
@@ -64,27 +66,34 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     }
     private void Update()
     {
-        if (isStart)
+        if (!isStart)
         {
-            workTime -= Time.deltaTime;
-            if(workTime > 0)
+            return;
+        }
+
+        workTime -= Time.deltaTime;
+        if(workTime > 0)
+        {
+            SetTimeText();
+        }
+        else
+        {
+            isStart = false;
+            timeText.text = "time over";
+            DestroyAllCards();
+            foreach (MinionController minion in ActiveMinionList)
             {
-                workMin = (int)workTime / 60;
-                workSec = (int)workTime % 60;
-                timeText.text = $"{workMin} min {workSec} sec left";
-            }
-            else
-            {
-                isStart = false;
-                timeText.text = "time over";
-                DestroyAllCards();
-                foreach (MinionController minion in ActiveMinionList)
-                {
-                    minion.TimeEnd();
-                    ShowTodaySettlement();
-                }
+                minion.TimeEnd();
+                ShowTodaySettlement();
             }
         }
+    }
+
+    private void SetTimeText()
+    {
+        workMin = (int)workTime / 60;
+        workSec = (int)workTime % 60;
+        timeText.text = $"{workMin:D2}m {workSec:D2}s";
     }
     
     /// <summary>
@@ -128,7 +137,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     }
     public void AddSpecialGem(int _amount = 1)
     {
-        todaySpecialGem++;
+        todaySpecialGem += _amount;
         gemTexts[1].text = $"s_gem: {todaySpecialGem.ToString()}";
     }
 
@@ -142,6 +151,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     public void FeverEventClicked(int _feverIndex)
     {
         feverArray[_feverIndex] = true;
+        SetFeverUIColor(_feverIndex);
         Debug.Log($"Fever: {_feverIndex} feverList:{string.Concat(feverArray)}");
         if (feverArray.All(_b => _b.Equals(true)))
         {
@@ -149,12 +159,24 @@ public class FactoryManager : MonoSingleton<FactoryManager>
             ResetFeverList();
         }
     }
-    
+
+    private void SetFeverUIColor(int _feverIndex)
+    {
+        feverObjs[_feverIndex].color = _feverIndex switch
+        {
+            0 => Color.red,
+            1 => Color.yellow,
+            2 => Color.green,
+            3 => Color.blue,
+            4 => Color.magenta
+        };
+    }
     private void ResetFeverList()
     {
         for (int i = 0; i < feverArray.Length; i++)
         {
             feverArray[i] = false;
+            feverObjs[i].color = Color.gray;
         }
     }
 

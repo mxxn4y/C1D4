@@ -68,6 +68,7 @@ public class Minion
     /// </summary>
     public void GainTrust()
     {
-        Trust +=  (float)Data.loyalty / 100;
+        ++Trust;
+        //Trust +=  (float)Data.loyalty / 100;
     }
 }

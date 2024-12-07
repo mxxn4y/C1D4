@@ -10,6 +10,7 @@ public class MinionRandomDraw : MonoBehaviour
     [SerializeField] private GameObject randDrawResult;
     [SerializeField] private GameObject gridLayout;
     [SerializeField] private GameObject[] emptyCards = new GameObject[5];
+    [SerializeField] Animation drawAnimation;
     private PlayerData playerData;
     private int newCardCount;
 

@@ -95,12 +95,26 @@ public class CardPlaceManager : MonoSingleton<CardPlaceManager>
     /// </summary>
     private void SetScrollUI()
     {
-        var currentPos = scrollContentRect.anchoredPosition;
-        var hDelta = Math.Max(0,scrollContentRect.sizeDelta.y - 340f);
+        Vector2 currentPos = scrollContentRect.anchoredPosition;
+        float hDelta = Math.Max(0,scrollContentRect.sizeDelta.y - 340f);
         if (currentPos.y > hDelta)
         {
             scrollContentRect.anchoredPosition = new Vector2(currentPos.x, hDelta);
         }
+    }
+
+    public void ScrollUIBtnUp()
+    {
+        Vector2 currentPos = scrollContentRect.anchoredPosition;
+        float hDelta = Math.Max(0,currentPos.y - 200f);
+        scrollContentRect.anchoredPosition = new Vector2(currentPos.x, hDelta);
+    }
+    
+    public void ScrollUIBtnDown()
+    {
+        Vector2 currentPos = scrollContentRect.anchoredPosition;
+        float hDelta = Math.Min(scrollContentRect.sizeDelta.y,currentPos.y + 200);
+        scrollContentRect.anchoredPosition = new Vector2(currentPos.x, hDelta);
     }
     #endregion
 }

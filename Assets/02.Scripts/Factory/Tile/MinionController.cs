@@ -196,10 +196,10 @@ public class MinionController : MonoBehaviour
         switch (chance)
         {
             case <= 10:
-                minionUI.SetBtnText("extraGem");
+                minionUI.SetBtnText("Zzz..");
                 return MinionEnums.EVENT.EXTRA_GEM;
             case <= 20:
-                minionUI.SetBtnText("trust");
+                minionUI.SetBtnText("꼬르륵");
                 return MinionEnums.EVENT.TRUST;
             default:
                 currentFever = random.Next(0, 5);
@@ -221,7 +221,7 @@ public class MinionController : MonoBehaviour
         switch (_event)
         {
             case MinionEnums.EVENT.EXTRA_GEM:
-                factoryManager.AddGem(minion.Data.efficiency);
+                factoryManager.AddGem(3);
                 return;
             case MinionEnums.EVENT.TRUST:
                 minion.GainTrust();
