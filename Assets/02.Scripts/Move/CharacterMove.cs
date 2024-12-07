@@ -12,6 +12,8 @@ public class CharacterMove : MonoBehaviour
     private static bool isMove = true;
 
     [SerializeField] private float speed = 0.1f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     enum room
     {
@@ -56,12 +58,7 @@ public class CharacterMove : MonoBehaviour
 
         //움직임 상태로 설정
         isMove = true;
-        //if (des == "House")
-        //    _destination = waypoints[(int)room.House];
-        //else if (des == "Morning")
-        //    _destination = waypoints[(int)room.Morning];
-        //else if (des == "Afternoon")
-        //    _destination = waypoints[(int)room.Afternoon];
+        animator.SetBool("IsMove", isMove);
 
     }
 
@@ -76,13 +73,20 @@ public class CharacterMove : MonoBehaviour
         else if (transform.position == waypoints[desIndex].position)
         {
             isMove = false;
+            animator.SetBool("IsMove", isMove);
         }
         else
         {
             if (desIndex > startIndex)
+            {
                 cur++;
+                spriteRenderer.flipX = false;
+            }
             else
+            {
                 cur--;
+                spriteRenderer.flipX = true;
+            } 
         }
     }
 
