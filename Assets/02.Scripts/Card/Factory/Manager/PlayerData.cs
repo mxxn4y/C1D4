@@ -65,4 +65,13 @@ public class PlayerData: Singleton<PlayerData>
         MinionList = MinionList.OrderBy(_m => _m.Data.mid).ToList();
     }
 
+    public Minion GetPlayerMinionById(string _mid)
+    {
+        foreach(var minion in MinionList)
+        {
+            if(minion.Data.mid == _mid) return minion;
+        }
+        return null;
+    }
+
 }

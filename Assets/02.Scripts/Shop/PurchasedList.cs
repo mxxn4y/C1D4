@@ -20,6 +20,7 @@ public class PurchasedList : MonoBehaviour
     private List<ShopItemData> purchasedList = new List<ShopItemData>(); //필요없을 듯
     public Dictionary<ShopItemData, int> purchasedDic = new Dictionary<ShopItemData, int>();
 
+
     public void AddItemToPurchasedDic(ShopItemData item)
     {
 

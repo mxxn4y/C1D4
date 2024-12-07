@@ -12,14 +12,9 @@ public class BookUI : MonoBehaviour
     public GameObject lockCard;
     public GameObject[] gridLayouts; // GridLayoutGroup이 부착된 오브젝트 배열
     public GameObject closeButton;
-    //private List allMinions;
-    //private List passionMinions;
-    //private List calmMinions;
-    //private List wisdomMinions;
 
-    private PlayerData playerData;
     public int cardsPerGrid = 4;
-    // Start is called before the first frame update
+
 
     private void Awake()
     {
@@ -51,12 +46,6 @@ public class BookUI : MonoBehaviour
             closeButton.SetActive(false);
         }
     }
-
-    void OnEnable()
-    {
-        
-    }
-
         public void DisplayMinionsByType(MinionEnums.TYPE type)
     {
         
@@ -97,7 +86,7 @@ public class BookUI : MonoBehaviour
                 {
                     card = Instantiate(unlockCard, grid.transform);
                     var collectCard = card.GetComponent<CollectCard>();
-                    collectCard.Setup(minion);
+                    collectCard.Setup(PlayerData.Instance.GetPlayerMinionById(minion.Data.mid));
                     collectCard.SetCollectCardImg(minion.Data);
                     collectCard.SetColorImg(minion);
                     collectCard.IsUnlockCard = true;

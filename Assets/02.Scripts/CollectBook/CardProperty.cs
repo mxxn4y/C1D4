@@ -28,11 +28,12 @@ public class CardProperty : MonoBehaviour
         EfficiencyText.text = _minion.Data.efficiency.ToString();
         sGemProb.text = _minion.Data.sGemProb.ToString();
         count.text = _minion.GainCount.ToString()+" / "+ GetSliderMax(_minion).ToString();
+
     }
 
     public void UpdateSlider(Minion _minionData)
     {
-        slider.value = _minionData.GainCount / GetSliderMax(_minionData);
+        slider.value = (float)_minionData.GainCount / GetSliderMax(_minionData);
         Debug.Log("UpdateSlider함수 실행" + slider.value);
     }
 
