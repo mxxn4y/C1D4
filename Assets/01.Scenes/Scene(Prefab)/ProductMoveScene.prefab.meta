@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/01.Scenes/Scene(Prefab)/FactoryScene.prefab.meta
+guid: f0f7ae8ba07a5e447b22d0b59664b39e
+========
 guid: dde326318f10bca4283c5a718352f154
+>>>>>>>> main:Assets/01.Scenes/Scene(Prefab)/ProductMoveScene.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
