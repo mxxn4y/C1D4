@@ -22,14 +22,16 @@ public class Minion
 
     public int GainCount {get; private set;} // 획득 횟수
     public bool Exhaustion {get; private set;} // 사용 가능 여부
-    // 다시 사용 가능한 상태가 되는 날짜 변수도 필요할듯
     
+    public float Trust { get; private set; }
+
     /// <summary>
     /// mid를 인수로 받아 미니언 객체 생성하는 생성자
     /// </summary>
     public Minion(string _mid)
     {
         this.originalData = MinionTable.Instance.GetData(_mid);
+        this.Trust = 0;
         //this.Level = 0;
         this.GainCount = 0;
         this.Exhaustion = false;
@@ -40,7 +42,13 @@ public class Minion
     /// </summary>
     public void IncreaseCount()
     {
-        GainCount++;
+        int maxGain = Data.grade switch
+        {
+            MinionEnums.GRADE.C => 20,
+            MinionEnums.GRADE.B => 10,
+            MinionEnums.GRADE.A => 5
+        };
+        GainCount = Math.Min(GainCount + 1, maxGain);
         // 레벨 증가해야하는지 검사하는 로직
     }
 
@@ -52,13 +60,21 @@ public class Minion
         Exhaustion = _isExhausted;
     }
     
+    /// <summary>
+    /// 미니언의 특수재화 생산확률에 따라 특수 재화 생산 성공여부 반환
+    /// </summary>
     public bool TryEarnSpecialGem()
     {
-        var random = new System.Random(Guid.NewGuid().GetHashCode());
-        if (random.Next(1, 11) <= Data.sGemProb)
-        {
-            return true;
-        }
-        return false;
+        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
+        return random.Next(1, 11) <= Data.sGemProb;
+    }
+
+    /// <summary>
+    /// 신뢰도 수치 +1 상승
+    /// </summary>
+    public void GainTrust()
+    {
+        ++Trust;
+        //Trust +=  (float)Data.loyalty / 100;
     }
 }

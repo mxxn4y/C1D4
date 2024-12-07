@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class TileInfo: MonoBehaviour
                 TILE_STATE.DEFAULT => defaultImage,
                 TILE_STATE.SELECTED => selectedImage,
                 TILE_STATE.OCCUPIED => placedImage,
-                _ => spriteRenderer.sprite
+                _ => null
             };
         } }
     
@@ -64,6 +65,11 @@ public class TileInfo: MonoBehaviour
         }
     }
 
+    public void OnDestroy()
+    {
+        CardPlaceManager.Instance.OnCardMove -= ShowTileSelected;
+        CardPlaceManager.Instance.OnCardPlace -= SelectTile;
+    }
 }
 
 
