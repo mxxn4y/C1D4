@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/01.Scenes/Scene(Prefab)/CollectBookScene.prefab.meta
+guid: 5ebc5f362fde8d744adc5dcd9c1e28b7
+========
 guid: f0f7ae8ba07a5e447b22d0b59664b39e
+>>>>>>>> main:Assets/01.Scenes/Scene(Prefab)/FactoryScene.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

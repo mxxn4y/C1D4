@@ -435,6 +435,9 @@ MonoBehaviour:
   costTxt: {fileID: 4289211293024161219}
   cardItemImg: {fileID: 6855707605350196022}
   soldImg: {fileID: 21300000, guid: 4ea8118cf6459d647b4c8b4164e97e74, type: 3}
+  cardGemImg: {fileID: 64725744449467055}
+  gemImg: {fileID: 1594442546, guid: d70c4eba183c29a4cb75820c617655e9, type: 3}
+  specialGemImg: {fileID: -1909375925, guid: d70c4eba183c29a4cb75820c617655e9, type: 3}
 --- !u!223 &854189168035914661
 Canvas:
   m_ObjectHideFlags: 0
@@ -1101,7 +1104,7 @@ GameObject:
   - component: {fileID: 3861853379602806306}
   - component: {fileID: 64725744449467055}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: GemIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
