@@ -27,7 +27,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
     private List<GameObject> displayedTiles = new List<GameObject>();
     public List<MinionController> ActiveMinionList { get; set; } = new List<MinionController>();
-    private bool isStart;
+    public bool IsStart { get; private set; }
     private float workTime; //제한시간 3분(180초)
     
     [SerializeField] private Text timeText;
@@ -54,8 +54,8 @@ public class FactoryManager : MonoSingleton<FactoryManager>
 
     protected override void Init()
     {
-        isStart = false;
-        workTime = 180;
+        IsStart = false;
+        workTime = 10;
         todayGem = 0;
         todaySpecialGem = 0;
         gemTexts[0].text = $"gem: {todayGem.ToString()}";
@@ -71,7 +71,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     }
     private void Update()
     {
-        if (!isStart)
+        if (!IsStart)
         {
             return;
         }
@@ -83,7 +83,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         }
         else
         {
-            isStart = false;
+            IsStart = false;
             AudioManager.Instance.StopAudio("04.b_AMwork");
             timeText.text = "time over";
             DestroyAllCards();
@@ -122,7 +122,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     
     private void StartWork()
     {
-        isStart = true;
+        IsStart = true;
         CardPlaceManager.Instance.OnCardPlace -= StartWork;
         AudioManager.Instance.PlayAudio("04.b_AMwork", true, SoundType.BGM);
     }
