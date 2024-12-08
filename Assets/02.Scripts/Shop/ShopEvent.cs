@@ -15,6 +15,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
 
     public int totalPrice = 0;
 
+    /*
     private void Awake()
     {
         if (Instance == null)
@@ -28,9 +29,22 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         ShopUI.Instance.purchaseButton.onClick.AddListener(OnPurchase);
         ShopUI.Instance.closeButton.onClick.AddListener(ShopUI.Instance.CloseShop);
     }
+    */
 
-    private void Start()
+    void Start()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        ShopUI.Instance.purchaseButton.onClick.AddListener(OnPurchase);
+        ShopUI.Instance.closeButton.onClick.AddListener(ShopUI.Instance.CloseShop);
+
         InitializeItems();
 
         if (normalItem.Count > 0)

@@ -29,14 +29,14 @@ public class SelectedItemsUI : MonoBehaviour
     public void AddItemToInventory(ShopItemData item)
     {
 
-        // ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ ÀÌ¹Ì ÀÖÀ¸¸é ¼ö·®À» Áõ°¡
+        // ì„ íƒëœ ì•„ì´í…œì´ ì´ë¯¸ ìˆìœ¼ë©´ ìˆ˜ëŸ‰ì„ ì¦ê°€
         if (selectedItems.ContainsKey(item))
         {
             selectedItems[item]++;
         }
         else
         {
-            // »õ·Î¿î ¾ÆÀÌÅÛÀÌ¸é µñ¼Å³Ê¸®¿¡ Ãß°¡
+            // ìƒˆë¡œìš´ ì•„ì´í…œì´ë©´ ë”•ì…”ë„ˆë¦¬ì— ì¶”ê°€
             selectedItems.Add(item, 1);
         }
 
@@ -48,19 +48,19 @@ public class SelectedItemsUI : MonoBehaviour
 
         foreach (Transform item in verticalLayout)
         {
-            Destroy(item.gameObject);  // ±âÁ¸ ¾ÆÀÌÅÛ »èÁ¦
+            Destroy(item.gameObject);  // ê¸°ì¡´ ì•„ì´í…œ ì‚­ì œ
         }
 
         foreach (var item in selectedItems)
         {
 
-            Debug.Log("SelectedUI" + item.Key.itemName + " ¼ö·®: " + item.Value);
+            Debug.Log("SelectedUI" + item.Key.itemName + " ìˆ˜ëŸ‰: " + item.Value);
 
             GameObject cardUI = Instantiate(purchasedCard, verticalLayout);
             cardUI.name = item.Key.itemName;
             PurchasedCardUI cardUIComponent = cardUI.GetComponent<PurchasedCardUI>();
             cardUIComponent.SetItem(item.Key, item.Value);
-            //Debug.Log("Instantiated cardUI with item: " + item.Key.itemName + " ¼ö·®: " + item.Value);
+            //Debug.Log("Instantiated cardUI with item: " + item.Key.itemName + " ìˆ˜ëŸ‰: " + item.Value);
 
         }
 
@@ -70,7 +70,7 @@ public class SelectedItemsUI : MonoBehaviour
     {
         foreach (Transform item in verticalLayout)
         {
-            Destroy(item.gameObject);  // ±âÁ¸ ¾ÆÀÌÅÛ »èÁ¦
+            Destroy(item.gameObject);  // ê¸°ì¡´ ì•„ì´í…œ ì‚­ì œ
         }
     }
 

@@ -15,7 +15,7 @@ public class ShopUI : MonoBehaviour
     public GameObject shopUI;
     public Button closeButton;
     public GameObject cardPrefab;
-
+    public GameObject MoveScene;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class ShopUI : MonoBehaviour
     {
         foreach (Transform item in itemGrid)
         {
-            Destroy(item.gameObject);  // ±âÁ¸ ¾ÆÀÌÅÛ »èÁ¦
+            Destroy(item.gameObject);  // ê¸°ì¡´ ì•„ì´í…œ ì‚­ì œ
         }
 
         foreach (ShopItemData itemData in items)
@@ -42,31 +42,34 @@ public class ShopUI : MonoBehaviour
             newItem.name = itemData.itemName;
             SellingCardUI cardUI = newItem.GetComponent<SellingCardUI>();
             cardUI.SetCardUI(itemData);
-            newItem.AddComponent<Button>().onClick.AddListener(() => ShopEvent.Instance.OnItemClick(itemData));  // Å¬¸¯ ½Ã ¾ÆÀÌÅÛ Ãß°¡
+            newItem.AddComponent<Button>().onClick.AddListener(() => ShopEvent.Instance.OnItemClick(itemData));  // í´ë¦­ ì‹œ ì•„ì´í…œ ì¶”ê°€
         }
     }
 
     public void UpdatePurchaseButtonText(int _amount)
     {
-        purchaseButtonText.text = "±¸¸ÅÇÏ±â " + _amount.ToString();
+        purchaseButtonText.text = "êµ¬ë§¤í•˜ê¸° " + _amount.ToString();
     }
 
     public void ResetTotalPrice()
     {
         ShopEvent.Instance.totalPrice = 0;
-        purchaseButtonText.text = "±¸¸ÅÇÏ±â ";
+        purchaseButtonText.text = "êµ¬ë§¤í•˜ê¸° ";
     }
 
     public void CloseShop()
     {
-        shopUI.SetActive(false);  // »óÁ¡ UI¸¦ ºñÈ°¼ºÈ­
+        shopUI.SetActive(false);  // ìƒì  UIë¥¼ ë¹„í™œì„±í™”
+        MoveScene.SetActive(true);
+        AudioManager.Instance.PlayAudio("02.b_lobby", true, SoundType.EFFECT, 0);
+        AudioManager.Instance.StopAudio("03.b_shop");
     }
 
     public void SoldOutUI()
     {
        
-        Debug.Log("¼Öµå¾Æ¿ôui");
+        Debug.Log("ì†”ë“œì•„ì›ƒui");
     }
 
-    // ±¸¸Å È½¼ö°¡ ÃÊ°úµÇ¸é ±× ÇØ´ç Ä«µå ¾ÆÀÌÅÛ ÇÁ¸®ÆÕUIÀÇ Item ImageÀÇ ImageÄÄÆ÷³ÍÆ®¿¡¼­ ÀÌ¹ÌÁö°¡ ¼Öµå¾Æ¿ô ÀÌ¹ÌÁö·Î ¹Ù²î¾úÀ¸¸é ÁÁ°Ú¾î
+    // êµ¬ë§¤ íšŸìˆ˜ê°€ ì´ˆê³¼ë˜ë©´ ê·¸ í•´ë‹¹ ì¹´ë“œ ì•„ì´í…œ í”„ë¦¬íŒ¹UIì˜ Item Imageì˜ Imageì»´í¬ë„ŒíŠ¸ì—ì„œ ì´ë¯¸ì§€ê°€ ì†”ë“œì•„ì›ƒ ì´ë¯¸ì§€ë¡œ ë°”ë€Œì—ˆìœ¼ë©´ ì¢‹ê² ì–´
 }
