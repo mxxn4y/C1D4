@@ -619,6 +619,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4719195295128545522, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
+      propertyPath: PlayerRoomScene
+      value: 
+      objectReference: {fileID: 1448951001}
     - target: {fileID: 6118957295795311365, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
