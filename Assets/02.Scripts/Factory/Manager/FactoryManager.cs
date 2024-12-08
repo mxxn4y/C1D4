@@ -49,7 +49,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
 
     private void Start()
     {
-        Init();
+        //Init();
     }
 
     protected override void Init()

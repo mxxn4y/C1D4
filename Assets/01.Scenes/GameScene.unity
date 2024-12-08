@@ -961,7 +961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4957921346897610485, guid: c9ab8d7756de611419455a74f2adbbdf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4957921346897610485, guid: c9ab8d7756de611419455a74f2adbbdf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1262,6 +1262,18 @@ PrefabInstance:
     - target: {fileID: 2994274976043710924, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
       propertyPath: m_SizeDelta.y
       value: -1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066893504792766602, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066893505124414040, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066893505376296795, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
