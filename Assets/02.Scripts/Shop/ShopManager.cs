@@ -47,16 +47,16 @@ public class ShopManager : MonoBehaviour
 
     public bool CanClickItem(ShopItemData _itemData)
     {
-        // ¹«Á¦ÇÑ ¾ÆÀÌÅÛÀº ¾ğÁ¦³ª Å¬¸¯ °¡´É
+        // ë¬´ì œí•œ ì•„ì´í…œì€ ì–¸ì œë‚˜ í´ë¦­ ê°€ëŠ¥
         if (_itemData.isUnlimited)
             return true;
 
-            // ³²Àº ÇÏ·ç ±¸¸Å È½¼ö °è»ê
+            // ë‚¨ì€ í•˜ë£¨ êµ¬ë§¤ íšŸìˆ˜ ê³„ì‚°
             int remainingDaily = _itemData.maxDailyPurchase > 0 && ShopManager.Instance.dailyPurchaseCount.ContainsKey(_itemData.itemName)
                 ? _itemData.maxDailyPurchase - ShopManager.Instance.dailyPurchaseCount[_itemData.itemName]
                 : _itemData.maxDailyPurchase;
 
-            // ³²Àº ÀüÃ¼ ±¸¸Å È½¼ö °è»ê
+            // ë‚¨ì€ ì „ì²´ êµ¬ë§¤ íšŸìˆ˜ ê³„ì‚°
             int remainingTotal = _itemData.maxTotalPurchase > 0 && ShopManager.Instance.totalPurchaseCount.ContainsKey(_itemData.itemName)
                 ? _itemData.maxTotalPurchase - ShopManager.Instance.totalPurchaseCount[_itemData.itemName]
                 : _itemData.maxTotalPurchase;
@@ -64,12 +64,12 @@ public class ShopManager : MonoBehaviour
         if (_itemData.maxDailyPurchase > 0)
         {
             return remainingDaily > 0;
-            Debug.Log(_itemData.itemName + remainingDaily + "°³ ³²À½");
+            Debug.Log(_itemData.itemName + remainingDaily + "ê°œ ë‚¨ìŒ");
         }
         if (_itemData.maxTotalPurchase > 0)
         {
             return remainingTotal > 0;
-            Debug.Log(_itemData.itemName + remainingTotal + "°³ ³²À½");
+            Debug.Log(_itemData.itemName + remainingTotal + "ê°œ ë‚¨ìŒ");
         }
         return true;
     }
@@ -79,18 +79,18 @@ public class ShopManager : MonoBehaviour
     {
         if (item.isUnlimited) return true;
 
-        // ÇÏ·ç ÃÖ´ë ±¸¸Å È½¼ö È®ÀÎ
+        // í•˜ë£¨ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ í™•ì¸
         if (item.maxDailyPurchase > 0)
         {
-            // dailyPurchaseCount.TryGetValue¿¡¼­ item.itemNameÀ» Å°·Î »ç¿ë
+            // dailyPurchaseCount.TryGetValueì—ì„œ item.itemNameì„ í‚¤ë¡œ ì‚¬ìš©
             if (dailyPurchaseCount.TryGetValue(item.itemName, out int dailyCount) && dailyCount >= item.maxDailyPurchase)
                 return false;
         }
 
-        // °ÔÀÓ ÀüÃ¼ ÃÖ´ë ±¸¸Å È½¼ö È®ÀÎ
+        // ê²Œì„ ì „ì²´ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ í™•ì¸
         if (item.maxTotalPurchase > 0)
         {
-            // totalPurchaseCount.TryGetValue¿¡¼­ item.itemNameÀ» Å°·Î »ç¿ë
+            // totalPurchaseCount.TryGetValueì—ì„œ item.itemNameì„ í‚¤ë¡œ ì‚¬ìš©
             if (totalPurchaseCount.TryGetValue(item.itemName, out int totalCount) && totalCount >= item.maxTotalPurchase)
                 return false;
         }
@@ -102,7 +102,7 @@ public class ShopManager : MonoBehaviour
     {
         if (item.isUnlimited) return true;
 
-        // ÇÏ·ç ÃÖ´ë ±¸¸Å È½¼ö È®ÀÎ
+        // í•˜ë£¨ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ í™•ì¸
         if (item.maxDailyPurchase > 0)
         {
             dailyPurchaseCount.TryGetValue(item.itemName, out int dailyCount);
@@ -114,7 +114,7 @@ public class ShopManager : MonoBehaviour
             }
         }
 
-        // ÀüÃ¼ ÃÖ´ë ±¸¸Å È½¼ö È®ÀÎ
+        // ì „ì²´ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ í™•ì¸
         if (item.maxTotalPurchase > 0)
         {
             totalPurchaseCount.TryGetValue(item.itemName, out int totalCount);
@@ -130,23 +130,23 @@ public class ShopManager : MonoBehaviour
     }
 
     */
-    public void TrackPurchase(ShopItemData item) // °¢ ¾ÆÀÌÅÛ º° ÇÏ·ç ¶Ç´Â ÀüÃ¼ ÃÖ´ë ±¸¸Å È½¼ö ÃßÀû
+    public void TrackPurchase(ShopItemData item) // ê° ì•„ì´í…œ ë³„ í•˜ë£¨ ë˜ëŠ” ì „ì²´ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ ì¶”ì 
     {
-        if (!item.isUnlimited) // CSV¿¡¼­ isUnlimitedÈ®ÀÎ °¡´É
+        if (!item.isUnlimited) // CSVì—ì„œ isUnlimitedí™•ì¸ ê°€ëŠ¥
         {
-            // ÇÏ·ç ÃÖ´ë ±¸¸Å È½¼ö Áõ°¡
-            if (item.maxDailyPurchase > 0) // CSV¿¡¼­ È®ÀÎ °¡´É
+            // í•˜ë£¨ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ ì¦ê°€
+            if (item.maxDailyPurchase > 0) // CSVì—ì„œ í™•ì¸ ê°€ëŠ¥
             {
-                // item.itemNameÀ» Å°·Î »ç¿ëÇÏ¿© dailyPurchaseCount µñ¼Å³Ê¸®¿¡ Á¢±Ù
+                // item.itemNameì„ í‚¤ë¡œ ì‚¬ìš©í•˜ì—¬ dailyPurchaseCount ë”•ì…”ë„ˆë¦¬ì— ì ‘ê·¼
                 if (!dailyPurchaseCount.ContainsKey(item.itemName))
                     dailyPurchaseCount[item.itemName] = 0;
                 dailyPurchaseCount[item.itemName]++;
             }
 
-            // ÀüÃ¼ ÃÖ´ë ±¸¸Å È½¼ö Áõ°¡
+            // ì „ì²´ ìµœëŒ€ êµ¬ë§¤ íšŸìˆ˜ ì¦ê°€
             if (item.maxTotalPurchase > 0)
             {
-                // item.itemNameÀ» Å°·Î »ç¿ëÇÏ¿© totalPurchaseCount µñ¼Å³Ê¸®¿¡ Á¢±Ù
+                // item.itemNameì„ í‚¤ë¡œ ì‚¬ìš©í•˜ì—¬ totalPurchaseCount ë”•ì…”ë„ˆë¦¬ì— ì ‘ê·¼
                 if (!totalPurchaseCount.ContainsKey(item.itemName))
                     totalPurchaseCount[item.itemName] = 0;
                 totalPurchaseCount[item.itemName]++;
@@ -160,26 +160,26 @@ public class ShopManager : MonoBehaviour
     {
         if (!item.isUnlimited)
         {
-            // ÇÏ·ç ±¸¸Å È½¼ö °¨¼Ò
+            // í•˜ë£¨ êµ¬ë§¤ íšŸìˆ˜ ê°ì†Œ
             if (item.maxDailyPurchase > 0 &&
                 dailyPurchaseCount.ContainsKey(item.itemName) &&
                 dailyPurchaseCount[item.itemName] > 0)
             {
                 dailyPurchaseCount[item.itemName]--;
-                Debug.Log(item.itemName+ "ÇÏ·ç È½¼ö °¨¼Ò {dailyPurchaseCount[item.itemName]}");
+                Debug.Log(item.itemName+ "í•˜ë£¨ íšŸìˆ˜ ê°ì†Œ {dailyPurchaseCount[item.itemName]}");
             }
 
-            // ÀüÃ¼ ±¸¸Å È½¼ö °¨¼Ò
+            // ì „ì²´ êµ¬ë§¤ íšŸìˆ˜ ê°ì†Œ
             if (item.maxTotalPurchase > 0 &&
                 totalPurchaseCount.ContainsKey(item.itemName) &&
                 totalPurchaseCount[item.itemName] > 0)
             {
                 totalPurchaseCount[item.itemName]--;
-                Debug.Log(item.itemName + "ÀüÃ¼ È½¼ö °¨¼Ò {totalPurchaseCount[item.itemName]}");
+                Debug.Log(item.itemName + "ì „ì²´ íšŸìˆ˜ ê°ì†Œ {totalPurchaseCount[item.itemName]}");
             }
         }
         OnPurchaseStateChanged?.Invoke(item.itemName);
-        Debug.Log(item.itemName + "ÀÌ¹ÌÁö º¯°æ ÀÌº¥Æ®");
+        Debug.Log(item.itemName + "ì´ë¯¸ì§€ ë³€ê²½ ì´ë²¤íŠ¸");
         Debug.Log(item.itemName + CanPurchaseItem(item));
 
     }
@@ -187,14 +187,14 @@ public class ShopManager : MonoBehaviour
 
     public void ResetDailyPurchases()
     {
-        dailyPurchaseCount.Clear(); // ³ªÁß¿¡ ÇÏ·ç Áö³ª°¥ ¶§ È£Ãâ
+        dailyPurchaseCount.Clear(); // ë‚˜ì¤‘ì— í•˜ë£¨ ì§€ë‚˜ê°ˆ ë•Œ í˜¸ì¶œ
     }
 
     public void UpdateNormalGem(int _amount)
     {
         gem -= _amount;
         gemUI.text = gem.ToString();
-        Debug.Log("ÀÏ¹İÀçÈ­ °è»ê"+gem);
+        Debug.Log("ì¼ë°˜ì¬í™” ê³„ì‚°"+gem);
     }
 
     public void UpdateSpecialGem(int _amount)
@@ -203,7 +203,7 @@ public class ShopManager : MonoBehaviour
         specialGemUI.text = specialGem.ToString();
     }
 
-    //ÀÓ½Ã gem¾ò±â
+    //ì„ì‹œ gemì–»ê¸°
     public void AddCoins()
     {
         gem+=1000;
