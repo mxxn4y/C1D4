@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static BookEventManager;
 
-public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler
+public class BookEventManager : MonoBehaviour,IPointerClickHandler//,IPointerEnterHandler,IPointerExitHandler
 {
 
     public enum IndexType { PASSION,CALM,WISDOM }
@@ -88,6 +88,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
 
         }
 
+    /*
         public void OnPointerEnter(PointerEventData _eventData)
         {
             GameObject hoveredObj = _eventData.pointerCurrentRaycast.gameObject;
@@ -125,6 +126,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
             currentCardProperty = null; 
         }
     } 
+    */
 }
 
  

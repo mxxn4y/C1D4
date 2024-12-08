@@ -16,6 +16,7 @@ TagManager:
   - Bed
   - Door
   - CollectBook
+  - CollectBookScene
   layers:
   - Default
   - TransparentFX
