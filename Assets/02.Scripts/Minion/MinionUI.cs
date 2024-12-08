@@ -17,7 +17,7 @@ public class MinionUI : MonoBehaviour
     private Button eventBtn;
     private TextMeshProUGUI eventBtnTxt;
     private Text coolTimeTxt;
-    private readonly Vector3 staminaBarPos = new (0.5f,0.4f,0);
+    private readonly Vector3 staminaBarPos = new (0f,-0.1f,0);
     private readonly Vector3 eventBtnPos = new (0f,1.0f,0);
     private readonly Vector3 coolTimeTxtPos = new (0f,0.5f,0);
 
@@ -57,7 +57,7 @@ public class MinionUI : MonoBehaviour
     {
         staminaBar = Instantiate(staminaBarPrefab, 
             Camera.main.WorldToScreenPoint(transform.position + staminaBarPos) , 
-            Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
+            Quaternion.Euler(0,0,-90), GameObject.FindGameObjectWithTag("Canvas").transform);
         staminaBar.gameObject.SetActive(false);
     }
 
