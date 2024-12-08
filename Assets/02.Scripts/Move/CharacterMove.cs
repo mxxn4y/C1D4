@@ -100,7 +100,7 @@ public class CharacterMove : MonoBehaviour
             }
             else if (cur == (int)room.MORNING && desIndex == (int)room.MORNING)
             {
-                for (int i = 0; i < factoryScenes.Length; i++)
+                for (int i = 0; i < roomScenes.Length; i++)
                 {
                     roomScenes[i].SetActive(true);
                     moveScene.SetActive(false);
