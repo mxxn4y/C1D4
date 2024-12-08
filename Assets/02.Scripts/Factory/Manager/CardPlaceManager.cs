@@ -11,7 +11,7 @@ public class CardPlaceManager : MonoSingleton<CardPlaceManager>
 
     [SerializeField] private GameObject movingCard;
     [SerializeField] private RectTransform scrollContentRect;
-    [FormerlySerializedAs("upDowBtns")] [SerializeField] private Button[] upDownBtns;
+    [SerializeField] private Button[] upDownBtns;
     public CardController SelectedCard { get; private set; }
     public TileInfo SelectedTile { get; private set; }
     private bool isCardMoving;
