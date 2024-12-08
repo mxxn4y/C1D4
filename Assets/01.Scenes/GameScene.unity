@@ -123,7 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &7395423
+--- !u!20 &1520409518
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028706265}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.4156863, g: 0.4156863, b: 0.4156863, a: 1}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!1 &2028706265
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,74 +174,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7395426}
-  - component: {fileID: 7395425}
-  - component: {fileID: 7395424}
+  - component: {fileID: 2028706267}
+  - component: {fileID: 1520409518}
+  - component: {fileID: 2028706266}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7395424
-MonoBehaviour:
+--- !u!81 &2028706266
+AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395423}
+  m_GameObject: {fileID: 2028706265}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &7395425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &7395426
+--- !u!4 &2028706267
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395423}
+  m_GameObject: {fileID: 2028706265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
---- !u!1 &225151724 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 200912807375072893, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
-  m_PrefabInstance: {fileID: 1163228085}
-  m_PrefabAsset: {fileID: 0}
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
 --- !u!1001 &325492031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,8 +214,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< HEAD
-=======
     - target: {fileID: 1177904275939489282, guid: fc62c6c3062c6e447b0dbeb88f60c3c2, type: 3}
       propertyPath: moveScene
       value: 
@@ -224,7 +230,6 @@ PrefabInstance:
       propertyPath: factoryScenes.Array.data[1]
       value: 
       objectReference: {fileID: 1516767654}
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
     - target: {fileID: 7003091573936081120, guid: fc62c6c3062c6e447b0dbeb88f60c3c2, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -610,15 +615,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6118957295795311385, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
   m_PrefabInstance: {fileID: 2040938087}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
 --- !u!1001 &874257216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,8 +936,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
-<<<<<<< HEAD
-=======
 --- !u!1 &1360483991 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7003091573936081121, guid: fc62c6c3062c6e447b0dbeb88f60c3c2, type: 3}
@@ -946,8 +946,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8558958451553401440, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
   m_PrefabInstance: {fileID: 2085202317}
   m_PrefabAsset: {fileID: 0}
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
---- !u!1 &1520409516
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1036,15 +1034,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5273744723317815912, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
   m_PrefabInstance: {fileID: 1093369491}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
 --- !u!1001 &1891305631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1218,8 +1213,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< HEAD
-=======
     - target: {fileID: 8558958451464295137, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
       propertyPath: machineInteractions.Array.size
       value: 3
@@ -1235,8 +1228,6 @@ PrefabInstance:
     - target: {fileID: 8558958451464295137, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
       propertyPath: machineInteractions.Array.data[2]
       value: 
-      objectReference: {fileID: 740984246}
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
     - target: {fileID: 8558958451553401440, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
       propertyPath: m_Name
       value: ProductMoveScene
@@ -1289,9 +1280,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-    m_RemovedComponents: []
-=======
     - target: {fileID: 8558958451604636849, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1302,5 +1290,4 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8884900063796857367, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
->>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
   m_SourcePrefab: {fileID: 100100000, guid: f0f7ae8ba07a5e447b22d0b59664b39e, type: 3}
