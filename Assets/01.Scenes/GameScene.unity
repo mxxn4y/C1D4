@@ -207,6 +207,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+--- !u!1 &225151724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 200912807375072893, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
+  m_PrefabInstance: {fileID: 1163228085}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
 --- !u!1001 &325492031
 PrefabInstance:
   m_ObjectHideFlags: 0

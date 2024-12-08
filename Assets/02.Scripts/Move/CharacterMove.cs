@@ -20,6 +20,9 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private GameObject[] factoryScenes;
     [SerializeField] private GameObject moveScene;
 
+<<<<<<< HEAD
+>>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
+=======
 >>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
     enum room
     {
@@ -92,6 +95,9 @@ public class CharacterMove : MonoBehaviour
                     moveScene.SetActive(false);
                 }
             }
+<<<<<<< HEAD
+>>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
+=======
 >>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
         }
         else
