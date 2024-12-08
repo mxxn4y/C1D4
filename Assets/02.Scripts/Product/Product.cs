@@ -22,6 +22,8 @@ public class Product : MonoBehaviour
     public bool isMove { get; private set; } = true;
     private int cur = 0;
 
+    [SerializeField] private Color orange;
+
     //스프라이트 색상
     private SpriteRenderer sprite;
 
@@ -31,7 +33,7 @@ public class Product : MonoBehaviour
     private void Start()
     {
         //처음 색 블랙
-        currentProductColor = FactoryGameManager.FactoryColor.BLACK;
+        currentProductColor = FactoryGameManager.FactoryColor.WHITE;
 
         //스프라이트
         sprite = GetComponent<SpriteRenderer>();
@@ -103,61 +105,61 @@ public class Product : MonoBehaviour
         if (_machineColor == FactoryGameManager.FactoryColor.RED)
         {
             //처음 누를 경우
-            if(currentProductColor == FactoryGameManager.FactoryColor.BLACK)
+            if(currentProductColor == FactoryGameManager.FactoryColor.WHITE)
             {
                 currentProductColor = FactoryGameManager.FactoryColor.RED;
                 sprite.color = Color.red;
             }
             //두번째 누를 경우
-            else if(currentProductColor == FactoryGameManager.FactoryColor.GREEN)
-            {
-                currentProductColor = FactoryGameManager.FactoryColor.YELLOW;
-                sprite.color = Color.yellow;
-            }
-            else if (currentProductColor == FactoryGameManager.FactoryColor.BLUE)
-            {
-                currentProductColor = FactoryGameManager.FactoryColor.MAGENTA;
-                sprite.color = Color.magenta;
-            }
-            //세번째 누를 경우
-            else if (currentProductColor == FactoryGameManager.FactoryColor.CYAN)
-            {
-                currentProductColor = FactoryGameManager.FactoryColor.WHITE;
-                sprite.color = Color.white;
-            }
-        }
-        //누른 기계가 초록색 경우
-        else if (_machineColor == FactoryGameManager.FactoryColor.GREEN)
-        {
-            //처음 누를 경우
-            if (currentProductColor == FactoryGameManager.FactoryColor.BLACK)
+            else if(currentProductColor == FactoryGameManager.FactoryColor.YELLOW)
             {
                 currentProductColor = FactoryGameManager.FactoryColor.GREEN;
                 sprite.color = Color.green;
             }
-            //두번째 누를 경우
-            else if (currentProductColor == FactoryGameManager.FactoryColor.RED)
+            else if (currentProductColor == FactoryGameManager.FactoryColor.BLUE)
+            {
+                currentProductColor = FactoryGameManager.FactoryColor.PURPLE;
+                sprite.color = Color.magenta;
+            }
+            //세번째 누를 경우
+            else if (currentProductColor == FactoryGameManager.FactoryColor.GREEN)
+            {
+                currentProductColor = FactoryGameManager.FactoryColor.BLACK;
+                sprite.color = Color.black;
+            }
+        }
+        //누른 기계가 노란색 경우
+        else if (_machineColor == FactoryGameManager.FactoryColor.YELLOW)
+        {
+            //처음 누를 경우
+            if (currentProductColor == FactoryGameManager.FactoryColor.WHITE)
             {
                 currentProductColor = FactoryGameManager.FactoryColor.YELLOW;
                 sprite.color = Color.yellow;
             }
+            //두번째 누를 경우
+            else if (currentProductColor == FactoryGameManager.FactoryColor.RED)
+            {
+                currentProductColor = FactoryGameManager.FactoryColor.ORANGE;
+                sprite.color = orange;
+            }
             else if (currentProductColor == FactoryGameManager.FactoryColor.BLUE)
             {
-                currentProductColor = FactoryGameManager.FactoryColor.CYAN;
-                sprite.color = Color.cyan;
+                currentProductColor = FactoryGameManager.FactoryColor.GREEN;
+                sprite.color = Color.green;
             }
             //세번째 누를 경우
-            else if (currentProductColor == FactoryGameManager.FactoryColor.MAGENTA)
+            else if (currentProductColor == FactoryGameManager.FactoryColor.PURPLE)
             {
-                currentProductColor = FactoryGameManager.FactoryColor.WHITE;
-                sprite.color = Color.white;
+                currentProductColor = FactoryGameManager.FactoryColor.BLACK;
+                sprite.color = Color.black;
             }
         }
         //누른 기계가 파란색 경우
         else if (_machineColor == FactoryGameManager.FactoryColor.BLUE)
         {
             //처음 누를 경우
-            if (currentProductColor == FactoryGameManager.FactoryColor.BLACK)
+            if (currentProductColor == FactoryGameManager.FactoryColor.WHITE)
             {
                 currentProductColor = FactoryGameManager.FactoryColor.BLUE;
                 sprite.color = Color.blue;
@@ -165,19 +167,19 @@ public class Product : MonoBehaviour
             //두번째 누를 경우
             else if (currentProductColor == FactoryGameManager.FactoryColor.RED)
             {
-                currentProductColor = FactoryGameManager.FactoryColor.MAGENTA;
+                currentProductColor = FactoryGameManager.FactoryColor.PURPLE;
                 sprite.color = Color.magenta;
             }
-            else if (currentProductColor == FactoryGameManager.FactoryColor.GREEN)
-            {
-                currentProductColor = FactoryGameManager.FactoryColor.CYAN;
-                sprite.color = Color.cyan;
-            }
-            //세번째 누를 경우
             else if (currentProductColor == FactoryGameManager.FactoryColor.YELLOW)
             {
-                currentProductColor = FactoryGameManager.FactoryColor.WHITE;
-                sprite.color = Color.white;
+                currentProductColor = FactoryGameManager.FactoryColor.GREEN;
+                sprite.color = Color.green;
+            }
+            //세번째 누를 경우
+            else if (currentProductColor == FactoryGameManager.FactoryColor.ORANGE)
+            {
+                currentProductColor = FactoryGameManager.FactoryColor.BLACK;
+                sprite.color = Color.black;
             }
         }
 
