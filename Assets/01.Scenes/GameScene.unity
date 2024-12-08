@@ -157,6 +157,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1448434940451635191, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+      propertyPath: BedScene
+      value: 
+      objectReference: {fileID: 1099871135}
+    - target: {fileID: 1448434940451635191, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+      propertyPath: DoorScene
+      value: 
+      objectReference: {fileID: 1903689587}
+    - target: {fileID: 1448434940451635191, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+      propertyPath: PlayerRoomScene
+      value: 
+      objectReference: {fileID: 1448951001}
+    - target: {fileID: 1448434940451635191, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+      propertyPath: CollectBookScene
+      value: 
+      objectReference: {fileID: 1540423062}
     - target: {fileID: 5273744723317815912, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
       propertyPath: m_Name
       value: RoomScene
@@ -507,6 +523,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1099871135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7099139335663364441, guid: 3e66d38a7cd5cff429b79c5b690630cb, type: 3}
+  m_PrefabInstance: {fileID: 1782150426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1258431369
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +540,8 @@ GameObject:
   - component: {fileID: 1258431371}
   - component: {fileID: 1258431370}
   m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
+  m_Name: Main Camera
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1029,6 +1050,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5273744723317815912, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
   m_PrefabInstance: {fileID: 222644011}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1540423062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6118957295795311385, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
+  m_PrefabInstance: {fileID: 1258823413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1617090804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,6 +1135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 200912806984713590, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
+      propertyPath: moveScene
+      value: 
+      objectReference: {fileID: 1903689587}
     - target: {fileID: 200912807375072890, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1260,6 +1290,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2542091338662338361, guid: 3e66d38a7cd5cff429b79c5b690630cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099139335663364437, guid: 3e66d38a7cd5cff429b79c5b690630cb, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099139335663364441, guid: 3e66d38a7cd5cff429b79c5b690630cb, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
