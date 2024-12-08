@@ -109,7 +109,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         factoryCanvas.SetActive(true);
         displayedTiles = TileLoadManager.Instance.LoadAllTiles();
-        foreach (Minion minion in PlayerData.Instance.SelectedMinions)
+        foreach (Minion minion in PlayerData.Instance.MinionList)
         {
             GameObject newCard = Instantiate(cardPrefab, cardCanvas.transform); // 카드 생성
             newCard.GetComponent<CardController>().Set(minion);

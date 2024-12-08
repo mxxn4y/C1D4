@@ -16,9 +16,9 @@ public class ProductMove : MonoBehaviour
     private float stopTime = 2f;
 
     //멈추는 위치(웨이 포인트 인덱스 번호)
-    private const int STOP_POINT_RED = 21;
-    private const int STOP_POINT_YELLOW = 25;
-    private const int STOP_POINT_BLUE = 27;
+    private const int STOP_POINT_RED = 20;
+    private const int STOP_POINT_YELLOW = 24;
+    private const int STOP_POINT_BLUE = 28;
 
     //움직임 관리
     public bool isMove { get; private set; } = true;
