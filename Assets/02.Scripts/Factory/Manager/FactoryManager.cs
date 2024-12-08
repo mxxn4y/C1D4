@@ -40,7 +40,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private bool[] feverArray;
     private readonly Color f1Color = new Color(255f/255f,83f/255f,93f/255f);
     private readonly Color f2Color = new Color(255f/255f,183f/255f,31f/255f);
-    private readonly Color f3Color = new Color(255f/255f,255f/255f,123f/255f);
+    private readonly Color f3Color = new Color(255f/255f,215f/255f,123f/255f);
     private readonly Color f4Color = new Color(72f/255f,235f/255f,105f/255f);
     private readonly Color f5Color = new Color(0f,100f/255f,255f/255f);
     #endregion
