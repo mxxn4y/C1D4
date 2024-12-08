@@ -1,39 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public enum GameState
+{
+    Start,
+    Room,
+    Move,
+    Morning,
+    Evening,
+}
+
+public class GameManager : MonoSingleton<GameManager>
 {
     /// Event
-    //ÀÌÀü¿¡ ÀÌº¥Æ® ¹ß»ıÇß´ÂÁö ¿©ºÎ(¹ß»ı È®·ü Á¶Àı)
+    //ì´ì „ì— ì´ë²¤íŠ¸ ë°œìƒí–ˆëŠ”ì§€ ì—¬ë¶€(ë°œìƒ í™•ë¥  ì¡°ì ˆ)
     public bool _prevEvent = false;
     public bool _nowEvent = false;
-    //ÀÌº¥Æ® ¹ß»ı È®·ü(ÀÌÀü¿¡ ¹ß»ıÇÏÁö ¾ÊÀ¸¸é È®·ü ³ôÀÓ)
+    //ì´ë²¤íŠ¸ ë°œìƒ í™•ë¥ (ì´ì „ì— ë°œìƒí•˜ì§€ ì•Šìœ¼ë©´ í™•ë¥  ë†’ì„)
     public float _eventProb = 0f;
     /// Event
 
     /// Ending
     public int _ending = -1;
-    //»ó¼ö·Î ¿£µù Á¾·ù ÁöÁ¤(enumÀ» ¾µ±î) 
+    //ìƒìˆ˜ë¡œ ì—”ë”© ì¢…ë¥˜ ì§€ì •(enumì„ ì“¸ê¹Œ) 
     const int NORMAL_ENDING = 0;
     const int HAPPY_ENDING = 1;
     const int BAD_ENDING = 2;
     const int HIDDEN_ENDING = 3;
-    //°¡À§ ½è´ÂÁö(Áø ¿£µù º¸±â À§ÇÑ Á¶°Ç ´Ş¼º ¿©ºÎ)
+    //ê°€ìœ„ ì¼ëŠ”ì§€(ì§„ ì—”ë”© ë³´ê¸° ìœ„í•œ ì¡°ê±´ ë‹¬ì„± ì—¬ë¶€)
     public bool _endingCondition = false;
     /// Ending
 
     ///Day
     public int day = 0;
-    ///Day
+    
+    ////Scene
+
+    public GameState gameState { get; private set; } = GameState.Start;
+
+    [SerializeField] private GameObject startScene;
+    [SerializeField] private GameObject roomScene;
+    [SerializeField] private GameObject moveScene;
+    [SerializeField] private GameObject morningScene;
+    [SerializeField] private GameObject EveningScene;
 
     #region Event
-    //ÀÌº¥Æ® ¹ß»ı È®·ü Á¶Àı
+    //ì´ë²¤íŠ¸ ë°œìƒ í™•ë¥  ì¡°ì ˆ
     public void SwitchEventProb()
     {
         if (!_prevEvent)
         {
-            //È®·ü ¿Ã¸²
+            //í™•ë¥  ì˜¬ë¦¼
         }
     }
 
@@ -41,33 +60,33 @@ public class GameManager : MonoBehaviour
     {
         _nowEvent = true;
 
-        //ÀÌº¥Æ® Á¾·ù¸¶´Ù
+        //ì´ë²¤íŠ¸ ì¢…ë¥˜ë§ˆë‹¤
     }
 
     #endregion
 
-    //ÃÊ±â ¼¼ÆÃ(ÇÊ¿äÇÒ °Í °°À½)
+    //ì´ˆê¸° ì„¸íŒ…(í•„ìš”í•  ê²ƒ ê°™ìŒ)
     public void StartDay()
     {
 
     }
 
-    //ÇÏ·ç ÃÖÁ¾ ¼¼ÆÃ
+    //í•˜ë£¨ ìµœì¢… ì„¸íŒ…
     public void EndDay()
     {
 
     }
 
-    //´ÙÀ½³¯·Î ³Ñ±â±â
+    //ë‹¤ìŒë‚ ë¡œ ë„˜ê¸°ê¸°
     public void NextDay()
     {
         ++day;
         _prevEvent = _nowEvent;
 
-        //ºÎ°¡ ±â´É
+        //ë¶€ê°€ ê¸°ëŠ¥
     }
 
-    //¿£µù
+    //ì—”ë”©
     public void Ending()
     {
         if (_ending == NORMAL_ENDING)
@@ -87,6 +106,12 @@ public class GameManager : MonoBehaviour
 
         }
 
+    }
+
+    public void SetScene(GameState _nowGameState)
+    {
+        gameState = _nowGameState;
+        //í”„ë¦¬íŒ¹ë“¤
     }
 
     private void Update()
