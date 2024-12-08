@@ -13,6 +13,7 @@ public class BookUI : MonoBehaviour
     public GameObject[] gridLayouts; // GridLayoutGroup이 부착된 오브젝트 배열
     public GameObject closeButton;
     private BookEventManager bookEventManager;
+    [SerializeField] GameObject PlayerRoomScene;
 
     public int cardsPerGrid = 4;
 
@@ -167,5 +168,6 @@ public class BookUI : MonoBehaviour
     public void CloseBookUI()
     {
         bookUI.SetActive(false);
+        PlayerRoomScene.SetActive(true);
     }
 }
