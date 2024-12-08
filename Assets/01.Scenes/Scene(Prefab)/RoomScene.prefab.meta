@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/04.Images/Animation/npc.meta
+guid: cab51b15a6696ba43ad0a57e420d710d
+folderAsset: yes
+DefaultImporter:
+========
 guid: 614cee51a39e24e41b1c2f3524340c17
 PrefabImporter:
+>>>>>>>> 04ee245eefb441a3270bf58271acf4861e8e28db:Assets/01.Scenes/Scene(Prefab)/RoomScene.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
