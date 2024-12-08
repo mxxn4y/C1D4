@@ -109,14 +109,14 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         factoryCanvas.SetActive(true);
         displayedTiles = TileLoadManager.Instance.LoadAllTiles();
-        foreach (Minion minion in PlayerData.Instance.MinionList)
+        foreach (Minion minion in PlayerData.Instance.SelectedMinions)
         {
             GameObject newCard = Instantiate(cardPrefab, cardCanvas.transform); // 카드 생성
             newCard.GetComponent<CardController>().Set(minion);
             displayedCards.Add(newCard.gameObject);
         }
 
-        bool scrollBtnActive = PlayerData.Instance.MinionList.Count > 3;
+        bool scrollBtnActive = PlayerData.Instance.SelectedMinions.Count > 3;
         CardPlaceManager.Instance.SetScrollUpDownBtn(scrollBtnActive);
     }
     
