@@ -839,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 200912806984713590, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
       propertyPath: moveScene
       value: 
-      objectReference: {fileID: 1360483991}
+      objectReference: {fileID: 0}
     - target: {fileID: 200912807375072890, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -898,11 +898,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}
---- !u!1 &1360483991 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7003091573936081121, guid: fc62c6c3062c6e447b0dbeb88f60c3c2, type: 3}
-  m_PrefabInstance: {fileID: 325492031}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1520409516
 GameObject:
   m_ObjectHideFlags: 0
