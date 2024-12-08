@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 4552697452414877183}
   - component: {fileID: 2511534234589716838}
   - component: {fileID: 218859369532710978}
+  - component: {fileID: 912326754982322091}
   m_Layer: 5
   m_Name: CollectCard
   m_TagString: Untagged
@@ -175,12 +176,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541056083701208716}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17642973ec475714daba56eadec559ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardPropertyPrefab: {fileID: 0}
+  chooseableCount: 3
 --- !u!114 &218859369532710978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +203,20 @@ MonoBehaviour:
   isExhausted: 0
   nameText: {fileID: 7636171979477056836}
   levelText: {fileID: 74611497173607192}
+--- !u!114 &912326754982322091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541056083701208716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1199af8a43e134e9d74efb77e1a6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPropertyPrefab: {fileID: 7350305244883118601, guid: 7b0597ea376202e4da8bb69af90c3b50, type: 3}
+  chooseableCount: 3
 --- !u!1 &1882893029491537811
 GameObject:
   m_ObjectHideFlags: 0
