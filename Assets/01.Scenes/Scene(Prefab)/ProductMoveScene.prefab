@@ -336,7 +336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8558958450861440177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.25, y: -0.7, z: 0}
+  m_LocalPosition: {x: 2.946, y: -0.862, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -739,7 +739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8558958451308182604}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.25, y: -0.7, z: 0}
+  m_LocalPosition: {x: 2.946, y: -0.862, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -770,7 +770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8558958451391295645}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.077, y: -0.787, z: 0}
+  m_LocalPosition: {x: -0.821, y: -0.979, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -826,9 +826,9 @@ MonoBehaviour:
   endPos: {fileID: 8558958451308182603}
   productPrefeb: {fileID: 4944188388057412602, guid: 3f950534ae922e3449f5df678e8ef901, type: 3}
   machineInteractions:
-  - {fileID: 8884900063796857367}
-  - {fileID: 8884900063695020109}
-  - {fileID: 8884900064208104852}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   generateDelay: 20
 --- !u!1 &8558958451498172755
 GameObject:
@@ -984,7 +984,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8558958451604636848
 Transform:
   m_ObjectHideFlags: 0
@@ -993,7 +993,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8558958451604636849}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.077, y: -0.787, z: 0}
+  m_LocalPosition: {x: -0.821, y: -0.979, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1584,9 +1584,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8884900063695020108}
-  - component: {fileID: 8884900063695020109}
   - component: {fileID: 8884900063695020111}
   - component: {fileID: 8884900063695020110}
+  - component: {fileID: 5448084479814472428}
   m_Layer: 0
   m_Name: Machine1 (1)
   m_TagString: Untagged
@@ -1609,19 +1609,6 @@ Transform:
   m_Father: {fileID: 8884900064791915636}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8884900063695020109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884900063695020106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc25eaf110bffc947bd58ad2e467d2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineColor: 2
 --- !u!60 &8884900063695020111
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1683,6 +1670,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5448084479814472428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884900063695020106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineColor: 4
 --- !u!1 &8884900063796857364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,9 +1692,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8884900063796857369}
-  - component: {fileID: 8884900063796857367}
   - component: {fileID: 8884900063796857368}
   - component: {fileID: 8884900063796857371}
+  - component: {fileID: 919350880302611723}
   m_Layer: 0
   m_Name: Machine1
   m_TagString: Untagged
@@ -1717,19 +1717,6 @@ Transform:
   m_Father: {fileID: 8884900064791915636}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8884900063796857367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884900063796857364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc25eaf110bffc947bd58ad2e467d2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineColor: 1
 --- !u!60 &8884900063796857368
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1790,6 +1777,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &919350880302611723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884900063796857364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineColor: 1
 --- !u!1 &8884900064208104853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,9 +1799,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8884900064208104855}
-  - component: {fileID: 8884900064208104852}
   - component: {fileID: 8884900064208104854}
   - component: {fileID: 8884900064208104857}
+  - component: {fileID: 67674529400652240}
   m_Layer: 0
   m_Name: Machine1 (2)
   m_TagString: Untagged
@@ -1824,19 +1824,6 @@ Transform:
   m_Father: {fileID: 8884900064791915636}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8884900064208104852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884900064208104853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc25eaf110bffc947bd58ad2e467d2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineColor: 3
 --- !u!60 &8884900064208104854
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1898,6 +1885,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &67674529400652240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884900064208104853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineColor: 3
 --- !u!1 &8884900064791915637
 GameObject:
   m_ObjectHideFlags: 0

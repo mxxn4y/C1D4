@@ -15,6 +15,12 @@ public class ProductInteraction : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
+    private void OnEnable()
+    {
+        productMove = GetComponent<ProductMove>();
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
     //클릭했을 경우
     private void OnMouseDown()
     {
