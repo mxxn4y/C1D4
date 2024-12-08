@@ -46,12 +46,12 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void InitializeItems() // CSVíŒŒì¼ì—ì„œ 
+    private void InitializeItems() // CSVÆÄÀÏ¿¡¼­ 
     {
 
         if (ShopTable.Instance.shopCSV == null || ShopTable.Instance.shopCSV.Count == 0)
         {
-            Debug.LogError("shopCSV ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
+            Debug.LogError("shopCSV µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.");
             return;
         }
 
@@ -80,7 +80,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         Debug.Log($"Slot Item Count: {slotItem.Count}");
     }
 
-    // IPointerClickHandler êµ¬í˜„
+    // IPointerClickHandler ±¸Çö
     public void OnPointerClick(PointerEventData eventData)
     {
         string indexName = eventData.pointerCurrentRaycast.gameObject.name;
@@ -91,7 +91,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 ShopUI.Instance.ResetTotalPrice();
                 SelectedItemsUI.Instance.selectedItems.Clear();
                 SelectedItemsUI.Instance.ClearInventoryPanel();
-                Debug.Log("ì¸ë±ìŠ¤1");
+                Debug.Log("ÀÎµ¦½º1");
                 break;
 
             case "Index2":
@@ -99,7 +99,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 ShopUI.Instance.ResetTotalPrice();
                 SelectedItemsUI.Instance.selectedItems.Clear();
                 SelectedItemsUI.Instance.ClearInventoryPanel();
-                Debug.Log("ì¸ë±ìŠ¤2");
+                Debug.Log("ÀÎµ¦½º2");
                 break;
 
             case "Index3":
@@ -107,13 +107,13 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 ShopUI.Instance.ResetTotalPrice();
                 SelectedItemsUI.Instance.selectedItems.Clear();
                 SelectedItemsUI.Instance.ClearInventoryPanel();
-                Debug.Log("ì¸ë±ìŠ¤3");
+                Debug.Log("ÀÎµ¦½º3");
                 break;
         }
     }
 
     /*
-    // ì•„ì´í…œ í´ë¦­ ì‹œ ì´ì•¡ ê³„ì‚°
+    // ¾ÆÀÌÅÛ Å¬¸¯ ½Ã ÃÑ¾× °è»ê
     public void OnItemClick(ShopItemData _itemData)
     {
      
@@ -122,13 +122,13 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
             totalPrice += _itemData.price;
             ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
             selectedItems.Add(_itemData);
-            // ë°‘ì— ë‚˜ì¤‘ì— ì‚­ì œ 
+            // ¹Ø¿¡ ³ªÁß¿¡ »èÁ¦ 
             for (int i = 0; i < selectedItems.Count; i++)
             {
                 Debug.Log(selectedItems[i]);
             }
         }
-        // ì—¬ê¸°ì— êµ¬ë§¤ í´ë¦­í•œ ì¹´ë“œë¥¼ add
+        // ¿©±â¿¡ ±¸¸Å Å¬¸¯ÇÑ Ä«µå¸¦ add
         //SellingCardUI.Instance.SetCardUI(_itemData);
     }
     */
@@ -137,25 +137,25 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
     
     public void OnItemClick(ShopItemData _itemData)
     {
-        if (PurchasedList.Instance == null) { Debug.LogError("PurchasedList.Instanceê°€ nullì…ë‹ˆë‹¤."); return; }
+        if (PurchasedList.Instance == null) { Debug.LogError("PurchasedList.Instance°¡ nullÀÔ´Ï´Ù."); return; }
         if (!ShopManager.Instance.CanClickItem(_itemData))
         {
-            Debug.Log($"{_itemData.itemName}ì€(ëŠ”) êµ¬ë§¤ ì œí•œì— ë„ë‹¬í–ˆìŠµë‹ˆë‹¤.");
+            Debug.Log($"{_itemData.itemName}Àº(´Â) ±¸¸Å Á¦ÇÑ¿¡ µµ´ŞÇß½À´Ï´Ù.");
             return;
         }
         if (ShopManager.Instance.CanClickItem(_itemData))
         {
             totalPrice += _itemData.price;
 
-            SelectedItemsUI.Instance.AddItemToInventory(_itemData); // êµ¬ë§¤í•˜ê¸° ë²„íŠ¼ í´ë¦­í•˜ê¸° ì „ì˜ ì•„ì´í…œë§Œ ì €ì¥
-            PurchasedList.Instance.AddItemToPurchasedDic(_itemData); // ì „ì²´ êµ¬ë§¤í•œ ì•„ì´í…œ ì €ì¥
+            SelectedItemsUI.Instance.AddItemToInventory(_itemData); // ±¸¸ÅÇÏ±â ¹öÆ° Å¬¸¯ÇÏ±â ÀüÀÇ ¾ÆÀÌÅÛ¸¸ ÀúÀå
+            PurchasedList.Instance.AddItemToPurchasedDic(_itemData); // ÀüÃ¼ ±¸¸ÅÇÑ ¾ÆÀÌÅÛ ÀúÀå
             ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
             ShopManager.Instance.TrackPurchase(_itemData);
         }
         
         foreach (var item in SelectedItemsUI.Instance.selectedItems)
         {
-            Debug.Log($" ì¶”ê°€í•  ë•Œ selectedë”•ì…”ë„ˆë¦¬ Item: {item.Key.itemName}, Quantity: {item.Value}");
+            Debug.Log($" Ãß°¡ÇÒ ¶§ selectedµñ¼Å³Ê¸® Item: {item.Key.itemName}, Quantity: {item.Value}");
             //ShopManager.Instance.TrackPurchase(item.Key);
         }
 
@@ -166,11 +166,11 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
        
         if (SelectedItemsUI.Instance.selectedItems.ContainsKey(_itemData))
         {
-            totalPrice -= _itemData.price;  // ì´ì•¡ì—ì„œ ê°€ê²©ì„ ëºŒ
+            totalPrice -= _itemData.price;  // ÃÑ¾×¿¡¼­ °¡°İÀ» »­
             SelectedItemsUI.Instance.selectedItems[_itemData]--;
             PurchasedList.Instance.purchasedDic[_itemData]--;
 
-            // ìˆ˜ëŸ‰ì´ 0ì´ ë˜ë©´ ë”•ì…”ë„ˆë¦¬ì—ì„œ ì•„ì´í…œì„ ì œê±°
+            // ¼ö·®ÀÌ 0ÀÌ µÇ¸é µñ¼Å³Ê¸®¿¡¼­ ¾ÆÀÌÅÛÀ» Á¦°Å
             if (SelectedItemsUI.Instance.selectedItems[_itemData] <= 0)
             {
                 SelectedItemsUI.Instance.selectedItems.Remove(_itemData);
@@ -178,32 +178,32 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
             }
            
             ShopManager.Instance.RemovePurchase(_itemData);
-            // UI ê°±ì‹ 
+            // UI °»½Å
             SelectedItemsUI.Instance.UpdateInventoryPanel();
             ShopUI.Instance.UpdatePurchaseButtonText(totalPrice);
        
         }
         foreach (var item in SelectedItemsUI.Instance.selectedItems)
         {
-            Debug.Log($" ì œê±°ë˜ê³  ë‚˜ì„œ selectedë”•ì…”ë„ˆë¦¬ Item: {item.Key.itemName}, Quantity: {item.Value}");
+            Debug.Log($" Á¦°ÅµÇ°í ³ª¼­ selectedµñ¼Å³Ê¸® Item: {item.Key.itemName}, Quantity: {item.Value}");
         }
     }
 
-    // êµ¬ë§¤í•˜ê¸° ë²„íŠ¼ í´ë¦­ ì‹œ
+    // ±¸¸ÅÇÏ±â ¹öÆ° Å¬¸¯ ½Ã
     private void OnPurchase()
     {
-        // ì „ì²´ êµ¬ë§¤ ê°€ëŠ¥ ì—¬ë¶€ ë¨¼ì € í™•ì¸
+        // ÀüÃ¼ ±¸¸Å °¡´É ¿©ºÎ ¸ÕÀú È®ÀÎ
         if (totalPrice > ShopManager.Instance.gem && totalPrice > ShopManager.Instance.specialGem)
         {
-            Debug.Log("ì¬í™”ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.");
+            Debug.Log("ÀçÈ­°¡ ºÎÁ·ÇÕ´Ï´Ù.");
             return;
         }
 
-        // ì‹¤ì œ êµ¬ë§¤ ì²˜ë¦¬ ë¡œì§
+        // ½ÇÁ¦ ±¸¸Å Ã³¸® ·ÎÁ÷
         
         foreach (var item in SelectedItemsUI.Instance.selectedItems)
         {
-            int itemTotalPrice = item.Key.price * item.Value; // ì•„ì´í…œ ê°€ê²© * ìˆ˜ëŸ‰
+            int itemTotalPrice = item.Key.price * item.Value; // ¾ÆÀÌÅÛ °¡°İ * ¼ö·®
             if (item.Key.gemType == GemType.NORMAL)
             {
                 if (ShopManager.Instance.gem >= itemTotalPrice)
@@ -212,7 +212,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    Debug.Log("ì¬í™”ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.");
+                    Debug.Log("ÀçÈ­°¡ ºÎÁ·ÇÕ´Ï´Ù.");
                     return;
                 }
             }
@@ -224,25 +224,23 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    Debug.Log("ì¬í™”ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.");
+                    Debug.Log("ÀçÈ­°¡ ºÎÁ·ÇÕ´Ï´Ù.");
                     return;
                 }
             }
-            //for (int i = 0; i < item.Value; i++) // ì•„ì´í…œì˜ ìˆ˜ëŸ‰ë§Œí¼ ë°˜ë³µ
+            //for (int i = 0; i < item.Value; i++) // ¾ÆÀÌÅÛÀÇ ¼ö·®¸¸Å­ ¹İº¹
             //{
             //    ShopManager.Instance.TrackPurchase(item.Key);
             //}
         }
 
-        Debug.Log("ì´ êµ¬ë§¤ ê¸ˆì•¡: " + totalPrice);
+        Debug.Log("ÃÑ ±¸¸Å ±İ¾×: " + totalPrice);
         ShopUI.Instance.ResetTotalPrice();
         SelectedItemsUI.Instance.selectedItems.Clear();
-        PurchasedList.Instance.ItemEffect();
-
-
+       
         foreach ( KeyValuePair< ShopItemData,int> item in PurchasedList.Instance.purchasedDic)
         {
-            Debug.Log("ì „ì²´ êµ¬ë§¤í•œ ì•„ì´í…œ: "+item.Key.itemName + " ê°œìˆ˜: " + item.Value);
+            Debug.Log("ÀüÃ¼ ±¸¸ÅÇÑ ¾ÆÀÌÅÛ: "+item.Key.itemName + " °³¼ö: " + item.Value);
         }
         SelectedItemsUI.Instance.ClearInventoryPanel();
     }

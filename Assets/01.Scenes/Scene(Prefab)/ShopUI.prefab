@@ -791,7 +791,6 @@ GameObject:
   - component: {fileID: 494832700761026581}
   - component: {fileID: 6633478494686999658}
   - component: {fileID: 7475247277021346846}
-  - component: {fileID: 5065446175193337677}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -972,18 +971,6 @@ MonoBehaviour:
   shopUI: {fileID: 494832699869757999}
   closeButton: {fileID: 4957921346897610485}
   cardPrefab: {fileID: 6855707603946814430, guid: 228ede666fa673a48876282313c45f9a, type: 3}
---- !u!114 &5065446175193337677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494832700761026792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdbafc9e9ea5c694db56686fe8cd7661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &494832701485686278
 GameObject:
   m_ObjectHideFlags: 0

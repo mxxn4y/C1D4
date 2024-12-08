@@ -11,7 +11,6 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
     private CardProperty cardProperty;
     public GameObject cardPropertyPrefab;
     private GameObject currentCardProperty;
-    public int chooseableCount=3;
 
     void Start()
     {
@@ -26,22 +25,22 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
             RectTransform rectTransform = currentCardProperty.GetComponent<RectTransform>();
             if (rectTransform != null)
             {
-                // ì˜¤ë¥¸ìª½ í•˜ë‹¨ìœ¼ë¡œ ìœ„ì¹˜ ì¡°ì •
+                // ¿À¸¥ÂÊ ÇÏ´ÜÀ¸·Î À§Ä¡ Á¶Á¤
                 rectTransform.position = new Vector2(mousePosition.x + 80, mousePosition.y - 80);
             }
         }
     }
 
-        public void OnPointerClick(PointerEventData _eventData) //ì¹´ë“œ í´ë¦­, ì¸ë±ìŠ¤ í´ë¦­
+        public void OnPointerClick(PointerEventData _eventData) //Ä«µå Å¬¸¯, ÀÎµ¦½º Å¬¸¯
         {
             GameObject clickedObj = _eventData.pointerCurrentRaycast.gameObject;
-            CollectCard collectCard = clickedObj.GetComponentInParent<CollectCard>(); // ì½œë ‰íŠ¸ë¶ì˜ ëª¨ë“  ì¹´ë“œ í”„ë¦¬íŒ¹ì— ë¶€ì°©ë˜ì–´ìˆëŠ” ìŠ¤í¬ë¦½íŠ¸
+            CollectCard collectCard = clickedObj.GetComponentInParent<CollectCard>(); // Äİ·ºÆ®ºÏÀÇ ¸ğµç Ä«µå ÇÁ¸®ÆÕ¿¡ ºÎÂøµÇ¾îÀÖ´Â ½ºÅ©¸³Æ®
 
-            Debug.Log("í´ë¦­ëœ ì˜¤ë¸Œì íŠ¸: " + clickedObj.name);
+            Debug.Log("Å¬¸¯µÈ ¿ÀºêÁ§Æ®: " + clickedObj.name);
 
             if (clickedObj == null)
             {
-                Debug.Log("ì ìš©ë  ì˜¤ë¸Œì íŠ¸ ì•„ë¬´ê²ƒë„ ì—†ìŒ");
+                Debug.Log("Àû¿ëµÉ ¿ÀºêÁ§Æ® ¾Æ¹«°Íµµ ¾øÀ½");
             }
             else if (clickedObj.TryGetComponent<IndexEvent>(out IndexEvent index))
             {
@@ -52,33 +51,33 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
             {
 
                 //card.CardClick();
-                Debug.Log($"CollectCardì˜ Minion ë°ì´í„°: {collectCard.minionData.Data.name}");
+                Debug.Log($"CollectCardÀÇ Minion µ¥ÀÌÅÍ: {collectCard.minionData.Data.name}");
 
                 if (PlayerData.Instance.SelectedMinions.Contains(collectCard.minionData))
                 {
                     PlayerData.Instance.SelectedMinions.Remove(collectCard.minionData);
                     collectCard.SetUnClickImg();
-                    Debug.Log("ì„ íƒëœ ë¦¬ìŠ¤íŠ¸ì— í´ë¦­ ë¯¸ë‹ˆì–¸ì´ ìˆì„ ë•Œ");
+                    Debug.Log("¼±ÅÃµÈ ¸®½ºÆ®¿¡ Å¬¸¯ ¹Ì´Ï¾ğÀÌ ÀÖÀ» ¶§");
 
                     foreach (var item in PlayerData.Instance.SelectedMinions)
                     {
-                        Debug.Log("ì„ íƒëœ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë‚¨ì€ ë¯¸ë‹ˆì–¸: " + item.Data.name);
+                        Debug.Log("¼±ÅÃµÈ ¸®½ºÆ®¿¡¼­ ³²Àº ¹Ì´Ï¾ğ: " + item.Data.name);
                     }
                 }
-                else if (PlayerData.Instance.SelectedMinions.Count < chooseableCount)
+                else if (PlayerData.Instance.SelectedMinions.Count < 3)
             {
                     PlayerData.Instance.SelectedMinions.Add(collectCard.minionData);
                     collectCard.SetClickImg();
-                    Debug.Log("ì„ íƒëœ ë¦¬ìŠ¤íŠ¸ì— í´ë¦­ ë¯¸ë‹ˆì–¸ì´ ì—†ì„ ë•Œ");
+                    Debug.Log("¼±ÅÃµÈ ¸®½ºÆ®¿¡ Å¬¸¯ ¹Ì´Ï¾ğÀÌ ¾øÀ» ¶§");
 
                     foreach (var item in PlayerData.Instance.SelectedMinions)
                     {
-                        Debug.Log("ì„ íƒëœ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì¶”ê°€:" + item.Data.name);
+                        Debug.Log("¼±ÅÃµÈ ¸®½ºÆ®¿¡¼­ Ãß°¡:" + item.Data.name);
                     }
                 }
             else
             {
-                Debug.Log("3ê°œê¹Œì§€ë§Œ ì„ íƒ ê°€ëŠ¥");
+                Debug.Log("3°³±îÁö¸¸ ¼±ÅÃ °¡´É");
             }
             }
             else
@@ -93,7 +92,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
             GameObject hoveredObj = _eventData.pointerCurrentRaycast.gameObject;
             CollectCard collectCard = hoveredObj.GetComponentInParent<CollectCard>();
 
-            Debug.Log("í˜¸ë²„ë§ëœ ì˜¤ë¸Œì íŠ¸: " + hoveredObj.name);
+            Debug.Log("È£¹ö¸µµÈ ¿ÀºêÁ§Æ®: " + hoveredObj.name);
 
             if (hoveredObj != null && collectCard != null && collectCard.IsUnlockCard)
             {
@@ -103,16 +102,16 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler,IPointerEnter
                     cardProperty = cardPropertyObject.GetComponent<CardProperty>();
                     currentCardProperty = cardPropertyObject;
                     cardProperty.DisplayCardProperty(collectCard.minionData);
-                    Debug.Log($"í˜¸ë²„ë§ëœ ì˜¤ë¸Œì íŠ¸ì˜ Minion ë°ì´í„°: {collectCard.minionData.Data.name}");
+                    Debug.Log($"È£¹ö¸µµÈ ¿ÀºêÁ§Æ®ÀÇ Minion µ¥ÀÌÅÍ: {collectCard.minionData.Data.name}");
                 }
                 else
                 {
-                    Debug.LogError("CardPropertyPrefabì´ í• ë‹¹ë˜ì§€ ì•ŠìŒ");
+                    Debug.LogError("CardPropertyPrefabÀÌ ÇÒ´çµÇÁö ¾ÊÀ½");
                 }
             }
             else
                 {
-                    Debug.Log("í˜¸ë²„ë§ ì˜¤ë¸Œì íŠ¸ì˜ ë¯¸ë‹ˆì–¸ ë°ì´í„° ì—†ìŒ");
+                    Debug.Log("È£¹ö¸µ ¿ÀºêÁ§Æ®ÀÇ ¹Ì´Ï¾ğ µ¥ÀÌÅÍ ¾øÀ½");
                 }
         }
 

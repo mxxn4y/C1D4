@@ -10,9 +10,8 @@ public class BookUI : MonoBehaviour
     public GameObject bookUI;
     public GameObject unlockCard;
     public GameObject lockCard;
-    public GameObject[] gridLayouts; // GridLayoutGroupì´ ë¶€ì°©ëœ ì˜¤ë¸Œì íŠ¸ ë°°ì—´
+    public GameObject[] gridLayouts; // GridLayoutGroupÀÌ ºÎÂøµÈ ¿ÀºêÁ§Æ® ¹è¿­
     public GameObject closeButton;
-    private BookEventManager bookEventManager;
 
     public int cardsPerGrid = 4;
 
@@ -31,18 +30,18 @@ public class BookUI : MonoBehaviour
 
     void Start()
     {
-        bookEventManager = GetComponent<BookEventManager>();
+
         DisplayMinionsByType(MinionEnums.TYPE.PASSION);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(PlayerData.Instance.SelectedMinions.Count == bookEventManager.chooseableCount)
+        if(PlayerData.Instance.SelectedMinions.Count == 3)
         {
             closeButton.SetActive(true);
         }
-        else if(PlayerData.Instance.SelectedMinions.Count < bookEventManager.chooseableCount)
+        else if(PlayerData.Instance.SelectedMinions.Count < 3)
         {
             closeButton.SetActive(false);
         }
@@ -50,21 +49,21 @@ public class BookUI : MonoBehaviour
         public void DisplayMinionsByType(MinionEnums.TYPE type)
     {
         
-        // ê¸°ì¡´ ì¹´ë“œ ì‚­ì œ
+        // ±âÁ¸ Ä«µå »èÁ¦
         foreach (GameObject grid in gridLayouts)
         {
             foreach (Transform child in grid.transform)
             {
-                Destroy(child.gameObject); // grid ë‚´ë¶€ì˜ ìì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ ì‚­ì œ
+                Destroy(child.gameObject); // grid ³»ºÎÀÇ ÀÚ½Ä ¿ÀºêÁ§Æ®¸¦ »èÁ¦
             }
         }
 
-        // ëª¨ë“  ë¯¸ë‹ˆì–¸ê³¼ í”Œë ˆì´ì–´ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+        // ¸ğµç ¹Ì´Ï¾ğ°ú ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ °¡Á®¿À±â
         var stringAllList = MinionTable.Instance.FindAllMinions(type);
-        var minionAllList = MinionTable.Instance.AllMinionList(stringAllList); // typeì— ë”°ë¥¸ ëª¨ë“  ë¯¸ë‹ˆì–¸ í˜¸ì¶œ
-        var ownMinionList = PlayerData.Instance.MinionList; //í”Œë ˆì´ì–´ê°€ ë³´ìœ í•œ ë¯¸ë‹ˆì–¸ ë¦¬ìŠ¤íŠ¸
-        var ownedMinionIds = ownMinionList.Select(minion => minion.Data.mid).ToHashSet(); // ë³´ìœ í•œ ë¯¸ë‹ˆì–¸ ID ì§‘í•©
-        var selectedMinions = PlayerData.Instance.SelectedMinions; // ì„ íƒëœ ë¯¸ë‹ˆì–¸ ë¦¬ìŠ¤íŠ¸
+        var minionAllList = MinionTable.Instance.AllMinionList(stringAllList); // type¿¡ µû¸¥ ¸ğµç ¹Ì´Ï¾ğ È£Ãâ
+        var ownMinionList = PlayerData.Instance.MinionList; //ÇÃ·¹ÀÌ¾î°¡ º¸À¯ÇÑ ¹Ì´Ï¾ğ ¸®½ºÆ®
+        var ownedMinionIds = ownMinionList.Select(minion => minion.Data.mid).ToHashSet(); // º¸À¯ÇÑ ¹Ì´Ï¾ğ ID ÁıÇÕ
+        var selectedMinions = PlayerData.Instance.SelectedMinions; // ¼±ÅÃµÈ ¹Ì´Ï¾ğ ¸®½ºÆ®
 
     
 
@@ -72,7 +71,7 @@ public class BookUI : MonoBehaviour
 
         foreach (GameObject grid in gridLayouts)
         {
-            int cardsPerGrid = grid == gridLayouts[0] ? 4 : 1; // ì²« ë²ˆì§¸ ê·¸ë¦¬ë“œ: 4ê°œ, ë‘ ë²ˆì§¸ ê·¸ë¦¬ë“œ: 1ê°œ
+            int cardsPerGrid = grid == gridLayouts[0] ? 4 : 1; // Ã¹ ¹øÂ° ±×¸®µå: 4°³, µÎ ¹øÂ° ±×¸®µå: 1°³
 
             for (int i = 0; i < cardsPerGrid; i++)
             {
@@ -82,8 +81,8 @@ public class BookUI : MonoBehaviour
                 var minion = minionAllList[currentMinionIndex];
                 GameObject card;
 
-                // ì¹´ë“œ ìƒì„± ë° ìƒíƒœ ì„¤ì •
-                if (ownedMinionIds.Contains(minion.Data.mid)) // ë³´ìœ í•œ ë¯¸ë‹ˆì–¸ì¸ ê²½ìš°
+                // Ä«µå »ı¼º ¹× »óÅÂ ¼³Á¤
+                if (ownedMinionIds.Contains(minion.Data.mid)) // º¸À¯ÇÑ ¹Ì´Ï¾ğÀÎ °æ¿ì
                 {
                     card = Instantiate(unlockCard, grid.transform);
                     var collectCard = card.GetComponent<CollectCard>();
@@ -103,19 +102,19 @@ public class BookUI : MonoBehaviour
                         }
                     }
                     selectedMinions.ForEach(_ => _.Equals(minion.Data.mid));
-                    // ì„ íƒ ìƒíƒœ ë°˜ì˜
+                    // ¼±ÅÃ »óÅÂ ¹İ¿µ
                     if (exsists)
                     {
-                        collectCard.SetClickImg(); // ì„ íƒëœ ìƒíƒœë¡œ ë Œë”ë§
-                        Debug.Log("BookUIì˜ í´ë¦­img í˜¸ì¶œë¨");
+                        collectCard.SetClickImg(); // ¼±ÅÃµÈ »óÅÂ·Î ·»´õ¸µ
+                        Debug.Log("BookUIÀÇ Å¬¸¯img È£ÃâµÊ");
                     }
                     else
                     {
-                        collectCard.SetUnClickImg(); // ì„ íƒë˜ì§€ ì•Šì€ ìƒíƒœë¡œ ë Œë”ë§
-                        Debug.Log("BookUIì˜ ì–¸í´ë¦­img í˜¸ì¶œë¨");
+                        collectCard.SetUnClickImg(); // ¼±ÅÃµÇÁö ¾ÊÀº »óÅÂ·Î ·»´õ¸µ
+                        Debug.Log("BookUIÀÇ ¾ğÅ¬¸¯img È£ÃâµÊ");
                     }
                 }
-                else // ë³´ìœ í•˜ì§€ ì•Šì€ ë¯¸ë‹ˆì–¸ì¸ ê²½ìš°
+                else // º¸À¯ÇÏÁö ¾ÊÀº ¹Ì´Ï¾ğÀÎ °æ¿ì
                 {
                     card = Instantiate(lockCard, grid.transform);
                     var collectCard = card.GetComponent<CollectCard>();
@@ -125,7 +124,7 @@ public class BookUI : MonoBehaviour
                     collectCard.IsUnlockCard = false;
                 }
 
-                currentMinionIndex++; // ë‹¤ìŒ ë¯¸ë‹ˆì–¸ìœ¼ë¡œ ì´ë™
+                currentMinionIndex++; // ´ÙÀ½ ¹Ì´Ï¾ğÀ¸·Î ÀÌµ¿
             }
         }
     }
@@ -136,17 +135,17 @@ public class BookUI : MonoBehaviour
         var ownCards = PlayerData.Instance.MinionList;
         if (selectedCards.Count > 0)
         {
-            Debug.Log("ìµœì†Œ 1ê°œ ì´ìƒ ì„ íƒ.ëœë¤ ì¹´ë“œ ì„ íƒí•˜ì§€ ì•ŠìŒ");
+            Debug.Log("ÃÖ¼Ò 1°³ ÀÌ»ó ¼±ÅÃ.·£´ı Ä«µå ¼±ÅÃÇÏÁö ¾ÊÀ½");
         }
         else
         {
-            Debug.Log("ëœë¤ ì¹´ë“œ ë½‘ê¸° ì§„í–‰");
+            Debug.Log("·£´ı Ä«µå »Ì±â ÁøÇà");
 
             List<Minion> availableRandom = new List<Minion>();
             System.Random rand = new System.Random();
             while (availableRandom.Count < 3 && ownCards.Count > 0)
             {
-                int index = rand.Next(ownCards.Count); // ëœë¤ ì¸ë±ìŠ¤ ìƒì„±
+                int index = rand.Next(ownCards.Count); // ·£´ı ÀÎµ¦½º »ı¼º
                 Minion randomMinion = ownCards[index];
 
                 if (!availableRandom.Contains(randomMinion))
@@ -155,11 +154,11 @@ public class BookUI : MonoBehaviour
                 }
             }
 
-            // ì„ íƒí•œ ëœë¤ ì¹´ë“œ ì •ë³´ë¥¼ PlayerDataì— ì¶”ê°€
+            // ¼±ÅÃÇÑ ·£´ı Ä«µå Á¤º¸¸¦ PlayerData¿¡ Ãß°¡
             foreach (var minion in availableRandom)
             {
                 selectedCards.Add(minion);
-                Debug.Log($"ëœë¤ìœ¼ë¡œ ì„ íƒëœ ì¹´ë“œ: ì´ë¦„={minion.Data.name}, ID={minion.Data.mid}");
+                Debug.Log($"·£´ıÀ¸·Î ¼±ÅÃµÈ Ä«µå: ÀÌ¸§={minion.Data.name}, ID={minion.Data.mid}");
             }
         }
     }

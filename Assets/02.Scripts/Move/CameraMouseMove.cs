@@ -1,14 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class CameraMouseMove : MonoBehaviour
 {
-    [SerializeField] private float mouseSensitivity = 6; //ë§ˆìš°ìŠ¤ê°ë„
-
-    private float mouseDirectionY;
-    private float mouseDirectionX;
+    [SerializeField] private float mouseSensitivity; //¸¶¿ì½º°¨µµ
+    private float mouseDirection;
 
     private float MouseY;
     private float MouseX;
@@ -17,39 +14,19 @@ public class CameraMouseMove : MonoBehaviour
     {
         if(Input.mousePosition.y > 900f)
         {
-            mouseDirectionY = 1;
+            mouseDirection = 1;
+            CameraMove();
         }
         else if (Input.mousePosition.y < 180)
         {
-            mouseDirectionY = -1;
+            mouseDirection = -1;
+            CameraMove();
         }
-        else
-        {
-            mouseDirectionY = 0;
-        }
-
-        if (Input.mousePosition.x > 1800)
-        {
-            mouseDirectionX = 1;
-        }
-        else if (Input.mousePosition.x < 180)
-        {
-            mouseDirectionX = -1;
-        }
-        else
-        {
-            mouseDirectionX = 0;
-        }
-
-        CameraMove();
     }
     private void CameraMove()
     {
-        MouseX += mouseDirectionX * mouseSensitivity * Time.deltaTime;
-        MouseY += mouseDirectionY * mouseSensitivity * Time.deltaTime;
-
-        MouseX = Mathf.Clamp(MouseX, -9.5f, 9.5f); //Clampë¥¼ í†µí•´ ìµœì†Œê°’ ìµœëŒ€ê°’ì„ ë„˜ì§€ ì•Šë„ë¡í•¨
-        MouseY = Mathf.Clamp(MouseY, -2.75f, 1f); //Clampë¥¼ í†µí•´ ìµœì†Œê°’ ìµœëŒ€ê°’ì„ ë„˜ì§€ ì•Šë„ë¡í•¨
-        transform.position = new Vector3(MouseX, MouseY, -1);// ê° ì¶•ì„ í•œêº¼ë²ˆì— ê³„ì‚°
+        MouseY += mouseDirection * mouseSensitivity * Time.deltaTime;
+        MouseY = Mathf.Clamp(MouseY, 0f, 15f); //Clamp¸¦ ÅëÇØ ÃÖ¼Ò°ª ÃÖ´ë°ªÀ» ³ÑÁö ¾Êµµ·ÏÇÔ
+        transform.position = new Vector3(0, MouseY, -1);// °¢ ÃàÀ» ÇÑ²¨¹ø¿¡ °è»ê
     }
 }

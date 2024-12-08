@@ -7,47 +7,51 @@ using System;
 
 public class RoomEventManager : MonoBehaviour
 {
-
+    public float speed = 5.0f;
+    private Vector3 targetPosition;
+    private bool isMoving;
 
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-
-            //Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-         
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            Debug.Log("Å¬¸¯µÊ");
             if (hit.collider != null)
             {
-                if (hit.collider.CompareTag("Bed"))
+                Debug.Log("È÷Æ®µÈ °´Ã¼: " + hit.collider.name);
+                if (hit.collider.CompareTag("Floor"))
                 {
-                    //SceneManager.LoadScene("");
-                    Debug.Log("ë² ë“œì”¬ ë¡œë“œ");
+                    targetPosition = new Vector3(hit.point.x, hit.point.y, transform.position.z);
+                    isMoving = true;
+                    Debug.Log("ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ: " + isMoving);
                 }
-                else if (hit.collider.CompareTag("CollectBook"))
+                else
                 {
-                    //SceneManager.LoadScene("CollectBookScene");
-                    Debug.Log("ì½œë ‰íŠ¸ë¶ì”¬ ë¡œë“œ");
-                }
-                else if (hit.collider.CompareTag("Door"))
-                {
-                    //SceneManager.LoadScene("");
-                    Debug.Log("ë°© ë°–ìœ¼ë¡œ ë‚˜ê°€ëŠ” ì”¬ ë¡œë“œ");
+                    isMoving = false;
                 }
             }
             else
             {
-                Debug.Log("í´ë¦­ ì˜¤ë¸Œì íŠ¸ ì—†ìŒ");
+                Debug.Log("È÷Æ®µÇÁö ¾ÊÀ½");
             }
         }
-  
-            
+
+        if (isMoving)
+        {
+            MoveToTarget();
+        }
     }
 
+    void MoveToTarget()
+    {
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
-    
-
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            isMoving = false;
+        }
+    }
 }

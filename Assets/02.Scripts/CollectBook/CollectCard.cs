@@ -29,7 +29,7 @@ public class CollectCard : MonoBehaviour
     {
         if (_minion == null )
         {
-            Debug.Log("Setup í˜¸ì¶œ ì‹œ ì „ë‹¬ëœ Minionì´ null");
+            Debug.Log("Setup È£Ãâ ½Ã Àü´ŞµÈ MinionÀÌ null");
             return;
         }
         minionData = _minion;
@@ -39,7 +39,6 @@ public class CollectCard : MonoBehaviour
         nameText.text = _minion.Data.name;
         isExhausted = _minion.Exhaustion;
         gainCount = _minion.GainCount;
-        levelText.text = SetTypeText(_minion);
     }
 
     public void SetCollectCardImg(MinionBaseData _baseData)
@@ -47,7 +46,7 @@ public class CollectCard : MonoBehaviour
         Sprite[] collectCardImgs = Resources.LoadAll<Sprite>("Character/CharacterImage");
         if (0 == collectCardImgs.Length)
         {
-            Debug.LogError("ë³´ìœ í•œ ì½œë™íŠ¸ë¶ ì¹´ë“œ ì´ë¯¸ì§€ ì—†ìŒ imagePath: {collectCardImgs}");
+            Debug.LogError("º¸À¯ÇÑ Äİ·¢Æ®ºÏ Ä«µå ÀÌ¹ÌÁö ¾øÀ½ imagePath: {collectCardImgs}");
             return;
         }
 
@@ -60,7 +59,7 @@ public class CollectCard : MonoBehaviour
             }
         }
 
-        Debug.LogError($"ìŠ¤í”„ë¼ì´íŠ¸ê°€ ì—†ìŒ. imageName : {_baseData.mid}");
+        Debug.LogError($"½ºÇÁ¶óÀÌÆ®°¡ ¾øÀ½. imageName : {_baseData.mid}");
     }
 
 
@@ -68,14 +67,14 @@ public class CollectCard : MonoBehaviour
     public void SetClickImg()
     {
         cardBackImg.sprite = click;
-        Debug.Log("CollectCard í´ë¦­ì´ë¯¸ì§€ í•¨ìˆ˜");
+        Debug.Log("CollectCard Å¬¸¯ÀÌ¹ÌÁö ÇÔ¼ö");
 
     }
 
     public void SetUnClickImg()
     {
         cardBackImg.sprite = unclick;
-        Debug.Log("CollectCard ì–¸í´ë¦­ì´ë¯¸ì§€ í•¨ìˆ˜");
+        Debug.Log("CollectCard ¾ğÅ¬¸¯ÀÌ¹ÌÁö ÇÔ¼ö");
     }
 
     public void SetColorImg(Minion _minion)
@@ -95,19 +94,4 @@ public class CollectCard : MonoBehaviour
 
     }
 
-    private string SetTypeText(Minion _minion)
-    {
-        if(_minion.Data.type== MinionEnums.TYPE.PASSION)
-        {
-            return "ì—´ì •";
-        }
-        else if (_minion.Data.type == MinionEnums.TYPE.CALM)
-        {
-            return "ëƒ‰ì² ";
-        }
-        else
-        {
-            return "ì§€í˜œ";
-        }
-    }
 }

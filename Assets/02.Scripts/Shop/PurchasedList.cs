@@ -17,37 +17,27 @@ public class PurchasedList : MonoBehaviour
         }
     }
 
-    private List<ShopItemData> purchasedList = new List<ShopItemData>(); //í•„ìš”ì—†ì„ ë“¯
+    private List<ShopItemData> purchasedList = new List<ShopItemData>(); //ÇÊ¿ä¾øÀ» µí
     public Dictionary<ShopItemData, int> purchasedDic = new Dictionary<ShopItemData, int>();
-    public BookEventManager bookEvent;
 
-    void Start()
-    {
-        bookEvent = GetComponent<BookEventManager>();
-    }
+
     public void AddItemToPurchasedDic(ShopItemData item)
     {
 
-        // ì„ íƒëœ ì•„ì´í…œì´ ì´ë¯¸ ìˆìœ¼ë©´ ìˆ˜ëŸ‰ì„ ì¦ê°€
+        // ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ ÀÌ¹Ì ÀÖÀ¸¸é ¼ö·®À» Áõ°¡
         if (purchasedDic.ContainsKey(item))
         {
             purchasedDic[item]++;
         }
         else
         {
-            // ìƒˆë¡œìš´ ì•„ì´í…œì´ë©´ ë”•ì…”ë„ˆë¦¬ì— ì¶”ê°€
+            // »õ·Î¿î ¾ÆÀÌÅÛÀÌ¸é µñ¼Å³Ê¸®¿¡ Ãß°¡
             purchasedDic.Add(item, 1);
         }
     }
 
-    public void ItemEffect()
+    private void ItemEffect()
     {
-        foreach(var item in purchasedDic)
-        {
-            if (item.Key.itemName == "ì†")
-            {
-            bookEvent.chooseableCount+=1;
-            }
-        }
+        
     }
 }
