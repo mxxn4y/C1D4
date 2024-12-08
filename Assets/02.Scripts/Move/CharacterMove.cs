@@ -9,14 +9,18 @@ public class CharacterMove : MonoBehaviour
     private int desIndex;
     private int startIndex;
     int cur = 0;
-    private static bool isMove = true;
+    private static bool isMove = false;
 
     [SerializeField] private float speed = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] private GameObject[] factoryScenes;
+    [SerializeField] private GameObject[] roomScenes;
+    [SerializeField] private GameObject shopUI;
     [SerializeField] private GameObject moveScene;
+
+    private int openShop = 0;
 
     enum room
     {
@@ -30,6 +34,11 @@ public class CharacterMove : MonoBehaviour
         HOUSE,
         MORNING,
         AFTERNOON
+    }
+
+    private void OnEnable()
+    {
+        AudioManager.Instance.PlayAudio("02.b_lobby", true, SoundType.BGM);
     }
 
     //출발지 설정
@@ -79,14 +88,34 @@ public class CharacterMove : MonoBehaviour
             animator.SetBool("IsMove", isMove);
 
             //목적지가 팩토리면
-            if(cur == (int)room.AFTERNOON)
+            if(cur == (int)room.AFTERNOON && desIndex == (int)room.AFTERNOON)
             {
                 for(int i = 0; i < factoryScenes.Length; i++)
                 {
                     factoryScenes[i].SetActive(true);
                     moveScene.SetActive(false);
                 }
+                AudioManager.Instance.StopAudio("02.b_lobby");
+                AudioManager.Instance.PlayAudio("04.b_AMwork", true, SoundType.BGM);
             }
+            else if (cur == (int)room.MORNING && desIndex == (int)room.MORNING)
+            {
+                for (int i = 0; i < factoryScenes.Length; i++)
+                {
+                    roomScenes[i].SetActive(true);
+                    moveScene.SetActive(false);
+                }
+                AudioManager.Instance.StopAudio("02.b_lobby");
+                AudioManager.Instance.PlayAudio("01.b_room", true, SoundType.BGM);
+            }
+            else if (cur == (int)room.SHOP && desIndex == (int)room.SHOP && openShop == 0)
+            {
+                shopUI.SetActive(true);
+                openShop++;
+                AudioManager.Instance.StopAudio("02.b_lobby");
+                AudioManager.Instance.PlayAudio("03.b_shop", true, SoundType.BGM);
+            }
+
         }
         else
         {

@@ -5,14 +5,14 @@ using UnityEngine;
 public class FactoryGameManager : MonoSingleton<FactoryGameManager>
 {    public enum FactoryColor
     {
-        BLACK,
-        RED,
-        GREEN,
-        BLUE,
-        YELLOW,
-        CYAN,
-        MAGENTA,
         WHITE,
+        RED,
+        YELLOW,
+        BLUE,
+        ORANGE,
+        GREEN,
+        PURPLE,
+        BLACK,
     }
 
     public bool[] isPlaces { get; private set; } = { false, false, false };
