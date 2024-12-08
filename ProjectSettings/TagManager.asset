@@ -13,6 +13,9 @@ TagManager:
   - WayPoints
   - Product
   - Floor
+  - Bed
+  - Door
+  - CollectBook
   layers:
   - Default
   - TransparentFX

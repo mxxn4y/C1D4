@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/03.Prefabs/Card/MachinePrefab.prefab.meta
 guid: 14d6e58c5e535ca4daa1a9d02079a6f2
+========
+guid: 6b5dcac606647984e914a00b5415dd17
+>>>>>>>> f1192eefc812d99a9cd769af0d01666d72f50565:Assets/03.Prefabs/Card/MachineRPrefab.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

@@ -237,7 +237,9 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         Debug.Log("총 구매 금액: " + totalPrice);
         ShopUI.Instance.ResetTotalPrice();
         SelectedItemsUI.Instance.selectedItems.Clear();
-       
+        PurchasedList.Instance.ItemEffect();
+
+
         foreach ( KeyValuePair< ShopItemData,int> item in PurchasedList.Instance.purchasedDic)
         {
             Debug.Log("전체 구매한 아이템: "+item.Key.itemName + " 개수: " + item.Value);
