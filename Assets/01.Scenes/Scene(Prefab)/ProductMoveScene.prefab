@@ -825,10 +825,7 @@ MonoBehaviour:
   startPos: {fileID: 8558958451391295644}
   endPos: {fileID: 8558958451308182603}
   productPrefeb: {fileID: 4944188388057412602, guid: 3f950534ae922e3449f5df678e8ef901, type: 3}
-  machineInteractions:
-  - {fileID: 8884900063796857367}
-  - {fileID: 8884900063695020109}
-  - {fileID: 8884900064208104852}
+  machineInteractions: []
   generateDelay: 20
 --- !u!1 &8558958451498172755
 GameObject:
@@ -1075,10 +1072,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4733b743085ad6498da17befa735b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteProductText: {fileID: 0}
-  yellowProductText: {fileID: 0}
-  cyanProductText: {fileID: 0}
-  magentaProductText: {fileID: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  red: {r: 0, g: 0, b: 0, a: 0}
+  yellow: {r: 0, g: 0, b: 0, a: 0}
+  blue: {r: 0, g: 0, b: 0, a: 0}
+  ornage: {r: 0, g: 0, b: 0, a: 0}
+  green: {r: 0, g: 0, b: 0, a: 0}
+  purple: {r: 0, g: 0, b: 0, a: 0}
+  productColors: []
+  productText: {fileID: 0}
 --- !u!1 &8558958451750350101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,9 +1586,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8884900063695020108}
-  - component: {fileID: 8884900063695020109}
   - component: {fileID: 8884900063695020111}
   - component: {fileID: 8884900063695020110}
+  - component: {fileID: 2433405876979269312}
   m_Layer: 0
   m_Name: Machine1 (1)
   m_TagString: Untagged
@@ -1609,19 +1611,6 @@ Transform:
   m_Father: {fileID: 8884900064791915636}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8884900063695020109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884900063695020106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc25eaf110bffc947bd58ad2e467d2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineColor: 2
 --- !u!60 &8884900063695020111
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1683,6 +1672,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2433405876979269312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884900063695020106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineColor: 2
 --- !u!1 &8884900063796857364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,9 +1694,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8884900063796857369}
-  - component: {fileID: 8884900063796857367}
   - component: {fileID: 8884900063796857368}
   - component: {fileID: 8884900063796857371}
+  - component: {fileID: 4717539344680654099}
   m_Layer: 0
   m_Name: Machine1
   m_TagString: Untagged
@@ -1717,19 +1719,6 @@ Transform:
   m_Father: {fileID: 8884900064791915636}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8884900063796857367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884900063796857364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc25eaf110bffc947bd58ad2e467d2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineColor: 1
 --- !u!60 &8884900063796857368
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1790,6 +1779,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4717539344680654099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884900063796857364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineColor: 1
 --- !u!1 &8884900064208104853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,9 +1801,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8884900064208104855}
-  - component: {fileID: 8884900064208104852}
   - component: {fileID: 8884900064208104854}
   - component: {fileID: 8884900064208104857}
+  - component: {fileID: 1928628048841991355}
   m_Layer: 0
   m_Name: Machine1 (2)
   m_TagString: Untagged
@@ -1824,19 +1826,6 @@ Transform:
   m_Father: {fileID: 8884900064791915636}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8884900064208104852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884900064208104853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc25eaf110bffc947bd58ad2e467d2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineColor: 3
 --- !u!60 &8884900064208104854
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1898,6 +1887,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1928628048841991355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884900064208104853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66937cf775e67764fb480a620dc3fa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineColor: 3
 --- !u!1 &8884900064791915637
 GameObject:
   m_ObjectHideFlags: 0

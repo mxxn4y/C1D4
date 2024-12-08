@@ -7,11 +7,11 @@ public class FactoryGameManager : MonoSingleton<FactoryGameManager>
     {
         BLACK,
         RED,
-        GREEN,
-        BLUE,
         YELLOW,
-        CYAN,
-        MAGENTA,
+        BLUE,
+        ORANGE,
+        GREEN,
+        PURPLE,
         WHITE,
     }
 

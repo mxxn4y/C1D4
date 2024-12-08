@@ -14,7 +14,6 @@ public class MachineInteraction : MonoBehaviour
     {
         if (other.CompareTag("Product"))
         {
-            Debug.Log("두");
             isClick = true;
         }
     }
@@ -27,7 +26,7 @@ public class MachineInteraction : MonoBehaviour
     }
 
     //클릭했을 경우
-    private void OnMouseUp()
+    private void OnMouseDown()
     {
         //현재 생성된 게 없으면 X
         if (currentProduct == null || isClick == false)
