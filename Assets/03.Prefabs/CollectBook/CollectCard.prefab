@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4f31675c4c15ca547aca715a9f2a2e3d, type: 3}
+    m_Font: {fileID: 12800000, guid: b44ce5bffc09e5c4eac17dbe89e957ba, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -93,7 +93,6 @@ GameObject:
   - component: {fileID: -7492132247404263522}
   - component: {fileID: 4552697452414877183}
   - component: {fileID: 218859369532710978}
-  - component: {fileID: 6720034360181430438}
   m_Layer: 5
   m_Name: CollectCard
   m_TagString: Untagged
@@ -188,21 +187,6 @@ MonoBehaviour:
   isExhausted: 0
   nameText: {fileID: 7636171979477056836}
   levelText: {fileID: 74611497173607192}
---- !u!114 &6720034360181430438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541056083701208716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f003ac6d456b8b45b043e4502a529ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPropertyPrefab: {fileID: 7350305244883118601, guid: 7b0597ea376202e4da8bb69af90c3b50, type: 3}
-  collectBookScene: {fileID: 7350305244883118601, guid: 7b0597ea376202e4da8bb69af90c3b50, type: 3}
-  chooseableCount: 3
 --- !u!1 &1882893029491537811
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,6 +277,7 @@ GameObject:
   - component: {fileID: 81964766971315829}
   - component: {fileID: 6910039049410098462}
   - component: {fileID: 1478597967690312207}
+  - component: {fileID: 876003141408197689}
   m_Layer: 5
   m_Name: CardBack
   m_TagString: Untagged
@@ -359,6 +344,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &876003141408197689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059840963111739844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f003ac6d456b8b45b043e4502a529ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPropertyPrefab: {fileID: 7350305244883118601, guid: 7b0597ea376202e4da8bb69af90c3b50, type: 3}
+  chooseableCount: 3
 --- !u!1 &2298121865965457521
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +425,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4f31675c4c15ca547aca715a9f2a2e3d, type: 3}
+    m_Font: {fileID: 12800000, guid: b44ce5bffc09e5c4eac17dbe89e957ba, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
@@ -661,7 +660,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: P0001
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 426cf8da98dcd13459099b536a40a9f3, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -725,6 +724,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
