@@ -15,6 +15,9 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    [SerializeField] private GameObject[] factoryScenes;
+    [SerializeField] private GameObject moveScene;
+
     enum room
     {
         MORNING = 0, 
@@ -74,6 +77,16 @@ public class CharacterMove : MonoBehaviour
         {
             isMove = false;
             animator.SetBool("IsMove", isMove);
+
+            //목적지가 팩토리면
+            if(cur == (int)room.AFTERNOON)
+            {
+                for(int i = 0; i < factoryScenes.Length; i++)
+                {
+                    factoryScenes[i].SetActive(true);
+                    moveScene.SetActive(false);
+                }
+            }
         }
         else
         {
