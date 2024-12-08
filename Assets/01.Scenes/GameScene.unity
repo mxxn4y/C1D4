@@ -436,6 +436,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollectBookScene
       objectReference: {fileID: 0}
+    - target: {fileID: 5198198637252976560, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
+      propertyPath: m_TagString
+      value: CollectBookScene
+      objectReference: {fileID: 0}
     - target: {fileID: 6752200125035897947, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
       propertyPath: PlayerRoomScene
       value: 

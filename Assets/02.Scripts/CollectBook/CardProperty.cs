@@ -13,7 +13,7 @@ public class CardProperty : MonoBehaviour
     public Text EfficiencyText;
     public Text sGemProb;
     public Text count;
-    public Text level; //·¹º§
+    public Text level; //ë ˆë²¨
     public Slider slider;
 
     public GameObject cardPropertyPrefab;
@@ -34,7 +34,7 @@ public class CardProperty : MonoBehaviour
     public void UpdateSlider(Minion _minionData)
     {
         slider.value = (float)_minionData.GainCount / GetSliderMax(_minionData);
-        Debug.Log("UpdateSliderÇÔ¼ö ½ÇÇà" + slider.value);
+        Debug.Log("UpdateSliderí•¨ìˆ˜ ì‹¤í–‰" + slider.value);
     }
 
     public int GetSliderMax(Minion _minion)
@@ -48,19 +48,19 @@ public class CardProperty : MonoBehaviour
     }
     public void DisplayCardProperty(Minion minionData)
     {
-        if (currentCardProperty != null)
-        {
-            Destroy(currentCardProperty);
-        }
+        //if (currentCardProperty != null)
+        //{
+            //Destroy(currentCardProperty);
+        //}
 
-        currentCardProperty = Instantiate(cardPropertyPrefab, transform);
-        CardProperty cardProperty = currentCardProperty.GetComponent<CardProperty>();
+        //currentCardProperty = Instantiate(cardPropertyPrefab, transform);
+        //CardProperty cardProperty = currentCardProperty.GetComponent<CardProperty>();
 
-        if (cardProperty != null)
-        {
-            cardProperty.SetCardProperty(minionData);
-           cardProperty.UpdateSlider(minionData);
-        }
+        //if (cardProperty != null)
+        //{
+            SetCardProperty(minionData);
+           UpdateSlider(minionData);
+        //}
     }
 }
 
