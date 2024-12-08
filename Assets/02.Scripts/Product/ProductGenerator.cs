@@ -22,10 +22,13 @@ public class ProductGenerator : MonoBehaviour
     [SerializeField] float generateDelay = 20f;
 
     //전체 생산 완료 개수
-    public int productNumber { get; private set; } = 0;
+    public int whiteProductNumber { get; private set; } = 0;
+    public int yellowProductNumber { get; private set; } = 0;
+    public int cyanProductNumber { get; private set; } = 0;
+    public int magentaProductNumber { get; private set; } = 0;
 
 
-    private void OnEnable()
+    private void Start()
     {
         FactoryGameManager.Instance.SetPlace(1, true);
         FactoryGameManager.Instance.SetPlace(0, true);
@@ -40,12 +43,37 @@ public class ProductGenerator : MonoBehaviour
 
         if (currentProduct.transform.position == endPos.position)
         {
+            switch (currentProduct.GetComponent<Product>().currentProductColor)
+            {
+                //흰색
+                case FactoryGameManager.FactoryColor.WHITE:
+                    //상품 개수 더하기
+                    whiteProductNumber++;
+                    break;
 
+                //노란색
+                case FactoryGameManager.FactoryColor.YELLOW:
+                    //상품 개수 더하기
+                    yellowProductNumber++;
+                    break;
+
+                //시안색
+                case FactoryGameManager.FactoryColor.CYAN:
+                    //상품 개수 더하기
+                    cyanProductNumber++;
+                    break;
+
+                //마젠타색
+                case FactoryGameManager.FactoryColor.MAGENTA:
+                    //상품 개수 더하기
+                    magentaProductNumber++;
+                    break;
+
+            }
             //이펙트나 상품 쌓기 등등 할거면 여기
 
             //상품 개수 정산
-            productNumber++;
-            productUIManager.SetProductColor(currentProduct.GetComponent<Product>().currentProductColor, productNumber);
+            productUIManager.SetProductNumberText(yellowProductNumber, cyanProductNumber, magentaProductNumber, whiteProductNumber);
 
             //상품 삭제
             Destroy(currentProduct);
@@ -54,8 +82,6 @@ public class ProductGenerator : MonoBehaviour
 
     private IEnumerator GenerateProducts()
     {
-        yield return new WaitForSeconds(5f);
-
         while (true)
         {
             //나중에 첫 배치 됐는지 판단하기
@@ -66,7 +92,6 @@ public class ProductGenerator : MonoBehaviour
 
                 for(int i = 0; i < machineInteractions.Length; i++)
                 {
-                    Debug.Log(currentProduct.GetComponent<Product>());
                     machineInteractions[i].currentProduct = currentProduct.GetComponent<Product>();
                 }
 
