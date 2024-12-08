@@ -14,6 +14,7 @@ public class MachineInteraction : MonoBehaviour
     {
         if (other.CompareTag("Product"))
         {
+            Debug.Log("두");
             isClick = true;
         }
     }

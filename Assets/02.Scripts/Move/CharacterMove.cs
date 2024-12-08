@@ -15,6 +15,12 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+<<<<<<< HEAD
+=======
+    [SerializeField] private GameObject[] factoryScenes;
+    [SerializeField] private GameObject moveScene;
+
+>>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
     enum room
     {
         MORNING = 0, 
@@ -74,6 +80,19 @@ public class CharacterMove : MonoBehaviour
         {
             isMove = false;
             animator.SetBool("IsMove", isMove);
+<<<<<<< HEAD
+=======
+
+            //목적지가 팩토리면
+            if(cur == (int)room.AFTERNOON)
+            {
+                for(int i = 0; i < factoryScenes.Length; i++)
+                {
+                    factoryScenes[i].SetActive(true);
+                    moveScene.SetActive(false);
+                }
+            }
+>>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
         }
         else
         {
