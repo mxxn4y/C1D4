@@ -19,33 +19,33 @@ public class ProductUIManager : MonoBehaviour
 
     public void SetProductColor(FactoryGameManager.FactoryColor _color, int _index)
     {
-        switch (_color)
-        {
-            case FactoryGameManager.FactoryColor.BLACK:
-                productColors[_index - 1].color = Color.black;
-                break;
-            case FactoryGameManager.FactoryColor.RED:
-                productColors[_index - 1].color = red;
-                break;
-            case FactoryGameManager.FactoryColor.YELLOW:
-                productColors[_index - 1].color = yellow;
-                break;
-            case FactoryGameManager.FactoryColor.BLUE:
-                productColors[_index - 1].color = blue;
-                break;
-            case FactoryGameManager.FactoryColor.ORANGE:
-                productColors[_index - 1].color = ornage;
-                break;
-            case FactoryGameManager.FactoryColor.GREEN:
-                productColors[_index - 1].color = green;
-                break;
-            case FactoryGameManager.FactoryColor.PURPLE:
-                productColors[_index - 1].color = purple;
-                break;
-            default:
-                productColors[_index - 1].color = Color.white;
-                break;
-        }
+        //switch (_color)
+        //{
+        //    case FactoryGameManager.FactoryColor.BLACK:
+        //        productColors[_index - 1].color = Color.black;
+        //        break;
+        //    case FactoryGameManager.FactoryColor.RED:
+        //        productColors[_index - 1].color = red;
+        //        break;
+        //    case FactoryGameManager.FactoryColor.YELLOW:
+        //        productColors[_index - 1].color = yellow;
+        //        break;
+        //    case FactoryGameManager.FactoryColor.BLUE:
+        //        productColors[_index - 1].color = blue;
+        //        break;
+        //    case FactoryGameManager.FactoryColor.ORANGE:
+        //        productColors[_index - 1].color = ornage;
+        //        break;
+        //    case FactoryGameManager.FactoryColor.GREEN:
+        //        productColors[_index - 1].color = green;
+        //        break;
+        //    case FactoryGameManager.FactoryColor.PURPLE:
+        //        productColors[_index - 1].color = purple;
+        //        break;
+        //    default:
+        //        productColors[_index - 1].color = Color.white;
+        //        break;
+        //}
 
         productText.text = "PRODUCT : " + _index;
     }

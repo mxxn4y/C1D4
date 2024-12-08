@@ -96,7 +96,7 @@ public class CharacterMove : MonoBehaviour
                     moveScene.SetActive(false);
                 }
                 AudioManager.Instance.StopAudio("02.b_lobby");
-                AudioManager.Instance.PlayAudio("04.b_AMwork", true, SoundType.BGM);
+                //AudioManager.Instance.PlayAudio("04.b_AMwork", true, SoundType.BGM);
             }
             else if (cur == (int)room.MORNING && desIndex == (int)room.MORNING)
             {

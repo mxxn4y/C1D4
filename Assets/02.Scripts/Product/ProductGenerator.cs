@@ -32,6 +32,11 @@ public class ProductGenerator : MonoBehaviour
         StartCoroutine(GenerateProducts());
     }
 
+    private void OnDisable()
+    {
+        Destroy(currentProduct);
+    }
+
     private void Update()
     {
         if (currentProduct == null)
