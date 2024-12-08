@@ -88,7 +88,7 @@ public class BookEventManager : MonoBehaviour,IPointerClickHandler//,IPointerEnt
 
         }
 
-    /*CardHoverEvent로
+    /*
         public void OnPointerEnter(PointerEventData _eventData)
         {
             GameObject hoveredObj = _eventData.pointerCurrentRaycast.gameObject;

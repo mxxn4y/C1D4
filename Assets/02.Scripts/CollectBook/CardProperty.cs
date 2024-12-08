@@ -58,7 +58,7 @@ public class CardProperty : MonoBehaviour
 
         //if (cardProperty != null)
         //{
-           SetCardProperty(minionData);
+            SetCardProperty(minionData);
            UpdateSlider(minionData);
         //}
     }

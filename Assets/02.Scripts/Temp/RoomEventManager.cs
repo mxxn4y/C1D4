@@ -12,6 +12,10 @@ public class RoomEventManager : MonoBehaviour
     [SerializeField] GameObject BedScene;
     [SerializeField] GameObject DoorScene;
 
+    void Start()
+    {
+        AudioManager.Instance.PlayAudio("01.b_room", true, SoundType.BGM, 0);
+    }
     void Update()
     {
 
@@ -29,18 +33,21 @@ public class RoomEventManager : MonoBehaviour
                 {
                     PlayerRoomScene.SetActive(false);
                     BedScene.SetActive(true);
+                    AudioManager.Instance.StopAudio("01.b_room");
                     Debug.Log("베드씬 로드");
                 }
                 else if (hit.collider.CompareTag("CollectBook"))
                 {
                     CollectBookScene.SetActive(true);
                     PlayerRoomScene.SetActive(false);
+                   
                     Debug.Log("콜렉트북씬 로드");
                 }
                 else if (hit.collider.CompareTag("Door"))
                 {
                     DoorScene.SetActive(true);
                     PlayerRoomScene.SetActive(false);
+                    AudioManager.Instance.StopAudio("01.b_room");
                     Debug.Log("방 밖으로 나가는 씬 로드");
                 }
             }

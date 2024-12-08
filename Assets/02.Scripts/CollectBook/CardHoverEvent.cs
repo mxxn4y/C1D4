@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardHoverEvent : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class CardHoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public enum IndexType { PASSION, CALM, WISDOM }
     private CardProperty cardProperty;
     public GameObject cardPropertyPrefab;
     private GameObject currentCardProperty;
+    public GameObject collectBookScene;
     public int chooseableCount = 3;
 
     void Start()
     {
-
+        collectBookScene = GameObject.FindGameObjectWithTag("CollectBookScene");
     }
 
     void Update()
@@ -46,7 +47,7 @@ public class CardHoverEvent : MonoBehaviour,IPointerEnterHandler,IPointerExitHan
             }
             if (cardPropertyPrefab != null)
             {
-                GameObject cardPropertyObject = Instantiate(cardPropertyPrefab, collectCard.transform.parent);
+                GameObject cardPropertyObject = Instantiate(cardPropertyPrefab, collectBookScene.transform);
                 cardProperty = cardPropertyObject.GetComponent<CardProperty>();
                 currentCardProperty = cardPropertyObject;
                 cardProperty.DisplayCardProperty(collectCard.minionData);
