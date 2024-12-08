@@ -14,15 +14,15 @@ public class InteractableObject : MonoBehaviour
         if (!string.IsNullOrEmpty(targetScene))
         {
             LoadTargetScene();
-            Debug.Log("·ë¿ÀºêÁ§Æ®¸¶¿ì½ºÅ¬¸¯");
+            Debug.Log("ë£¸ì˜¤ë¸Œì íŠ¸ë§ˆìš°ìŠ¤í´ë¦­");
         }
     }
     */
 
     public void LoadTargetScene()
     {
-        SceneManager.LoadScene(targetScene);
-        Debug.Log(gameObject.name + " Å¬¸¯! ¾À ·Îµå: " + targetScene);
-        Debug.Log("interactObj ¾À·Îµå ÇÔ¼ö");
+        //SceneManager.LoadScene(targetScene);
+        Debug.Log(gameObject.name + " í´ë¦­! ì”¬ ë¡œë“œ: " + targetScene);
+        Debug.Log("interactObj ì”¬ë¡œë“œ í•¨ìˆ˜");
     }
 }
