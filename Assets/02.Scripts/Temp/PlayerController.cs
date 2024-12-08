@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = (targetPosition - rigid.position).normalized;
         rigid.velocity = direction * speed;
 
-        //¾ê·Î ÇÏ¸é ´ú´ú °Å¸± ÅÙµ¥
+        //ì–˜ë¡œ í•˜ë©´ ëœëœ ê±°ë¦´ í…ë°
         //float step = speed * Time.deltaTime;
         //transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isLeft", true);
             anim.SetBool("isRight", false);
+            
         }
         else
         {
@@ -74,14 +75,14 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isLeft", false);
         anim.SetBool("isRight", false);
 
-        // »óÅÂ¸¦ IDLE·Î À¯Áö
-        if (anim.GetBool("isLeft"))
+        // ìƒíƒœë¥¼ IDLEë¡œ ìœ ì§€
+        if (targetPosition.x < transform.position.x)
         {
-            anim.Play("idle_left");
+            anim.Play("player_idle_left");
         }
         else
         {
-            anim.Play("idle_right");
+            anim.Play("player_idle_right");
         }
     }
 }
