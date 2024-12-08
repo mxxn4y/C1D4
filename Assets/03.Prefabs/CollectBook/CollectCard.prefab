@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPropertyPrefab: {fileID: 7350305244883118601, guid: 7b0597ea376202e4da8bb69af90c3b50, type: 3}
+  collectBookScene: {fileID: 7350305244883118601, guid: 7b0597ea376202e4da8bb69af90c3b50, type: 3}
   chooseableCount: 3
 --- !u!1 &1882893029491537811
 GameObject:
