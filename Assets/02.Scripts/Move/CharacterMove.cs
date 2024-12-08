@@ -16,6 +16,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     [SerializeField] private GameObject[] factoryScenes;
     [SerializeField] private GameObject moveScene;
@@ -24,6 +25,8 @@ public class CharacterMove : MonoBehaviour
 >>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
 =======
 >>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
+=======
+>>>>>>> parent of 5e08a7dc (Merge branch 'main' of https://github.com/mxxn4y/C1D4)
     enum room
     {
         MORNING = 0, 
@@ -84,6 +87,7 @@ public class CharacterMove : MonoBehaviour
             isMove = false;
             animator.SetBool("IsMove", isMove);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
             //목적지가 팩토리면
@@ -99,6 +103,8 @@ public class CharacterMove : MonoBehaviour
 >>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
 =======
 >>>>>>> parent of 3c249bf4 (사운드 및 씬 연결)
+=======
+>>>>>>> parent of 5e08a7dc (Merge branch 'main' of https://github.com/mxxn4y/C1D4)
         }
         else
         {
