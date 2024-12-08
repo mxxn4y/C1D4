@@ -236,7 +236,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7442664306606260472, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786372121827980295, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7786372121827980295, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
 --- !u!1001 &241617034
 PrefabInstance:
@@ -1493,6 +1502,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 494832699869757999, guid: c9ab8d7756de611419455a74f2adbbdf, type: 3}
   m_PrefabInstance: {fileID: 1377993854}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1977165968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 999933016680191554, guid: 614cee51a39e24e41b1c2f3524340c17, type: 3}
+  m_PrefabInstance: {fileID: 222644011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1977165972
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977165968}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.48663145, y: -0.06963034}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0.5}
+    oldSize: {x: 0.96, y: 0.64}
+    newSize: {x: 0.96, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.83400226, y: 0.50073934}
+  m_EdgeRadius: 0
 --- !u!114 &2051840732 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3265255587613873081, guid: 5ebc5f362fde8d744adc5dcd9c1e28b7, type: 3}

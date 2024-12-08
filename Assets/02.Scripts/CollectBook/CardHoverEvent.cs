@@ -9,7 +9,7 @@ public class CardHoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private CardProperty cardProperty;
     public GameObject cardPropertyPrefab;
     private GameObject currentCardProperty;
-    public GameObject collectBookScene;
+    private GameObject collectBookScene;
     public int chooseableCount = 3;
 
     void Start()
@@ -26,7 +26,7 @@ public class CardHoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             if (rectTransform != null)
             {
                 //         ϴ        ġ     
-                rectTransform.position = new Vector2(mousePosition.x + 80, mousePosition.y - 80);
+                rectTransform.position = new Vector2(mousePosition.x + 180, mousePosition.y - 180);
             }
         }
     }
