@@ -24,6 +24,9 @@ public class ProductGenerator : MonoBehaviour
     //전체 생산 완료 개수
     public int productNumber { get; private set; } = 0;
 
+    //씬
+    [SerializeField] private GameObject productScene;
+
     private void OnEnable()
     {
         FactoryGameManager.Instance.SetPlace(1, true);
@@ -32,15 +35,15 @@ public class ProductGenerator : MonoBehaviour
         StartCoroutine(GenerateProducts());
     }
 
-    private void OnDisable()
-    {
-        Destroy(currentProduct);
-    }
-
     private void Update()
     {
         if (currentProduct == null)
             return;
+
+        if (FactoryManager.Instance.IsStart == false)
+        {
+            Destroy(currentProduct);
+        }
 
         if (currentProduct.transform.position == endPos.position)
         {
