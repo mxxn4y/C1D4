@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.UI;
 
 public class RoomEventManager : MonoBehaviour
 {
-
+    [SerializeField] GameObject PlayerRoomScene;
+    [SerializeField] GameObject CollectBookScene;
+    [SerializeField] GameObject BedScene;
+    [SerializeField] GameObject DoorScene;
 
     void Update()
     {
@@ -24,17 +27,20 @@ public class RoomEventManager : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Bed"))
                 {
-                    //SceneManager.LoadScene("");
+                    PlayerRoomScene.SetActive(false);
+                    BedScene.SetActive(true);
                     Debug.Log("베드씬 로드");
                 }
                 else if (hit.collider.CompareTag("CollectBook"))
                 {
-                    //SceneManager.LoadScene("CollectBookScene");
+                    CollectBookScene.SetActive(true);
+                    PlayerRoomScene.SetActive(false);
                     Debug.Log("콜렉트북씬 로드");
                 }
                 else if (hit.collider.CompareTag("Door"))
                 {
-                    //SceneManager.LoadScene("");
+                    DoorScene.SetActive(true);
+                    PlayerRoomScene.SetActive(false);
                     Debug.Log("방 밖으로 나가는 씬 로드");
                 }
             }

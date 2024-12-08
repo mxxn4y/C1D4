@@ -94,9 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5492781362325842588}
   - component: {fileID: 7467201265761845866}
+  - component: {fileID: 7442664306606260472}
   m_Layer: 0
   m_Name: Home_collectionbook
-  m_TagString: Untagged
+  m_TagString: CollectBook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,6 +169,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &7442664306606260472
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999933016680191554}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0.5}
+    oldSize: {x: 0.96, y: 0.64}
+    newSize: {x: 0.96, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5323072, y: 0.085290134}
+      - {x: 0.34083432, y: 0.19301346}
+      - {x: 0.24587327, y: 0.16597798}
+      - {x: 0.07900665, y: -0.021826074}
+      - {x: 0.027755238, y: -0.20097382}
+      - {x: 0.12196018, y: -0.22694209}
+      - {x: 0.33549577, y: -0.31111193}
+      - {x: 0.68794084, y: -0.37125143}
+      - {x: 0.8859097, y: -0.08393976}
+      - {x: 0.87388957, y: -0.012954824}
+      - {x: 0.8229046, y: 0.0018694848}
 --- !u!1 &1420436223799974125
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,9 +215,10 @@ GameObject:
   m_Component:
   - component: {fileID: 851070306143287143}
   - component: {fileID: 8066876863496439552}
+  - component: {fileID: 8965305525657311574}
   m_Layer: 0
   m_Name: Home_door_0
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,6 +290,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &8965305525657311574
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420436223799974125}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.22, y: 2.96}
+    newSize: {x: 1.22, y: 2.96}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.08025678, y: 1.3923104}
+      - {x: -0.41051355, y: 1.0035942}
+      - {x: -0.59051335, y: 0.5677015}
+      - {x: -0.61, y: -1.48}
+      - {x: -0.5312798, y: -1.373601}
+      - {x: -0.4312798, y: -1.3242409}
+      - {x: 0.6002568, y: -0.6846209}
+      - {x: 0.58077013, y: 1.2451345}
+      - {x: 0.48999998, y: 1.48}
 --- !u!1 &1446280444875880153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1101,7 @@ GameObject:
   - component: {fileID: 9056838632216574910}
   m_Layer: 0
   m_Name: Home_bed
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1714,6 +1786,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9a5529218a0fb4799fa74e3262f518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectBookScene: {fileID: 6118957295795311385, guid: 344a0d3ae53504c42bb48370c73ddee1, type: 3}
+  BedScene: {fileID: 0}
+  DoorScene: {fileID: 7003091573936081121, guid: fc62c6c3062c6e447b0dbeb88f60c3c2, type: 3}
 --- !u!1 &5395830135491237914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,6 +2682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9a5529218a0fb4799fa74e3262f518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectBookScene: {fileID: 0}
+  BedScene: {fileID: 0}
+  DoorScene: {fileID: 0}
 --- !u!114 &8986128437062397286
 MonoBehaviour:
   m_ObjectHideFlags: 0
