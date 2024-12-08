@@ -13,18 +13,11 @@ public class CardProperty : MonoBehaviour
     public Text EfficiencyText;
     public Text sGemProb;
     public Text count;
-    //public Text level; //ë ˆë²¨
+    public Text level; //·¹º§
     public Slider slider;
 
     public GameObject cardPropertyPrefab;
     private GameObject currentCardProperty;
-    //private BookEventManager bookEventManager;
-
-    void Start()
-    {
-        //bookEventManager = GetComponent<BookEventManager>();
-        //currentCardProperty = bookEventManager.currentCardProperty;
-    }
 
     private void SetCardProperty(Minion _minion)
     {
@@ -41,7 +34,7 @@ public class CardProperty : MonoBehaviour
     public void UpdateSlider(Minion _minionData)
     {
         slider.value = (float)_minionData.GainCount / GetSliderMax(_minionData);
-        Debug.Log("UpdateSliderí•¨ìˆ˜ ì‹¤í–‰" + slider.value);
+        Debug.Log("UpdateSliderÇÔ¼ö ½ÇÇà" + slider.value);
     }
 
     public int GetSliderMax(Minion _minion)
@@ -55,19 +48,19 @@ public class CardProperty : MonoBehaviour
     }
     public void DisplayCardProperty(Minion minionData)
     {
-        //if (currentCardProperty != null)
-        //{
-        //    Destroy(currentCardProperty);
-        //}
+        if (currentCardProperty != null)
+        {
+            Destroy(currentCardProperty);
+        }
 
-        //currentCardProperty = Instantiate(cardPropertyPrefab, transform);
-        //CardProperty cardProperty = currentCardProperty.GetComponent<CardProperty>();
+        currentCardProperty = Instantiate(cardPropertyPrefab, transform);
+        CardProperty cardProperty = currentCardProperty.GetComponent<CardProperty>();
 
-        //if (currentCardProperty != null)
-        //{
-            SetCardProperty(minionData);
-            UpdateSlider(minionData);
-        //}
+        if (cardProperty != null)
+        {
+            cardProperty.SetCardProperty(minionData);
+           cardProperty.UpdateSlider(minionData);
+        }
     }
 }
 
