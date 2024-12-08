@@ -55,7 +55,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     protected override void Init()
     {
         IsStart = false;
-        workTime = 10;
+        workTime = 180;
         todayGem = 0;
         todaySpecialGem = 0;
         gemTexts[0].text = $"gem: {todayGem.ToString()}";
@@ -203,6 +203,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         }
         factorySceneUI.SetActive(false);
         moveScene.SetActive(true);
+        AudioManager.Instance.PlayAudio("02.b_lobby", true, SoundType.BGM);
         ActiveMinionList.Clear();
     }
 
