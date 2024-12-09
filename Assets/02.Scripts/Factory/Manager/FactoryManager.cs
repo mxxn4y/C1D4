@@ -49,13 +49,13 @@ public class FactoryManager : MonoSingleton<FactoryManager>
 
     private void Start()
     {
-        Init();
+        //Init();
     }
 
     protected override void Init()
     {
         IsStart = false;
-        workTime = 180;
+        workTime = 60;
         todayGem = 0;
         todaySpecialGem = 0;
         gemTexts[0].text = $"gem: {todayGem.ToString()}";
