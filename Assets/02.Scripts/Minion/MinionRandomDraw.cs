@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = System.Random;
 
 public class MinionRandomDraw : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class MinionRandomDraw : MonoBehaviour
         var minionTable = MinionTable.Instance;
         var minions = new List<String>();
         
-        for (int i = 0; i < playerData.GainNum; i++)
+        for (int i = 0; i < 5; i++)
         {
             System.Random random = new(Guid.NewGuid().GetHashCode());
             var grade = ChooseGrade();
@@ -158,7 +159,14 @@ public class MinionRandomDraw : MonoBehaviour
     // 테스트용!!
     public void TestButton()
     {
-        var minions = RandomDraw(MinionEnums.TYPE.PASSION);
+        System.Random random = new (Guid.NewGuid().GetHashCode());
+        MinionEnums.TYPE type = random.Next(0, 3) switch
+        {
+            0 => MinionEnums.TYPE.PASSION,
+            1 => MinionEnums.TYPE.CALM,
+            2 => MinionEnums.TYPE.WISDOM
+        };
+        var minions = RandomDraw(type);
         AddToPlayerAndShow(minions);
     }
 }
