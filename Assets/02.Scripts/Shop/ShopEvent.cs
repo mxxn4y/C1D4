@@ -15,6 +15,7 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
 
     public int totalPrice = 0;
 
+    /*
     private void Awake()
     {
         if (Instance == null)
@@ -28,9 +29,22 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         ShopUI.Instance.purchaseButton.onClick.AddListener(OnPurchase);
         ShopUI.Instance.closeButton.onClick.AddListener(ShopUI.Instance.CloseShop);
     }
+    */
 
-    private void Start()
+    void Start()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        ShopUI.Instance.purchaseButton.onClick.AddListener(OnPurchase);
+        ShopUI.Instance.closeButton.onClick.AddListener(ShopUI.Instance.CloseShop);
+
         InitializeItems();
 
         if (normalItem.Count > 0)
@@ -237,7 +251,9 @@ public class ShopEvent : MonoBehaviour, IPointerClickHandler
         Debug.Log("총 구매 금액: " + totalPrice);
         ShopUI.Instance.ResetTotalPrice();
         SelectedItemsUI.Instance.selectedItems.Clear();
-       
+        PurchasedList.Instance.ItemEffect();
+
+
         foreach ( KeyValuePair< ShopItemData,int> item in PurchasedList.Instance.purchasedDic)
         {
             Debug.Log("전체 구매한 아이템: "+item.Key.itemName + " 개수: " + item.Value);

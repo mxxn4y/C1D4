@@ -88,7 +88,7 @@ public class AudioManager : MonoSingleton<AudioManager>
     public void StopAudio(string _clipName)
     {
         //루프 중인 사운드 종료
-        for (int i = loopInstantiatedAudio.Count; i >=0; i--)
+        for (int i = loopInstantiatedAudio.Count-1; i >=0; i--)
         {
             AudioPlayer audioPlayer = loopInstantiatedAudio[i];
 

@@ -1,57 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.UI;
 
 public class RoomEventManager : MonoBehaviour
 {
-    public float speed = 5.0f;
-    private Vector3 targetPosition;
-    private bool isMoving;
+    [SerializeField] GameObject PlayerRoomScene;
+    [SerializeField] GameObject CollectBookScene;
+    [SerializeField] GameObject BedScene;
+    [SerializeField] GameObject DoorScene;
 
+    void Start()
+    {
+        AudioManager.Instance.PlayAudio("01.b_room", true, SoundType.BGM, 0);
+    }
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-            Debug.Log("≈¨∏Øµ ");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+            //Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+         
             if (hit.collider != null)
             {
-                Debug.Log("»˜∆Æµ» ∞¥√º: " + hit.collider.name);
-                if (hit.collider.CompareTag("Floor"))
+                if (hit.collider.CompareTag("Bed"))
                 {
-                    targetPosition = new Vector3(hit.point.x, hit.point.y, transform.position.z);
-                    isMoving = true;
-                    Debug.Log("«√∑π¿ÃæÓ øÚ¡˜¿”: " + isMoving);
+                    PlayerRoomScene.SetActive(false);
+                    BedScene.SetActive(true);
+                    AudioManager.Instance.StopAudio("01.b_room");
+                    Debug.Log("Î≤†ÎìúÏî¨ Î°úÎìú");
                 }
-                else
+                else if (hit.collider.CompareTag("CollectBook"))
                 {
-                    isMoving = false;
+                    CollectBookScene.SetActive(true);
+                    PlayerRoomScene.SetActive(false);
+                   
+                    Debug.Log("ÏΩúÎ†âÌä∏Î∂ÅÏî¨ Î°úÎìú");
+                }
+                else if (hit.collider.CompareTag("Door"))
+                {
+                    DoorScene.SetActive(true);
+                    PlayerRoomScene.SetActive(false);
+                    AudioManager.Instance.StopAudio("01.b_room");
+                    Debug.Log("Î∞© Î∞ñÏúºÎ°ú ÎÇòÍ∞ÄÎäî Ïî¨ Î°úÎìú");
                 }
             }
             else
             {
-                Debug.Log("»˜∆Æµ«¡ˆ æ ¿Ω");
+                Debug.Log("ÌÅ¥Î¶≠ Ïò§Î∏åÏ†ùÌä∏ ÏóÜÏùå");
             }
         }
-
-        if (isMoving)
-        {
-            MoveToTarget();
-        }
+  
+            
     }
 
-    void MoveToTarget()
-    {
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-        {
-            isMoving = false;
-        }
-    }
+    
+
 }

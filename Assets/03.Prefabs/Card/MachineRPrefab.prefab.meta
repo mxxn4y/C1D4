@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/03.Prefabs/Card/MachineRPrefab.prefab.meta
 guid: 6b5dcac606647984e914a00b5415dd17
 PrefabImporter:
+========
+guid: 736aebfc6ad114b44a28b8365c5ac74c
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> f1192eefc812d99a9cd769af0d01666d72f50565:Assets/04.Images/Animation/npc.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

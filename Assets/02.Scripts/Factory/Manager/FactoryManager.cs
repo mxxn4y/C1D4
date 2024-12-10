@@ -27,7 +27,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private List<GameObject> displayedCards = new List<GameObject>(); //현재 캔버스에 존재하는 카드 객체 리스트
     private List<GameObject> displayedTiles = new List<GameObject>();
     public List<MinionController> ActiveMinionList { get; set; } = new List<MinionController>();
-    private bool isStart;
+    public bool IsStart { get; private set; }
     private float workTime; //제한시간 3분(180초)
     
     [SerializeField] private Text timeText;
@@ -38,19 +38,24 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private int workSec;
     
     private bool[] feverArray;
+    private readonly Color f1Color = new Color(255f/255f,83f/255f,93f/255f);
+    private readonly Color f2Color = new Color(255f/255f,183f/255f,31f/255f);
+    private readonly Color f3Color = new Color(255f/255f,215f/255f,123f/255f);
+    private readonly Color f4Color = new Color(72f/255f,235f/255f,105f/255f);
+    private readonly Color f5Color = new Color(0f,100f/255f,255f/255f);
     #endregion
 
     #region Methods
 
     private void Start()
     {
-        Init();
+        //Init();
     }
 
     protected override void Init()
     {
-        isStart = false;
-        workTime = 180;
+        IsStart = false;
+        workTime = 60;
         todayGem = 0;
         todaySpecialGem = 0;
         gemTexts[0].text = $"gem: {todayGem.ToString()}";
@@ -66,7 +71,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     }
     private void Update()
     {
-        if (!isStart)
+        if (!IsStart)
         {
             return;
         }
@@ -78,7 +83,8 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         }
         else
         {
-            isStart = false;
+            IsStart = false;
+            AudioManager.Instance.StopAudio("04.b_AMwork");
             timeText.text = "time over";
             DestroyAllCards();
             foreach (MinionController minion in ActiveMinionList)
@@ -103,21 +109,22 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         factoryCanvas.SetActive(true);
         displayedTiles = TileLoadManager.Instance.LoadAllTiles();
-        foreach (Minion minion in PlayerData.Instance.MinionList)
+        foreach (Minion minion in PlayerData.Instance.SelectedMinions)
         {
             GameObject newCard = Instantiate(cardPrefab, cardCanvas.transform); // 카드 생성
             newCard.GetComponent<CardController>().Set(minion);
             displayedCards.Add(newCard.gameObject);
         }
 
-        bool scrollBtnActive = PlayerData.Instance.MinionList.Count > 3;
+        bool scrollBtnActive = PlayerData.Instance.SelectedMinions.Count > 3;
         CardPlaceManager.Instance.SetScrollUpDownBtn(scrollBtnActive);
     }
     
     private void StartWork()
     {
-        isStart = true;
+        IsStart = true;
         CardPlaceManager.Instance.OnCardPlace -= StartWork;
+        AudioManager.Instance.PlayAudio("04.b_AMwork", true, SoundType.BGM);
     }
 
     /// <summary>
@@ -167,11 +174,11 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         feverObjs[_feverIndex].color = _feverIndex switch
         {
-            0 => Color.red,
-            1 => Color.yellow,
-            2 => Color.green,
-            3 => Color.blue,
-            4 => Color.magenta
+            0 => f1Color,
+            1 => f2Color,
+            2 => f3Color,
+            3 => f4Color,
+            4 => f5Color
         };
     }
     private void ResetFeverList()
@@ -196,6 +203,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         }
         factorySceneUI.SetActive(false);
         moveScene.SetActive(true);
+        AudioManager.Instance.PlayAudio("02.b_lobby", true, SoundType.BGM);
         ActiveMinionList.Clear();
     }
 
